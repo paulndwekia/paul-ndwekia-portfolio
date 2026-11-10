@@ -1,0 +1,55 @@
+name: LinkedIn project publication
+description: Record a LinkedIn project announcement so the portfolio can verify completion and use its original image.
+title: "LinkedIn publication: "
+labels: ["linkedin-publication"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Use this form after publishing a project announcement on your personal LinkedIn profile. A valid LinkedIn URL is required before a project can be marked Completed.
+  - type: dropdown
+    id: project
+    attributes:
+      label: Project
+      description: Choose the matching project.
+      options:
+        - kenya-yield-curve-risk-engine
+        - standpoint-financial-intelligence
+        - buzz-social-discovery
+        - kenya-financial-analytics
+        - nkaulele-contractors
+        - forexpilot-ai
+        - kenya-investment-intelligence
+    validations:
+      required: true
+  - type: input
+    id: post_url
+    attributes:
+      label: LinkedIn post URL
+      description: Paste the URL of the published post on your personal profile.
+      placeholder: https://www.linkedin.com/posts/...
+    validations:
+      required: true
+  - type: input
+    id: image_url
+    attributes:
+      label: Original project image URL (optional)
+      description: Paste a public HTTPS image URL from the LinkedIn post, if available. Leave blank if the post has no image or the image URL is not public.
+      placeholder: https://media.licdn.com/...
+    validations:
+      required: false
+  - type: input
+    id: published_at
+    attributes:
+      label: Publication date (optional)
+      description: Use YYYY-MM-DD. Leave blank to use the date this evidence is registered.
+      placeholder: "2026-11-10"
+    validations:
+      required: false
+  - type: checkboxes
+    id: confirmation
+    attributes:
+      label: Confirmation
+      options:
+        - label: I confirm that this LinkedIn post is publicly published and relates to the selected project.
+          required: true
