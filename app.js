@@ -3,6 +3,7 @@
   const $$ = (selector, root=document) => [...root.querySelectorAll(selector)];
   const owner = "paulndwekia";
   const data = { projects: [], evidence: [], github: null, profile: null };
+  let activeProjectFilter = "all";
   const year = $("#year");
   if (year) year.textContent = new Date().getFullYear();
 
@@ -156,21 +157,58 @@
       body.append(meta, heading, description, tags, signal, links);
       card.append(body); grid.append(card);
     });
-    applyFilter("all");
+    applyFilter(activeProjectFilter);
   }
+  const filterDefinitions = {
+    all: { label: "Everything", matches: () => true },
+    completed: { label: "Completed", matches: card => card.dataset.completed === "true" },
+    live: { label: "Live sites", matches: card => card.dataset.live === "true" },
+    progress: { label: "In progress", matches: card => card.dataset.progress === "true" }
+  };
+
   function applyFilter(value) {
-    $$(".filter-button").forEach(button => {
-      const active = button.dataset.filter === value;
+    activeProjectFilter = filterDefinitions[value] ? value : "all";
+    const definition = filterDefinitions[activeProjectFilter];
+    const cards = $(".project-card");
+    const counts = {
+      all: cards.length,
+      completed: cards.filter(card => card.dataset.completed === "true").length,
+      live: cards.filter(card => card.dataset.live === "true").length,
+      progress: cards.filter(card => card.dataset.progress === "true").length
+    };
+
+    $(".filter-button").forEach(button => {
+      const key = button.dataset.filter;
+      const active = key === activeProjectFilter;
+      const count = counts[key] ?? 0;
       button.classList.toggle("is-active", active);
       button.setAttribute("aria-pressed", String(active));
+      button.setAttribute("aria-label", (filterDefinitions[key]?.label || "Projects") + ", " + count + " projects");
+      const countNode = $("[data-filter-count]", button);
+      if (countNode) countNode.textContent = String(count);
     });
-    $$(".project-card").forEach(card => {
-      card.hidden = value === "completed" ? card.dataset.completed !== "true" :
-        value === "live" ? card.dataset.live !== "true" :
-        value === "progress" ? card.dataset.progress !== "true" : false;
+
+    let visible = 0;
+    cards.forEach(card => {
+      const matches = definition.matches(card);
+      card.hidden = !matches;
+      if (matches) visible++;
     });
+
+    const status = $("#project-filter-status");
+    if (status) {
+      status.textContent = activeProjectFilter === "all"
+        ? "Showing all " + visible + " projects"
+        : "Showing " + visible + " of " + cards.length + " projects · " + definition.label;
+    }
+
+    const empty = $("#project-empty-state");
+    if (empty) empty.hidden = visible !== 0;
   }
-  $$(".filter-button").forEach(button => button.addEventListener("click", () => applyFilter(button.dataset.filter)));
+
+  $(".filter-button").forEach(button => {
+    button.addEventListener("click", () => applyFilter(button.dataset.filter));
+  });
 
   function renderGitHub() {
     const list = $("#github-activity"), status = $("#github-sync-text"), dot = $("#github-state-dot");

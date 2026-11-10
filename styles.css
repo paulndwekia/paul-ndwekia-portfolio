@@ -66,3 +66,23 @@ h1,h2,h3{font-family:"DM Serif Display",Georgia,serif;font-weight:400;letter-spa
 .project-preview>img{position:absolute;inset:0;width:100%;height:100%;max-width:none;z-index:3;display:block;object-fit:cover;object-position:top center}
 .project-preview .preview-label{z-index:4}
 .project-preview:has(> .cover-art:only-child) .cover-art{z-index:1}
+
+/* Project filters: visible counts, a single clear selected state, and mobile-safe hover behavior. */
+.filter-row{align-items:center;gap:9px}
+.filter-button{display:inline-flex;align-items:center;justify-content:center;gap:9px;min-height:42px;border-radius:0;transition:background .18s ease,color .18s ease,border-color .18s ease,transform .18s ease}
+.filter-button.is-active{background:var(--ink);color:#fff;border-color:var(--ink);box-shadow:inset 0 -2px 0 #7d9db5}
+.filter-count{display:inline-grid;place-items:center;min-width:20px;height:20px;padding:0 5px;border:1px solid currentColor;border-radius:999px;font-family:"DM Mono",monospace;font-size:10px;line-height:1;opacity:.78}
+.filter-button.is-active .filter-count{background:#ffffff18;border-color:#ffffff65;color:#fff;opacity:1}
+.filter-status{margin:-12px 0 24px;color:#788791;font-family:"DM Mono",monospace;font-size:10px;letter-spacing:.04em}
+.project-empty{padding:24px;background:#e8edef;border-left:2px solid #8eaabd;color:#526b7d;font-size:14px;line-height:1.65}
+.project-empty[hidden]{display:none}
+@media(hover:hover) and (pointer:fine){
+  .filter-button:hover:not(.is-active){background:#e5eaec;border-color:#9eafb9;color:var(--ink)}
+  .filter-button.is-active:hover{background:var(--ink);color:#fff}
+  .filter-button:active{transform:translateY(1px)}
+}
+@media(max-width:620px){
+  .filter-row{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+  .filter-button{width:100%;min-width:0;justify-content:space-between;padding:9px 11px;font-size:11px}
+  .filter-status{margin:-7px 0 19px}
+}
