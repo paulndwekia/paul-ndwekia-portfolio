@@ -128,7 +128,7 @@
       const body = create("div","project-body");
       const metaLabel = record
         ? (record.evidence_type === "linkedin-profile-project" ? "Completed · listed on LinkedIn" : "Completed · LinkedIn announcement verified")
-        : projectStatus === "live" ? "Completed · live project"
+        : projectStatus === "live" ? (project.stage_label || "Live · included in Completed")
         : projectStatus === "completed" ? "Completed project"
         : (project.stage_label || "In progress");
       const meta = create("p","project-meta", metaLabel);
