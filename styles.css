@@ -517,3 +517,146 @@ body { font-size: 17px; line-height: 1.7; }
   .section-heading { align-items: flex-start; flex-direction: column; }
   .filter-row { grid-template-columns: minmax(0, 1fr) !important; }
 }
+
+
+/* Desktop typography scale: larger, easier-to-read text on PC screens.
+   The single-column layout and existing colour palette remain unchanged. */
+@media (min-width: 851px) {
+  body {
+    font-size: 19px;
+    line-height: 1.75;
+  }
+
+  .brand-copy strong { font-size: 15px; }
+  .brand-copy small,
+  .primary-nav { font-size: 14px; }
+
+  .eyebrow,
+  .identity-caption,
+  .hero-note { font-size: 13px; }
+
+  .hero h1 {
+    font-size: clamp(58px, 5.6vw, 76px);
+    line-height: 1.08;
+  }
+  .hero-lede {
+    max-width: 820px;
+    font-size: 21px;
+    line-height: 1.8;
+  }
+  .hero-actions { gap: 30px; }
+  .button,
+  .text-link { font-size: 16px; }
+
+  .section-heading h2 {
+    font-size: clamp(48px, 4.2vw, 58px);
+    line-height: 1.12;
+  }
+  .section-intro {
+    max-width: 850px;
+    font-size: 19px;
+    line-height: 1.8;
+  }
+
+  .filter-button {
+    min-height: 54px;
+    padding: 14px 18px;
+    font-size: 17px;
+  }
+
+  .project-preview { height: 300px; }
+  .project-body { padding: 30px 34px 32px; }
+  .project-meta { font-size: 14px; }
+  .project-body h3 {
+    font-size: 35px;
+    line-height: 1.2;
+  }
+  .project-body > p:not(.project-meta) {
+    max-width: 980px;
+    font-size: 18px;
+    line-height: 1.8;
+  }
+  .tag-list span {
+    padding: 7px 11px;
+    font-size: 13px;
+  }
+  .repo-signal {
+    font-size: 14px !important;
+    line-height: 1.7;
+  }
+  .project-links a { font-size: 16px; }
+  .link-note { font-size: 14px; }
+
+  .progress-panel { padding: 32px; }
+  .panel-heading h3 { font-size: 33px; }
+  .panel-heading > a { font-size: 15px; }
+  .sync-bar { font-size: 13px; }
+  .sync-bar button { font-size: 13px; }
+  .activity-item { padding: 19px 0; }
+  .activity-top a { font-size: 17px; }
+  .activity-top time,
+  .activity-meta { font-size: 13px; }
+  .activity-commit {
+    max-width: 980px;
+    font-size: 16px;
+    line-height: 1.7;
+  }
+  .panel-note,
+  .progress-footnote { font-size: 13px; }
+  .linkedin-status { gap: 16px; padding: 22px 0; }
+  .linkedin-mark { width: 44px; height: 44px; font-size: 25px; }
+  .linkedin-status strong { font-size: 17px; }
+  .linkedin-status small { font-size: 13px; }
+  .linkedin-panel > p:not(.panel-note) {
+    font-size: 17px;
+    line-height: 1.8;
+  }
+  .approval-note strong { font-size: 15px; }
+  .approval-note span { font-size: 14px; }
+
+  .about-grid { gap: 34px; }
+  .about-story p {
+    max-width: 900px;
+    font-size: 19px;
+    line-height: 1.85;
+  }
+  .about-profile strong { font-size: 17px; }
+  .about-profile span,
+  .about-profile a { font-size: 13px; }
+  .about-details div { padding: 20px 0; }
+  .about-details span { font-size: 13px; }
+  .about-details strong { font-size: 17px; }
+  .about-details small { font-size: 15px; }
+
+  .approach-grid { gap: 30px; }
+  .approach-grid article h3 { font-size: 30px; }
+  .approach-grid article p:last-child {
+    max-width: 900px;
+    font-size: 18px;
+    line-height: 1.8;
+  }
+
+  .contact-section { padding: 82px 0; }
+  .contact-section h2 {
+    font-size: clamp(52px, 4.5vw, 64px);
+    line-height: 1.1;
+  }
+  .contact-section p:not(.eyebrow) {
+    max-width: 850px;
+    font-size: 19px;
+    line-height: 1.8;
+  }
+  .contact-actions { gap: 18px; }
+  .contact-actions a:not(.button) { font-size: 16px; }
+  .business-note { font-size: 12px !important; }
+
+  .site-footer { gap: 14px; padding-block: 34px; }
+  .footer-brand strong { font-size: 15px; }
+  .site-footer > p,
+  .site-footer > small,
+  .footer-links a { font-size: 13px; }
+
+  .cookie-notice { padding: 16px 20px; }
+  .cookie-notice p { font-size: 14px; }
+  .cookie-notice button { font-size: 13px; }
+}
