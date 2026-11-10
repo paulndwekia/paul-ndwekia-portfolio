@@ -1066,3 +1066,93 @@ body {
   .site-footer > small,
   .footer-links a { font-size: 15px; }
 }
+
+
+/* Lift the remaining small-print typography for comfortable reading. */
+@media (min-width: 851px) {
+  .brand-copy small,
+  .eyebrow,
+  .identity-caption,
+  .hero-note,
+  .hero-image figcaption,
+  .cover-art > span,
+  .preview-label,
+  .filter-status,
+  .project-meta,
+  .tag-list span,
+  .repo-signal,
+  .link-note,
+  .sync-bar,
+  .sync-bar button,
+  .activity-top time,
+  .activity-meta,
+  .panel-note,
+  .progress-footnote,
+  .linkedin-status small,
+  .approval-note span,
+  .about-profile span,
+  .about-profile a,
+  .about-details span,
+  .about-details small,
+  .business-note,
+  .site-footer > p,
+  .site-footer > small,
+  .footer-links a,
+  .cookie-notice p,
+  .cookie-notice button {
+    font-size: 16px !important;
+    line-height: 1.65;
+  }
+
+  .project-links .link-note { font-size: 16px !important; }
+  .about-details span { letter-spacing: .06em; }
+  .project-meta,
+  .filter-status,
+  .sync-bar,
+  .activity-meta,
+  .business-note {
+    letter-spacing: .025em;
+  }
+}
+
+/* Keep small print readable on tablets and phones as well. */
+@media (max-width: 850px) {
+  .brand-copy small,
+  .eyebrow,
+  .identity-caption,
+  .hero-note,
+  .hero-image figcaption,
+  .cover-art > span,
+  .preview-label,
+  .filter-status,
+  .project-meta,
+  .tag-list span,
+  .repo-signal,
+  .link-note,
+  .sync-bar,
+  .sync-bar button,
+  .activity-top time,
+  .activity-meta,
+  .panel-note,
+  .progress-footnote,
+  .linkedin-status small,
+  .approval-note span,
+  .about-profile span,
+  .about-profile a,
+  .about-details span,
+  .about-details small,
+  .business-note,
+  .site-footer > p,
+  .site-footer > small,
+  .footer-links a,
+  .cookie-notice p,
+  .cookie-notice button {
+    font-size: 14px !important;
+    line-height: 1.6;
+  }
+  .preview-label { padding: 7px 10px; }
+  .project-meta,
+  .filter-status,
+  .sync-bar,
+  .activity-meta { letter-spacing: .02em; }
+}
