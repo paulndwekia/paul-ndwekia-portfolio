@@ -116,17 +116,22 @@
     const evidence = data.evidence;
     data.projects.forEach(project => {
       const record = evidenceFor(project.slug);
-      const completed = Boolean(record);
       const projectStatus = project.portfolio_status || (project.live_url ? "live" : "in-progress");
+      const completed = Boolean(record) || projectStatus === "completed" || projectStatus === "live";
       const repo = (data.github?.repositories || []).find(item => item.name === project.repository);
       const card = create("article","project-card");
       card.dataset.projectSlug = project.slug;
       card.dataset.completed = String(completed);
-      card.dataset.live = String(!completed && projectStatus === "live");
+      card.dataset.live = String(projectStatus === "live");
       card.dataset.progress = String(!completed && projectStatus !== "live");
       card.append(projectPreview(project, record));
       const body = create("div","project-body");
-      const meta = create("p","project-meta", completed ? (record.evidence_type === "linkedin-profile-project" ? "Completed · listed on LinkedIn" : "Completed · LinkedIn announcement verified") : (project.stage_label || "In progress"));
+      const metaLabel = record
+        ? (record.evidence_type === "linkedin-profile-project" ? "Completed · listed on LinkedIn" : "Completed · LinkedIn announcement verified")
+        : projectStatus === "live" ? "Completed · live project"
+        : projectStatus === "completed" ? "Completed project"
+        : (project.stage_label || "In progress");
+      const meta = create("p","project-meta", metaLabel);
       const heading = create("h3","",project.name);
       const description = create("p","",project.description || repo?.description || "A project in the finance, data and technology space.");
       const tags = create("div","tag-list");
@@ -173,8 +178,8 @@
     },
     completed: {
       label: "Completed",
-      message: "Showing projects listed or announced on LinkedIn",
-      empty: "No completed projects are currently recorded from LinkedIn profile listings or announcements.",
+      message: "Showing completed projects, including all live sites and showcases",
+      empty: "No completed or live projects are recorded yet.",
       matches: card => card.dataset.completed === "true"
     },
     live: {
