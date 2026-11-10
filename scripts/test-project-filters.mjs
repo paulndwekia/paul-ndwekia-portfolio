@@ -42,6 +42,7 @@ const errors = [];
 try {
   const page = await browser.newPage({ viewport: { width: 390, height: 844 }, deviceScaleFactor: 1 });
   page.on("pageerror", error => errors.push(error.message));
+  page.on("console", message => { if (message.type() === "error") errors.push("console: " + message.text()); });
   await page.goto(origin, { waitUntil: "domcontentloaded" });
   await page.waitForFunction(() => {
     const button = document.querySelector('[data-filter="all"]');
@@ -59,13 +60,18 @@ try {
 
   for (const test of cases) {
     await page.locator(`[data-filter="${test.key}"]`).click();
-    await page.waitForFunction(
-      expected => document.querySelectorAll(".project-card:not([hidden])").length === expected,
-      test.visible
-    );
-    const actualStatus = await page.locator("#project-filter-status").textContent();
-    if (!actualStatus.includes(test.status)) {
-      throw new Error(`${test.key} status mismatch: ${actualStatus}`);
+    await page.waitForTimeout(250);
+    const observed = await page.evaluate(() => ({
+      visible: document.querySelectorAll(".project-card:not([hidden])").length,
+      total: document.querySelectorAll(".project-card").length,
+      status: document.querySelector("#project-filter-status")?.textContent || "missing status",
+      active: [...document.querySelectorAll(".filter-button[aria-pressed='true']")].map(button => button.dataset.filter)
+    }));
+    if (observed.visible !== test.visible) {
+      throw new Error(`${test.key} filter mismatch: expected ${test.visible} visible; observed ${JSON.stringify(observed)}; browser errors: ${errors.join(" | ")}`);
+    }
+    if (!observed.status.includes(test.status)) {
+      throw new Error(`${test.key} status mismatch: ${observed.status}`);
     }
     const activeCount = await page.locator('.filter-button[aria-pressed="true"]').count();
     if (activeCount !== 1) throw new Error(`${test.key}: expected exactly one active category, found ${activeCount}.`);
