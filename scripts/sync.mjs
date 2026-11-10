@@ -31,6 +31,7 @@ for (const repo of publicRepos) {
     description: repo.description || "A public GitHub project by Paul Ndwekia. Project details will be expanded as the work develops.",
     category: "GitHub project",
     stage_label: "In progress · discovered on GitHub",
+    portfolio_status: "in-progress",
     stack: repo.language ? [repo.language] : [],
     cover_kicker: "Public GitHub project",
     cover_title: repo.name.replace(/[-_]+/g," ")
