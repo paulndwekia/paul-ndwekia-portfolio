@@ -149,19 +149,24 @@
     },
     {
       "slug": "fintel-kenya-financial-intelligence",
-      "name": "fintel kenya financial intelligence",
+      "name": "FINTEL — Kenya Financial Intelligence",
       "repository": "fintel-kenya-financial-intelligence",
-      "live_url": null,
-      "description": "FINTEL — Kenya Financial Intelligence platform",
-      "category": "GitHub project",
-      "stage_label": "In progress · discovered on GitHub",
+      "live_url": "https://fintel-kenya-financial-intelligence.onrender.com/",
+      "description": "An independent Kenyan market intelligence platform bringing CBK FX and key-rate observations, Treasury Bill and Bond data, yield-curve tools, quantitative models and evidence-aware financial research into one workspace.",
+      "category": "Fintech · Kenyan market intelligence",
+      "stage_label": "Live · redesigned release in review",
       "stack": [
-        "TypeScript"
+        "React",
+        "TypeScript",
+        "Node.js",
+        "Python",
+        "CBK data"
       ],
-      "cover_kicker": "Public GitHub project",
-      "cover_title": "fintel kenya financial intelligence",
+      "cover_kicker": "Kenya · Market intelligence",
+      "cover_title": "FINTEL",
       "preview_class": "preview-fintel",
-      "portfolio_status": "in-progress"
+      "portfolio_status": "in-progress",
+      "live_label": "Visit FINTEL"
     },
     {
       "slug": "gdp-dashboard",
