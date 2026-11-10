@@ -1,7 +1,6 @@
 name: LinkedIn project publication
 description: Record a LinkedIn project announcement so the portfolio can verify completion and use its original image.
 title: "LinkedIn publication: "
-labels: ["linkedin-publication"]
 body:
   - type: markdown
     attributes:
