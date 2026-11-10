@@ -5,6 +5,10 @@ Personal portfolio for work across finance, data and technology.
 **Live site:** https://paul-ndwekia-portfolio.vercel.app  
 **GitHub:** https://github.com/paulndwekia
 
+## Deployment
+
+The existing Vercel project `paul-ndwekia-portfolio` is connected to this repository. Commits pushed to the `main` branch trigger Vercel deployments automatically. The production domain remains https://paul-ndwekia-portfolio.vercel.app.
+
 ## How updates work
 
 - GitHub Actions refreshes public repository activity every six hours.
