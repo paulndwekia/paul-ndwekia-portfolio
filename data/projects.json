@@ -19,7 +19,8 @@
       "cover_kicker": "Fixed income research",
       "cover_title": "Kenya Yield Curve",
       "preview_class": "preview-yield",
-      "preview_image": "/assets/previews/kenya-yield-curve-risk-engine.jpg"
+      "preview_image": "/assets/previews/kenya-yield-curve-risk-engine.jpg",
+      "portfolio_status": "live"
     },
     {
       "slug": "standpoint-financial-intelligence",
@@ -40,7 +41,8 @@
       "cover_kicker": "Kenyan market intelligence",
       "cover_title": "StandPoint",
       "preview_class": "preview-standpoint",
-      "preview_image": "/assets/previews/standpoint-financial-intelligence.jpg"
+      "preview_image": "/assets/previews/standpoint-financial-intelligence.jpg",
+      "portfolio_status": "live"
     },
     {
       "slug": "buzz-social-discovery",
@@ -49,7 +51,7 @@
       "live_url": null,
       "description": "A social discovery product built around finding what’s worth watching, listening to and sharing. The completed project is available as a private walkthrough.",
       "category": "Entertainment · Social discovery",
-      "stage_label": "Private showcase · awaiting LinkedIn evidence",
+      "stage_label": "Live project · private showcase available",
       "stack": [
         "Product design",
         "Social",
@@ -60,7 +62,8 @@
       "cover_title": "Find your next favourite.",
       "preview_class": "preview-buzz",
       "preview_url": "https://buzz-social-platformbuzz-social-platform.onrender.com/",
-      "preview_image": "/assets/previews/buzz-social-discovery.jpg"
+      "preview_image": "/assets/previews/buzz-social-discovery.jpg",
+      "portfolio_status": "live"
     },
     {
       "slug": "kenya-financial-analytics",
@@ -81,7 +84,8 @@
       "cover_kicker": "Kenyan quantitative finance",
       "cover_title": "Financial Analytics",
       "preview_class": "preview-analytics",
-      "preview_image": "/assets/previews/kenya-financial-analytics.jpg"
+      "preview_image": "/assets/previews/kenya-financial-analytics.jpg",
+      "portfolio_status": "live"
     },
     {
       "slug": "nkaulele-contractors",
@@ -100,7 +104,8 @@
       "cover_kicker": "Company website · Kenya",
       "cover_title": "Nkaulele Contractors",
       "preview_class": "preview-nkaulele",
-      "preview_image": "/assets/previews/nkaulele-contractors.jpg"
+      "preview_image": "/assets/previews/nkaulele-contractors.jpg",
+      "portfolio_status": "live"
     },
     {
       "slug": "forexpilot-ai",
@@ -120,7 +125,8 @@
       "cover_kicker": "Forex research · Risk intelligence",
       "cover_title": "ForexPilot AI",
       "preview_class": "preview-forex",
-      "preview_image": "/assets/previews/forexpilot-ai.jpg"
+      "preview_image": "/assets/previews/forexpilot-ai.jpg",
+      "portfolio_status": "in-progress"
     },
     {
       "slug": "kenya-investment-intelligence",
@@ -137,7 +143,8 @@
       ],
       "cover_kicker": "Kenya · Investment research",
       "cover_title": "Research with a local lens.",
-      "preview_class": "preview-investment"
+      "preview_class": "preview-investment",
+      "portfolio_status": "in-progress"
     },
     {
       "slug": "fintel-kenya-financial-intelligence",
@@ -152,7 +159,8 @@
       ],
       "cover_kicker": "Public GitHub project",
       "cover_title": "fintel kenya financial intelligence",
-      "preview_class": "preview-fintel"
+      "preview_class": "preview-fintel",
+      "portfolio_status": "in-progress"
     },
     {
       "slug": "gdp-dashboard",
@@ -167,7 +175,8 @@
       ],
       "cover_kicker": "Public GitHub project",
       "cover_title": "gdp dashboard",
-      "preview_class": "preview-gdp"
+      "preview_class": "preview-gdp",
+      "portfolio_status": "in-progress"
     }
   ]
 }
