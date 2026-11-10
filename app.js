@@ -44,29 +44,30 @@
   }
   function projectPreview(project, evidence) {
     const panel = create("div", "project-preview " + (project.preview_class || ""));
-    if (evidence?.image_url) {
+    const imageUrl = evidence?.image_url || project.preview_image_url || project.preview_image;
+    if (imageUrl) {
       const image = create("img");
-      image.src = evidence.image_url;
-      image.alt = project.name + " — original LinkedIn project image";
-      image.loading = "lazy"; image.referrerPolicy = "no-referrer";
-      panel.append(image);
-      panel.append(create("span","preview-label","LinkedIn project image"));
+      image.alt = project.name + (evidence?.image_url ? " — original LinkedIn project image" : " — project preview");
+      image.loading = "lazy";
+      image.decoding = "async";
+      image.addEventListener("error", () => {
+        panel.replaceChildren(create("div","preview-unavailable",
+          evidence?.image_url ? "LinkedIn image could not be loaded" : "Project preview could not be loaded"));
+      }, { once:true });
+      panel.append(image, create("span","preview-label",
+        evidence?.image_url ? "LinkedIn project image" : "Project preview"));
+      image.src = imageUrl;
       return panel;
     }
-    const cover = create("div","cover-art");
-    cover.append(create("span","",project.cover_kicker || project.category || "Selected work"));
-    cover.append(create("strong","",project.cover_title || project.name));
-    if (project.live_url) {
-      const capture = create("img");
-      capture.alt = project.name + " live website screenshot";
-      capture.loading = "lazy"; capture.decoding = "async"; capture.referrerPolicy = "no-referrer";
-      capture.src = "https://image.thum.io/get/width/1200/crop/760/noanimate/" + project.live_url;
-      capture.addEventListener("load", () => {
-        if (!capture.naturalWidth) return;
-        panel.replaceChildren(capture, create("span","preview-label","Live website capture"));
-      }, { once:true });
-    }
-    panel.append(cover);
+
+    const empty = create("div","preview-unavailable");
+    empty.append(
+      create("span","",project.live_url ? "Live project" : "Project preview"),
+      create("strong","",project.live_url
+        ? "Live website screenshot is being prepared"
+        : "A public project screenshot has not been supplied")
+    );
+    panel.append(empty);
     return panel;
   }
   function renderProjects() {
