@@ -4,7 +4,7 @@ import path from "node:path";
 const playwrightPath = process.env.PLAYWRIGHT_MODULE || "playwright";
 const { chromium } = await import(playwrightPath);
 const projectsData = JSON.parse(await readFile("data/projects.json", "utf8"));
-const projects = (projectsData.projects || []).filter(project => project.live_url && project.preview_image);
+const projects = (projectsData.projects || []).filter(project => (project.preview_url || project.live_url) && project.preview_image);
 const outputDir = path.resolve("assets/previews");
 await mkdir(outputDir, { recursive: true });
 
@@ -28,12 +28,12 @@ try {
     });
     const page = await context.newPage();
     try {
-      console.log(`Capturing ${project.name}: ${project.live_url}`);
+      const captureUrl = project.preview_url || project.live_url;\n      console.log(`Capturing ${project.name}: ${captureUrl}`);
       let response = null;
       let navigationError = null;
       for (let attempt = 1; attempt <= 4; attempt++) {
         try {
-          response = await page.goto(project.live_url, {
+          response = await page.goto(captureUrl, {
             waitUntil: "domcontentloaded",
             timeout: 90000
           });
@@ -43,7 +43,7 @@ try {
           break;
         } catch (error) {
           navigationError = error;
-          if (attempt < 4) {
+          if (attempt < 4 && !String(error.message).startsWith("Permanent website response")) {
             console.warn(`Attempt ${attempt}/4 failed for ${project.name}: ${error.message}; retrying in 20 seconds.`);
             await page.waitForTimeout(20000);
           }

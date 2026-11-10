@@ -58,7 +58,9 @@
       ],
       "cover_kicker": "Entertainment · Social discovery",
       "cover_title": "Find your next favourite.",
-      "preview_class": "preview-buzz"
+      "preview_class": "preview-buzz",
+      "preview_url": "https://buzz-social-platformbuzz-social-platform.onrender.com/",
+      "preview_image": "/assets/previews/buzz-social-discovery.jpg"
     },
     {
       "slug": "kenya-financial-analytics",

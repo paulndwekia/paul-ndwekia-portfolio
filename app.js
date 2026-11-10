@@ -8,15 +8,32 @@
 
   const menu = $("#primary-nav"), toggle = $(".menu-toggle");
   if (menu && toggle) {
-    toggle.addEventListener("click", () => {
-      const open = menu.classList.toggle("is-open");
+    const setMenuOpen = open => {
+      menu.classList.toggle("is-open", open);
+      toggle.classList.toggle("is-open", open);
       toggle.setAttribute("aria-expanded", String(open));
       toggle.setAttribute("aria-label", open ? "Close navigation" : "Open navigation");
+    };
+
+    toggle.addEventListener("click", () => {
+      setMenuOpen(!menu.classList.contains("is-open"));
     });
-    $$("a", menu).forEach(link => link.addEventListener("click", () => {
-      menu.classList.remove("is-open");
-      toggle.setAttribute("aria-expanded", "false");
-    }));
+
+    $("a", menu).forEach(link => link.addEventListener("click", () => setMenuOpen(false)));
+
+    document.addEventListener("keydown", event => {
+      if (event.key === "Escape" && menu.classList.contains("is-open")) {
+        setMenuOpen(false);
+        toggle.focus();
+      }
+    });
+
+    document.addEventListener("click", event => {
+      if (!menu.classList.contains("is-open")) return;
+      if (!menu.contains(event.target) && !toggle.contains(event.target)) {
+        setMenuOpen(false);
+      }
+    });
   }
 
   const dateLabel = value => {
