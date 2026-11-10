@@ -131,6 +131,34 @@
       "cover_kicker": "Kenya · Investment research",
       "cover_title": "Research with a local lens.",
       "preview_class": "preview-investment"
+    },
+    {
+      "slug": "fintel-kenya-financial-intelligence",
+      "name": "fintel kenya financial intelligence",
+      "repository": "fintel-kenya-financial-intelligence",
+      "live_url": null,
+      "description": "FINTEL — Kenya Financial Intelligence platform",
+      "category": "GitHub project",
+      "stage_label": "In progress · discovered on GitHub",
+      "stack": [
+        "TypeScript"
+      ],
+      "cover_kicker": "Public GitHub project",
+      "cover_title": "fintel kenya financial intelligence"
+    },
+    {
+      "slug": "gdp-dashboard",
+      "name": "gdp dashboard",
+      "repository": "gdp-dashboard",
+      "live_url": null,
+      "description": "A public GitHub project by Paul Ndwekia. Project details will be expanded as the work develops.",
+      "category": "GitHub project",
+      "stage_label": "In progress · discovered on GitHub",
+      "stack": [
+        "Python"
+      ],
+      "cover_kicker": "Public GitHub project",
+      "cover_title": "gdp dashboard"
     }
   ]
 }
