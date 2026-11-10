@@ -174,7 +174,12 @@
 
   function renderGitHub() {
     const list = $("#github-activity"), status = $("#github-sync-text"), dot = $("#github-state-dot");
-    if (!list || !data.github) return;
+    if (!list) return;
+    if (!data.github || !Array.isArray(data.github.repositories)) {
+      // Keep the pre-rendered last-synced activity visible if the live refresh is unavailable.
+      if (status) status.textContent = "Showing the latest saved public activity";
+      return;
+    }
     list.replaceChildren();
     const repositories = data.github.repositories || [];
     if (!repositories.length) {
@@ -189,27 +194,50 @@
       top.append(link,time);
       row.append(top);
       row.append(create("div","activity-commit",repo.latest_commit || repo.description || "Public repository"));
-      row.append(create("div","activity-meta",[repo.language || "Repository", repo.stars + " stars", "pushed " + dateLabel(repo.pushed_at)].join(" · ")));
+      row.append(create("div","activity-meta",[repo.language || "Repository", (repo.stars || 0) + " stars", "pushed " + dateLabel(repo.pushed_at)].join(" · ")));
       list.append(row);
     });
-    status.textContent = "GitHub data refreshed " + dateLabel(data.github.generated_at);
-    dot.classList.add("is-live");
+    if (status) status.textContent = "GitHub data refreshed " + dateLabel(data.github.generated_at);
+    if (dot) dot.classList.add("is-live");
   }
 
-  async function fetchJson(path) {
-    try {
-      const response = await fetch(path, { cache: "default" });
-      if (!response.ok) throw new Error(path + " returned " + response.status);
-      return await response.json();
-    } catch (error) {
-      console.warn("Portfolio data unavailable:", path, error);
-      return null;
+  // Static HTML already contains project screenshots. Attach a fallback immediately so
+  // even a failed external image becomes its designed project cover without a broken-image icon.
+  function wireStaticPreviewFallbacks() {
+    $$("#project-grid .project-preview img").forEach(image => {
+      image.addEventListener("error", () => {
+        const panel = image.closest(".project-preview");
+        if (!panel) return;
+        const project = {
+          preview_class: panel.className,
+          cover_kicker: image.dataset.coverKicker,
+          cover_title: image.dataset.coverTitle,
+          name: image.alt
+        };
+        panel.replaceChildren(buildProjectCover(project));
+      }, { once:true });
+    });
+  }
+  wireStaticPreviewFallbacks();
+
+  async function fetchJson(path, retries = 1) {
+    for (let attempt = 0; attempt <= retries; attempt++) {
+      try {
+        const response = await fetch(path, { cache: "no-store" });
+        if (!response.ok) throw new Error(path + " returned " + response.status);
+        return await response.json();
+      } catch (error) {
+        if (attempt === retries) {
+          console.warn("Portfolio data unavailable:", path, error);
+          return null;
+        }
+      }
     }
+    return null;
   }
 
   async function load() {
-    // Projects are the only data dependency for the Selected Work section.
-    // Render them independently so slow profile/evidence/GitHub requests cannot hold the page.
+    // Selected work is rendered independently and immediately from its own small data file.
     const projectsPromise = fetchJson("/data/projects.json").then(projects => {
       if (Array.isArray(projects?.projects) && projects.projects.length) {
         data.projects = projects.projects;
@@ -217,20 +245,31 @@
       }
     });
 
-    const [evidence, github, profile] = await Promise.all([
-      fetchJson("/data/linkedin-evidence.json"),
-      fetchJson("/data/github-progress.json"),
-      fetchJson("/data/profile.json")
-    ]);
+    const evidencePromise = fetchJson("/data/linkedin-evidence.json").then(evidence => {
+      if (Array.isArray(evidence?.evidence)) {
+        data.evidence = evidence.evidence;
+        if (data.projects.length) renderProjects();
+      }
+    });
 
-    if (Array.isArray(evidence?.evidence)) data.evidence = evidence.evidence;
-    if (Array.isArray(github?.repositories)) data.github = github;
-    if (profile && typeof profile === "object") data.profile = profile;
+    const githubPromise = fetchJson("/data/github-progress.json", 2).then(github => {
+      if (Array.isArray(github?.repositories)) {
+        data.github = github;
+        renderGitHub();
+        if (data.projects.length) renderProjects();
+      } else {
+        renderGitHub(); // retain the last synced activity already in the HTML
+      }
+    });
 
-    // Update profile and progress independently; project cards are already visible.
-    renderProfile();
-    renderGitHub();
-    await projectsPromise;
+    const profilePromise = fetchJson("/data/profile.json", 1).then(profile => {
+      if (profile && typeof profile === "object") {
+        data.profile = profile;
+        renderProfile();
+      }
+    });
+
+    await Promise.all([projectsPromise,evidencePromise,githubPromise,profilePromise]);
     if (data.projects.length) renderProjects();
   }
 

@@ -58,9 +58,7 @@
       ],
       "cover_kicker": "Entertainment · Social discovery",
       "cover_title": "Find your next favourite.",
-      "preview_class": "preview-buzz",
-      "preview_url": "https://buzz-social-platformbuzz-social-platform.onrender.com/",
-      "preview_image": "/assets/previews/buzz-social-discovery.jpg"
+      "preview_class": "preview-buzz"
     },
     {
       "slug": "kenya-financial-analytics",
@@ -137,8 +135,7 @@
       ],
       "cover_kicker": "Kenya · Investment research",
       "cover_title": "Research with a local lens.",
-      "preview_class": "preview-investment",
-      "preview_image_url": "https://raw.githubusercontent.com/paulndwekia/Rock_Investment_Outlook_2026/main/report/charts/04_risk_return.png"
+      "preview_class": "preview-investment"
     },
     {
       "slug": "fintel-kenya-financial-intelligence",
