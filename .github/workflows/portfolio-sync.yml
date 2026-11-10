@@ -1,6 +1,10 @@
 name: Portfolio data sync
 
 on:
+  push:
+    branches: [main]
+    paths-ignore:
+      - 'data/**'
   schedule:
     - cron: "17 */6 * * *"
   workflow_dispatch:
@@ -52,7 +56,7 @@ jobs:
             git push
           fi
 
-      - name: Confirm LinkedIn evidence was recorded
+      - name: Confirm LinkedIn evidence change
         if: github.event_name == 'issues'
         uses: actions/github-script@v7
         with:
