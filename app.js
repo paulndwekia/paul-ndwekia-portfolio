@@ -189,9 +189,9 @@
   function applyFilter(value) {
     activeProjectFilter = filterDefinitions[value] ? value : "all";
     const definition = filterDefinitions[activeProjectFilter];
-    const cards = $(".project-card");
+    const cards = $$(".project-card");
 
-    $(".filter-button").forEach(button => {
+    $$(".filter-button").forEach(button => {
       const active = button.dataset.filter === activeProjectFilter;
       button.classList.toggle("is-active", active);
       button.setAttribute("aria-pressed", String(active));
@@ -214,7 +214,7 @@
     }
   }
 
-  $(".filter-button").forEach(button => {
+  $$(".filter-button").forEach(button => {
     button.addEventListener("click", () => applyFilter(button.dataset.filter));
   });
   document.documentElement.dataset.filtersReady = "true";
