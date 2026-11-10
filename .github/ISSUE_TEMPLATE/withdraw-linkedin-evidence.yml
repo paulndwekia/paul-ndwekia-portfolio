@@ -1,0 +1,29 @@
+name: Withdraw LinkedIn evidence
+description: Withdraw a LinkedIn publication record if the post has been deleted or removed.
+title: "Withdraw LinkedIn evidence: "
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Use this when the LinkedIn post previously recorded for a project has been deleted or withdrawn. The project will no longer qualify as Completed on the portfolio.
+  - type: dropdown
+    id: project
+    attributes:
+      label: Project
+      options:
+        - kenya-yield-curve-risk-engine
+        - standpoint-financial-intelligence
+        - buzz-social-discovery
+        - kenya-financial-analytics
+        - nkaulele-contractors
+        - forexpilot-ai
+        - kenya-investment-intelligence
+    validations:
+      required: true
+  - type: checkboxes
+    id: confirmation
+    attributes:
+      label: Confirmation
+      options:
+        - label: I confirm that the LinkedIn announcement has been deleted or withdrawn.
+          required: true
