@@ -20,7 +20,7 @@
       setMenuOpen(!menu.classList.contains("is-open"));
     });
 
-    $("a", menu).forEach(link => link.addEventListener("click", () => setMenuOpen(false)));
+    $$("a", menu).forEach(link => link.addEventListener("click", () => setMenuOpen(false)));
 
     document.addEventListener("keydown", event => {
       if (event.key === "Escape" && menu.classList.contains("is-open")) {
@@ -177,7 +177,7 @@
       progress: cards.filter(card => card.dataset.progress === "true").length
     };
 
-    $(".filter-button").forEach(button => {
+    $$(".filter-button").forEach(button => {
       const key = button.dataset.filter;
       const active = key === activeProjectFilter;
       const count = counts[key] ?? 0;
@@ -206,7 +206,7 @@
     if (empty) empty.hidden = visible !== 0;
   }
 
-  $(".filter-button").forEach(button => {
+  $$(".filter-button").forEach(button => {
     button.addEventListener("click", () => applyFilter(button.dataset.filter));
   });
 
