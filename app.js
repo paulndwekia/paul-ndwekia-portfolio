@@ -119,6 +119,7 @@
       const completed = Boolean(record);
       const repo = (data.github?.repositories || []).find(item => item.name === project.repository);
       const card = create("article","project-card");
+      card.dataset.projectSlug = project.slug;
       card.dataset.completed = String(completed);
       card.dataset.live = String(Boolean(project.live_url));
       card.dataset.progress = String(!completed && !Boolean(project.live_url));
