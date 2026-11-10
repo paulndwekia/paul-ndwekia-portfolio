@@ -176,3 +176,94 @@ h1,h2,h3{font-family:"DM Serif Display",Georgia,serif;font-weight:400;letter-spa
   }
   .filter-status{margin-bottom:19px}
 }
+
+/* Four project categories: restrained colour blocks, clear labels, no counters or pill badges. */
+.filter-row{
+  display:grid;
+  grid-template-columns:repeat(4,minmax(0,1fr));
+  gap:10px;
+  margin:0 0 13px;
+  border:0;
+}
+.filter-button{
+  display:flex;
+  align-items:center;
+  justify-content:flex-start;
+  min-width:0;
+  min-height:54px;
+  padding:14px 16px;
+  border:1px solid transparent!important;
+  border-top:3px solid transparent!important;
+  border-radius:2px;
+  margin:0;
+  font-family:"DM Sans",sans-serif;
+  font-size:13px;
+  font-weight:500;
+  letter-spacing:0;
+  line-height:1.25;
+  text-align:left;
+  cursor:pointer;
+  box-shadow:none!important;
+  transition:background-color .16s ease,border-color .16s ease,color .16s ease;
+}
+.filter-button[data-filter="all"]{
+  background:#edf1f3!important;
+  border-color:#d6dee2!important;
+  border-top-color:#47677e!important;
+  color:#29465a!important;
+}
+.filter-button[data-filter="completed"]{
+  background:#eaf0ea!important;
+  border-color:#d2ded3!important;
+  border-top-color:#567b60!important;
+  color:#34553d!important;
+}
+.filter-button[data-filter="live"]{
+  background:#e9eff4!important;
+  border-color:#d0dbe3!important;
+  border-top-color:#4f7694!important;
+  color:#345a76!important;
+}
+.filter-button[data-filter="progress"]{
+  background:#f3eee4!important;
+  border-color:#e4dac7!important;
+  border-top-color:#987448!important;
+  color:#75572f!important;
+}
+.filter-button.is-active{
+  font-weight:700;
+  border-bottom-color:currentColor!important;
+}
+.filter-button:focus-visible{
+  outline:2px solid #496d85;
+  outline-offset:3px;
+}
+.filter-status{
+  margin:0 0 23px;
+  color:#859198;
+  font-family:"DM Sans",sans-serif;
+  font-size:12px;
+  letter-spacing:0;
+}
+.project-empty{
+  padding:22px 0;
+  border:0;
+  border-top:1px solid #d6dddf;
+  border-bottom:1px solid #d6dddf;
+  background:transparent;
+  color:#6e7d86;
+  font-size:14px;
+  line-height:1.65;
+}
+@media(hover:hover) and (pointer:fine){
+  .filter-button[data-filter="all"]:hover{background:#e1e9ed!important}
+  .filter-button[data-filter="completed"]:hover{background:#dfe9df!important}
+  .filter-button[data-filter="live"]:hover{background:#dce7ef!important}
+  .filter-button[data-filter="progress"]:hover{background:#ece3d2!important}
+}
+@media(max-width:850px){
+  .filter-row{grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}
+}
+@media(max-width:420px){
+  .filter-button{min-height:49px;padding:11px 12px;font-size:12px}
+}

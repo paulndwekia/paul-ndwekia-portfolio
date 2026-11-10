@@ -44,18 +44,15 @@ try {
   page.on("pageerror", error => errors.push(error.message));
   page.on("console", message => { if (message.type() === "error") errors.push("console: " + message.text()); });
   await page.goto(origin, { waitUntil: "domcontentloaded" });
-  await page.waitForFunction(() => {
-    const button = document.querySelector('[data-filter="all"]');
-    return button && button.getAttribute("aria-pressed") === "true";
-  });
+  await page.waitForFunction(() => document.documentElement.dataset.filtersReady === "true" && document.documentElement.dataset.projectCatalogueReady === "true");
   const total = await page.locator(".project-card").count();
   if (total !== 9) throw new Error(`Expected 9 project cards; found ${total}.`);
 
   const cases = [
     { key: "live", visible: 5, status: "Showing 5 of 9 projects" },
-    { key: "progress", visible: 9, status: "Showing 9 of 9 projects" },
-    { key: "completed", visible: 0, status: "Showing 0 of 9 projects" },
-    { key: "all", visible: 9, status: "Showing all 9 projects" }
+    { key: "progress", visible: 4, status: "Showing projects that are not yet publicly live or completion-verified" },
+    { key: "completed", visible: 0, status: "Showing projects with verified publication evidence" },
+    { key: "all", visible: 9, status: "Showing all projects" }
   ];
 
   for (const test of cases) {
@@ -80,10 +77,20 @@ try {
   if (await page.locator("#project-empty-state").isVisible()) {
     throw new Error("Empty state should be hidden when Everything is selected.");
   }
+  const buttonTexts = await page.locator(".filter-button").allTextContents();
+  if (buttonTexts.some(text => /\\d/.test(text))) throw new Error("Project filter buttons should not display numbers.");
+  const colors = await page.locator(".filter-button").evaluateAll(nodes => nodes.map(node => getComputedStyle(node).backgroundColor));
+  if (new Set(colors).size !== 4) throw new Error("Each project category should have its own background colour.");
+  const buzz = JSON.parse(await readFile("data/projects.json","utf8")).projects.find(project => project.slug === "buzz-social-discovery");
+  if (!buzz || buzz.preview_url !== "https://buzz-social-platformbuzz-social-platform.onrender.com/" || buzz.preview_image !== "/assets/previews/buzz-social-discovery.jpg") {
+    throw new Error("Buzz's original preview source was not preserved.");
+  }
+  const buzzCard = page.locator('[data-project-slug="buzz-social-discovery"] .project-preview img');
+  if (await buzzCard.getAttribute("src") !== "/assets/previews/buzz-social-discovery.jpg") throw new Error("Buzz preview image is not attached to its card.");
   if (errors.length) throw new Error("Browser JavaScript errors: " + errors.join("; "));
 
-  console.log("PASS: Everything, Completed, Live sites and In progress filters work on a 390px mobile viewport.");
-  console.log("PASS: Project counts, visible cards, active state, status text and empty state are consistent.");
+  console.log("PASS: All four coloured project filters work on a 390px mobile viewport.");
+  console.log("PASS: No number counters appear; counts, active state, empty state and Buzz preview are correct.");
 } finally {
   await browser.close();
   await new Promise(resolve => server.close(resolve));

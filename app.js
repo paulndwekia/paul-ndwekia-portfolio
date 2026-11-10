@@ -100,7 +100,7 @@
         panel.replaceChildren(buildProjectCover(project));
       }, { once:true });
       panel.append(image, create("span","preview-label",
-        evidence?.image_url ? "LinkedIn project image" : "Live project preview"));
+        evidence?.image_url ? "LinkedIn project image" : (project.live_url ? "Live website capture" : "Project preview")));
       image.src = imageUrl;
       return panel;
     }
@@ -121,7 +121,7 @@
       const card = create("article","project-card");
       card.dataset.completed = String(completed);
       card.dataset.live = String(Boolean(project.live_url));
-      card.dataset.progress = String(!completed);
+      card.dataset.progress = String(!completed && !Boolean(project.live_url));
       card.append(projectPreview(project, record));
       const body = create("div","project-body");
       const meta = create("p","project-meta", completed ? "Completed · LinkedIn publication verified" : (project.stage_label || "In progress"));
@@ -160,32 +160,41 @@
     applyFilter(activeProjectFilter);
   }
   const filterDefinitions = {
-    all: { label: "Everything", matches: () => true },
-    completed: { label: "Completed", matches: card => card.dataset.completed === "true" },
-    live: { label: "Live sites", matches: card => card.dataset.live === "true" },
-    progress: { label: "In progress", matches: card => card.dataset.progress === "true" }
+    all: {
+      label: "Everything",
+      message: "Showing all projects",
+      empty: "No projects are listed yet.",
+      matches: () => true
+    },
+    completed: {
+      label: "Completed",
+      message: "Showing projects with verified publication evidence",
+      empty: "No projects have a registered LinkedIn completion record yet.",
+      matches: card => card.dataset.completed === "true"
+    },
+    live: {
+      label: "Live sites",
+      message: "Showing projects with a public live site",
+      empty: "No public live sites are listed at the moment.",
+      matches: card => card.dataset.live === "true"
+    },
+    progress: {
+      label: "In progress",
+      message: "Showing projects that are not yet publicly live or completion-verified",
+      empty: "No projects are currently in progress.",
+      matches: card => card.dataset.progress === "true"
+    }
   };
 
   function applyFilter(value) {
     activeProjectFilter = filterDefinitions[value] ? value : "all";
     const definition = filterDefinitions[activeProjectFilter];
-    const cards = $$(".project-card");
-    const counts = {
-      all: cards.length,
-      completed: cards.filter(card => card.dataset.completed === "true").length,
-      live: cards.filter(card => card.dataset.live === "true").length,
-      progress: cards.filter(card => card.dataset.progress === "true").length
-    };
+    const cards = $(".project-card");
 
-    $$(".filter-button").forEach(button => {
-      const key = button.dataset.filter;
-      const active = key === activeProjectFilter;
-      const count = counts[key] ?? 0;
+    $(".filter-button").forEach(button => {
+      const active = button.dataset.filter === activeProjectFilter;
       button.classList.toggle("is-active", active);
       button.setAttribute("aria-pressed", String(active));
-      button.setAttribute("aria-label", (filterDefinitions[key]?.label || "Projects") + ", " + count + " projects");
-      const countNode = $("[data-filter-count]", button);
-      if (countNode) countNode.textContent = String(count);
     });
 
     let visible = 0;
@@ -196,19 +205,19 @@
     });
 
     const status = $("#project-filter-status");
-    if (status) {
-      status.textContent = activeProjectFilter === "all"
-        ? "Showing all " + visible + " projects"
-        : "Showing " + visible + " of " + cards.length + " projects · " + definition.label;
-    }
+    if (status) status.textContent = definition.message;
 
     const empty = $("#project-empty-state");
-    if (empty) empty.hidden = visible !== 0;
+    if (empty) {
+      empty.textContent = definition.empty;
+      empty.hidden = visible !== 0;
+    }
   }
 
-  $$(".filter-button").forEach(button => {
+  $(".filter-button").forEach(button => {
     button.addEventListener("click", () => applyFilter(button.dataset.filter));
   });
+  document.documentElement.dataset.filtersReady = "true";
 
   function renderGitHub() {
     const list = $("#github-activity"), status = $("#github-sync-text"), dot = $("#github-state-dot");
@@ -309,6 +318,7 @@
 
     await Promise.all([projectsPromise,evidencePromise,githubPromise,profilePromise]);
     if (data.projects.length) renderProjects();
+    document.documentElement.dataset.projectCatalogueReady = "true";
   }
 
   $("#github-refresh")?.addEventListener("click", async () => {
