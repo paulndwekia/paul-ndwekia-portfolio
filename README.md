@@ -55,3 +55,6 @@ The four project filters remain **Everything**, **Completed**, **Live sites**, a
 
 
 The project filters retain the original four categories with restrained coloured surfaces and no numerical counters. Their click behaviour is covered by a Playwright mobile-browser check in the GitHub Actions workflow; the test checks all four categories, visible card counts, active state, empty state and Buzz's Live-sites classification.
+
+
+**Category rule:** Every project explicitly marked `live` is also part of `Completed`. `Live sites` is a subset of `Completed`; `In progress` is reserved for ongoing builds and research. Projects explicitly marked `completed` (for example, through a LinkedIn profile listing) also appear under Completed.

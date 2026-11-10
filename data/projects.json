@@ -30,7 +30,7 @@
       "live_label": "Visit project",
       "description": "A Kenyan-market-focused financial intelligence platform bringing market monitoring, quantitative finance workspaces, research, financial learning tools and a campus experience together.",
       "category": "Fintech · Market intelligence",
-      "stage_label": "Live hosted platform · awaiting LinkedIn evidence",
+      "stage_label": "Completed · live platform",
       "stack": [
         "React",
         "TypeScript",
@@ -51,7 +51,7 @@
       "live_url": "https://buzz-social-platformbuzz-social-platform.onrender.com/",
       "description": "A social discovery product built around finding what’s worth watching, listening to and sharing. The completed project is available as a private walkthrough.",
       "category": "Entertainment · Social discovery",
-      "stage_label": "Live site · private showcase available",
+      "stage_label": "Completed · live project",
       "stack": [
         "Product design",
         "Social",
@@ -96,7 +96,7 @@
       "live_label": "Visit website",
       "description": "A company website created to give a contracting business a clear, professional online presence and an accessible place to introduce its services.",
       "category": "Company website",
-      "stage_label": "Launched website · awaiting LinkedIn evidence",
+      "stage_label": "Completed · launched website",
       "stack": [
         "Website",
         "Frontend",
