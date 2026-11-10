@@ -28,7 +28,8 @@ try {
     });
     const page = await context.newPage();
     try {
-      const captureUrl = project.preview_url || project.live_url;\n      console.log(`Capturing ${project.name}: ${captureUrl}`);
+      const captureUrl = project.preview_url || project.live_url;
+      console.log(`Capturing ${project.name}: ${captureUrl}`);
       let response = null;
       let navigationError = null;
       for (let attempt = 1; attempt <= 4; attempt++) {
@@ -38,7 +39,7 @@ try {
             timeout: 90000
           });
           if (response && response.status() >= 500) throw new Error(`Website returned HTTP ${response.status()}`);
-          if (response && response.status() >= 400) throw new Error(`Website returned HTTP ${response.status()}`);
+          if (response && response.status() >= 400) throw new Error(`Permanent website response HTTP ${response.status()}`);
           navigationError = null;
           break;
         } catch (error) {
