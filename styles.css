@@ -385,3 +385,135 @@ h1,h2,h3{font-family:"DM Serif Display",Georgia,serif;font-weight:400;letter-spa
   .cookie-notice p { font-size: 13px; }
   .cookie-notice button { min-height: 42px; font-size: 13px; }
 }
+
+
+/* Site-wide single-column composition.
+   This intentionally does not depend on a mobile-width breakpoint, so it also
+   applies when a phone browser requests the desktop site. */
+.hero,
+.project-grid,
+.progress-grid,
+.about-grid,
+.approach-grid,
+.contact-inner,
+.site-footer {
+  grid-template-columns: minmax(0, 1fr) !important;
+}
+
+.hero {
+  align-items: stretch;
+  gap: 42px;
+}
+.hero-copy,
+.hero-image {
+  width: 100%;
+  max-width: 100%;
+}
+.hero-image {
+  height: clamp(300px, 42vw, 500px);
+}
+.project-grid,
+.progress-grid,
+.about-grid,
+.approach-grid {
+  gap: 28px;
+}
+.section-heading {
+  display: flex;
+  align-items: flex-start;
+  flex-direction: column;
+  gap: 14px;
+}
+.section-intro {
+  max-width: 760px;
+}
+.filter-row {
+  display: grid !important;
+  grid-template-columns: minmax(0, 1fr) !important;
+  gap: 8px !important;
+}
+.filter-button {
+  width: 100%;
+  min-height: 48px;
+  justify-content: flex-start;
+  padding: 12px 14px;
+  font-size: 15px;
+}
+.about-details div {
+  grid-template-columns: minmax(0, 1fr) !important;
+  gap: 5px;
+}
+.site-footer > p,
+.site-footer > small,
+.site-footer > small:nth-last-child(2),
+.site-footer > small:last-child,
+.site-footer .footer-links {
+  grid-column: 1 !important;
+  grid-row: auto !important;
+  text-align: left;
+  justify-content: flex-start;
+}
+.contact-actions {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 14px;
+}
+
+/* Larger baseline type so the page stays readable in desktop-request mode. */
+body { font-size: 17px; line-height: 1.7; }
+.eyebrow,
+.identity-caption,
+.hero-note,
+.project-meta { font-size: 12px; }
+.hero-lede { font-size: 19px; line-height: 1.7; }
+.section-intro { font-size: 17px; line-height: 1.7; }
+.project-body > p:not(.project-meta) { font-size: 16px; line-height: 1.75; }
+.tag-list span { font-size: 12px; }
+.repo-signal { font-size: 12px !important; line-height: 1.6; }
+.project-links a { font-size: 14px; }
+.sync-bar,
+.activity-top time,
+.activity-meta,
+.panel-note,
+.progress-footnote { font-size: 12px; }
+.activity-top a { font-size: 15px; }
+.activity-commit { font-size: 14px; line-height: 1.6; }
+.linkedin-status strong { font-size: 15px; }
+.linkedin-status small,
+.approval-note span { font-size: 12px; }
+.linkedin-panel > p:not(.panel-note) { font-size: 15px; }
+.about-story p { font-size: 17px; line-height: 1.8; }
+.about-details span { font-size: 12px; }
+.about-details strong { font-size: 16px; }
+.about-details small { font-size: 14px; }
+.approach-grid article p:last-child { font-size: 16px; line-height: 1.75; }
+.contact-section p:not(.eyebrow) { font-size: 16px; line-height: 1.7; }
+.contact-actions a:not(.button) { font-size: 15px; }
+.button { min-height: 46px; padding: 12px 16px; font-size: 15px; }
+.cookie-notice p { font-size: 13px; }
+
+@media (max-width: 620px) {
+  .hero-image { height: 270px; }
+  .hero h1 { font-size: clamp(44px, 11vw, 50px); }
+  .hero-lede { font-size: 18px; }
+  .section-heading h2 { font-size: 41px; }
+  .project-preview { height: 230px; }
+  .project-body h3 { font-size: 30px; }
+  .contact-section h2 { font-size: 44px; }
+}
+
+/* Keep the same one-column reading flow on touch devices even in desktop mode. */
+@media (pointer: coarse) {
+  .hero,
+  .project-grid,
+  .progress-grid,
+  .about-grid,
+  .approach-grid,
+  .contact-inner,
+  .site-footer {
+    grid-template-columns: minmax(0, 1fr) !important;
+  }
+  .section-heading { align-items: flex-start; flex-direction: column; }
+  .filter-row { grid-template-columns: minmax(0, 1fr) !important; }
+}
