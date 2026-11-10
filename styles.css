@@ -267,9 +267,80 @@ h1,h2,h3{font-family:"DM Serif Display",Georgia,serif;font-weight:400;letter-spa
 @media(max-width:420px){
   .filter-button{min-height:49px;padding:11px 12px;font-size:12px}
 }
-/* Mobile project layout: keep cards stacked on narrow viewports and touch-first phones,
-   including Android browsers requesting a desktop-style layout viewport. */
-@media (max-width:760px), (hover:none) and (pointer:coarse) and (max-width:1100px){
-  .project-grid{grid-template-columns:minmax(0,1fr);gap:20px}
+
+/* Restore the original phone presentation: compact horizontal filters and the
+   original mobile type scale, rhythm, and single-column project cards. */
+@media (max-width:620px){
+  .project-grid{
+    grid-template-columns:minmax(0,1fr);
+    gap:17px;
+  }
   .project-card{width:100%}
+  .project-preview{height:225px}
+  .project-body{padding:20px}
+  .project-body h3{font-size:27px}
+  .project-body>p:not(.project-meta){font-size:14px;line-height:1.75}
+
+  .filter-row{
+    display:flex;
+    flex-wrap:nowrap;
+    align-items:center;
+    gap:8px;
+    margin:0 0 20px;
+    border:0;
+    overflow-x:auto;
+    overflow-y:hidden;
+    scrollbar-width:none;
+    -webkit-overflow-scrolling:touch;
+  }
+  .filter-row::-webkit-scrollbar{display:none}
+  .filter-button{
+    display:inline-flex;
+    flex:0 0 auto;
+    align-items:center;
+    justify-content:center;
+    width:auto;
+    min-width:0;
+    min-height:0;
+    padding:8px 10px;
+    border:1px solid #cfd6d9!important;
+    border-top:1px solid #cfd6d9!important;
+    border-bottom:1px solid #cfd6d9!important;
+    border-radius:0;
+    margin:0;
+    background:transparent!important;
+    color:#61707a!important;
+    font-family:"DM Sans",sans-serif;
+    font-size:11px;
+    font-weight:500;
+    line-height:1.35;
+    text-align:center;
+    box-shadow:none!important;
+  }
+  .filter-button[data-filter]{
+    background:transparent!important;
+    color:#61707a!important;
+    border-color:#cfd6d9!important;
+    border-top-color:#cfd6d9!important;
+  }
+  .filter-button.is-active{
+    background:var(--ink)!important;
+    color:#fff!important;
+    border-color:var(--ink)!important;
+    border-top-color:var(--ink)!important;
+    border-bottom-color:var(--ink)!important;
+    font-weight:600;
+  }
+  .filter-count{display:none!important}
+  .filter-status{
+    position:absolute!important;
+    width:1px!important;
+    height:1px!important;
+    padding:0!important;
+    margin:-1px!important;
+    overflow:hidden!important;
+    clip:rect(0,0,0,0)!important;
+    white-space:nowrap!important;
+    border:0!important;
+  }
 }
