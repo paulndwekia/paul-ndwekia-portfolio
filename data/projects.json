@@ -1,0 +1,136 @@
+{
+  "owner": "paulndwekia",
+  "projects": [
+    {
+      "slug": "kenya-yield-curve-risk-engine",
+      "name": "Kenya Yield Curve & Interest Rate Risk Engine",
+      "repository": "Kenya-Yield-Curve-Risk-Engine",
+      "live_url": "https://kenya-yield-research-terminal.vercel.app/",
+      "live_label": "Visit project",
+      "description": "A fixed-income research terminal for Treasury-bill observations, yield-curve construction, bond valuation and interest-rate risk measures including duration, convexity and DV01.",
+      "category": "Fixed income research",
+      "stage_label": "Live research terminal · awaiting LinkedIn evidence",
+      "stack": [
+        "Fixed income",
+        "Python",
+        "JavaScript",
+        "CBK data"
+      ],
+      "cover_kicker": "Fixed income research",
+      "cover_title": "Kenya Yield Curve",
+      "preview_class": "preview-yield"
+    },
+    {
+      "slug": "standpoint-financial-intelligence",
+      "name": "StandPoint — Financial Intelligence",
+      "repository": "StandPoint",
+      "live_url": "https://standpoint-2aze.onrender.com/",
+      "live_label": "Visit project",
+      "description": "A Kenyan-market-focused financial intelligence platform bringing market monitoring, quantitative finance workspaces, research, financial learning tools and a campus experience together.",
+      "category": "Fintech · Market intelligence",
+      "stage_label": "Live hosted platform · awaiting LinkedIn evidence",
+      "stack": [
+        "React",
+        "TypeScript",
+        "Python",
+        "Express",
+        "PostgreSQL"
+      ],
+      "cover_kicker": "Kenyan market intelligence",
+      "cover_title": "StandPoint",
+      "preview_class": "preview-standpoint"
+    },
+    {
+      "slug": "buzz-social-discovery",
+      "name": "Buzz — Entertainment & Social Discovery",
+      "repository": "buzz-social-platform",
+      "live_url": null,
+      "description": "A social discovery product built around finding what’s worth watching, listening to and sharing. The completed project is available as a private walkthrough.",
+      "category": "Entertainment · Social discovery",
+      "stage_label": "Private showcase · awaiting LinkedIn evidence",
+      "stack": [
+        "Product design",
+        "Social",
+        "Discovery",
+        "Next.js"
+      ],
+      "cover_kicker": "Entertainment · Social discovery",
+      "cover_title": "Find your next favourite.",
+      "preview_class": "preview-buzz"
+    },
+    {
+      "slug": "kenya-financial-analytics",
+      "name": "Kenya Financial Analytics",
+      "repository": "Kenya-Financial-Analytics",
+      "live_url": "https://kenya-financial-analytics.streamlit.app/",
+      "live_label": "Visit project",
+      "description": "A Kenyan-market quantitative finance workspace bringing market observations, FX and Treasury-bill analysis together with bond pricing, portfolio risk and financial research.",
+      "category": "Financial analytics",
+      "stage_label": "Live application · awaiting LinkedIn evidence",
+      "stack": [
+        "Python",
+        "Streamlit",
+        "Pandas",
+        "NumPy",
+        "Plotly"
+      ],
+      "cover_kicker": "Kenyan quantitative finance",
+      "cover_title": "Financial Analytics",
+      "preview_class": "preview-analytics"
+    },
+    {
+      "slug": "nkaulele-contractors",
+      "name": "Nkaulele Contractors",
+      "repository": "nkaulele-contractors-website",
+      "live_url": "https://nkaulele-contractors-website.vercel.app/",
+      "live_label": "Visit website",
+      "description": "A company website created to give a contracting business a clear, professional online presence and an accessible place to introduce its services.",
+      "category": "Company website",
+      "stage_label": "Launched website · awaiting LinkedIn evidence",
+      "stack": [
+        "Website",
+        "Frontend",
+        "Vercel"
+      ],
+      "cover_kicker": "Company website · Kenya",
+      "cover_title": "Nkaulele Contractors",
+      "preview_class": "preview-nkaulele"
+    },
+    {
+      "slug": "forexpilot-ai",
+      "name": "ForexPilot AI",
+      "repository": "forexpilot-ai",
+      "live_url": "https://forexpilot-web.onrender.com/",
+      "live_label": "Open project",
+      "description": "An independent forex research partner focused on historical market data, strategy testing, disciplined risk analysis and a careful path toward demo validation.",
+      "category": "Forex research · Risk intelligence",
+      "stage_label": "In development · research foundation",
+      "stack": [
+        "Python",
+        "Next.js",
+        "Quant research",
+        "Supabase"
+      ],
+      "cover_kicker": "Forex research · Risk intelligence",
+      "cover_title": "ForexPilot AI",
+      "preview_class": "preview-forex"
+    },
+    {
+      "slug": "kenya-investment-intelligence",
+      "name": "Kenya Investment Intelligence",
+      "repository": "Rock_Investment_Outlook_2026",
+      "live_url": null,
+      "description": "A research-led project exploring Kenya’s investment landscape, macroeconomic context and market information through a structured analytical lens.",
+      "category": "Kenya · Investment research",
+      "stage_label": "Research build · awaiting LinkedIn evidence",
+      "stack": [
+        "Research",
+        "Python",
+        "Financial analysis"
+      ],
+      "cover_kicker": "Kenya · Investment research",
+      "cover_title": "Research with a local lens.",
+      "preview_class": "preview-investment"
+    }
+  ]
+}
