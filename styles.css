@@ -86,3 +86,93 @@ h1,h2,h3{font-family:"DM Serif Display",Georgia,serif;font-weight:400;letter-spa
   .filter-button{width:100%;min-width:0;justify-content:space-between;padding:9px 11px;font-size:11px}
   .filter-status{margin:-7px 0 19px}
 }
+
+/* Selected-work filters — quiet editorial controls, not dashboard pills. */
+.filter-row{
+  display:flex;
+  align-items:stretch;
+  flex-wrap:wrap;
+  gap:0 30px;
+  margin:0 0 13px;
+  border-bottom:1px solid #d6dddf;
+}
+.filter-button{
+  display:inline-flex;
+  align-items:center;
+  justify-content:flex-start;
+  gap:7px;
+  min-height:46px;
+  padding:12px 0 11px;
+  border:0!important;
+  border-bottom:2px solid transparent!important;
+  margin:0 0 -1px;
+  background:transparent!important;
+  color:#6c7981;
+  font-family:"DM Sans",sans-serif;
+  font-size:13px;
+  font-weight:500;
+  letter-spacing:0;
+  cursor:pointer;
+  box-shadow:none!important;
+  transition:color .16s ease,border-color .16s ease;
+}
+.filter-button.is-active{
+  color:var(--ink)!important;
+  border-bottom-color:var(--ink)!important;
+  font-weight:600;
+}
+.filter-count{
+  display:inline;
+  min-width:0;
+  height:auto;
+  padding:0;
+  border:0!important;
+  border-radius:0;
+  background:transparent!important;
+  color:#8b969b;
+  font-family:"DM Mono",monospace;
+  font-size:10px;
+  line-height:1;
+  font-weight:400;
+  opacity:1;
+}
+.filter-button.is-active .filter-count{color:#6d8495}
+.filter-button:focus-visible{
+  outline:2px solid #64829a;
+  outline-offset:3px;
+}
+.filter-status{
+  margin:0 0 23px;
+  color:#8a959a;
+  font-family:"DM Mono",monospace;
+  font-size:10px;
+  letter-spacing:.025em;
+}
+.project-empty{
+  padding:22px 0;
+  border:0;
+  border-top:1px solid #d6dddf;
+  border-bottom:1px solid #d6dddf;
+  background:transparent;
+  color:#6e7d86;
+  font-size:14px;
+  line-height:1.65;
+}
+@media(hover:hover) and (pointer:fine){
+  .filter-button:hover:not(.is-active){color:var(--ink);border-bottom-color:#b9c6cd!important}
+}
+@media(max-width:620px){
+  .filter-row{
+    display:grid;
+    grid-template-columns:repeat(2,minmax(0,1fr));
+    gap:0 20px;
+    margin-bottom:11px;
+  }
+  .filter-button{
+    width:100%;
+    min-width:0;
+    min-height:45px;
+    font-size:12px;
+  }
+  .filter-status{margin-bottom:19px}
+}

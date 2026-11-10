@@ -169,7 +169,7 @@
   function applyFilter(value) {
     activeProjectFilter = filterDefinitions[value] ? value : "all";
     const definition = filterDefinitions[activeProjectFilter];
-    const cards = $(".project-card");
+    const cards = $$(".project-card");
     const counts = {
       all: cards.length,
       completed: cards.filter(card => card.dataset.completed === "true").length,
