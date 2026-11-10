@@ -51,7 +51,7 @@ This is a static site. Open `index.html` in a browser or serve the repository ro
 
 ## Project filters
 
-The four project filters remain **Everything**, **Completed**, **Live sites**, and **In progress**. Each shows a live project count. Completed is evidence-based and only includes projects with a registered LinkedIn publication. Live sites are based on a configured public project URL. In progress contains projects that do not yet have registered completion evidence. The selected filter is preserved when project data refreshes; the controls also support keyboard and touch interaction.
+The four project filters remain **Everything**, **Completed**, **Live sites**, and **In progress**. **Completed** intentionally includes every project explicitly marked completed, every project marked live (including private showcases such as Buzz), and projects with LinkedIn publication evidence. **Live sites** remains a separate overlapping category, so a live project appears in both Completed and Live sites. **In progress** contains projects explicitly marked as still being built or researched. The selected filter is preserved when project data refreshes; the controls also support keyboard and touch interaction. The filter controls have individual colours and no numeric counters.
 
 
 The project filters retain the original four categories with restrained coloured surfaces and no numerical counters. Their click behaviour is covered by a Playwright mobile-browser check in the GitHub Actions workflow; the test checks all four categories, visible card counts, active state, empty state and Buzz's Live-sites classification.
