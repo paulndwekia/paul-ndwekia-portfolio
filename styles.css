@@ -267,3 +267,121 @@ h1,h2,h3{font-family:"DM Serif Display",Georgia,serif;font-weight:400;letter-spa
 @media(max-width:420px){
   .filter-button{min-height:49px;padding:11px 12px;font-size:12px}
 }
+
+
+/* Mobile reading and layout correction — keep every major section in one column. */
+@media (max-width: 760px) {
+  .hero,
+  .project-grid,
+  .progress-grid,
+  .about-grid,
+  .approach-grid,
+  .contact-inner,
+  .site-footer {
+    grid-template-columns: minmax(0, 1fr) !important;
+  }
+
+  .hero { align-items: stretch; }
+  .project-grid { gap: 20px; }
+  .progress-grid,
+  .about-grid,
+  .approach-grid { gap: 24px; }
+
+  .filter-row {
+    display: grid !important;
+    grid-template-columns: minmax(0, 1fr) !important;
+    gap: 8px !important;
+  }
+
+  .filter-button {
+    width: 100%;
+    min-height: 48px;
+    justify-content: flex-start;
+    padding: 12px 14px;
+    font-size: 15px;
+  }
+
+  .site-footer > p,
+  .site-footer > small,
+  .site-footer > small:nth-last-child(2),
+  .site-footer > small:last-child,
+  .footer-links {
+    grid-column: 1 !important;
+    grid-row: auto !important;
+    text-align: left;
+    justify-content: flex-start;
+  }
+
+  .section-heading {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  .project-card,
+  .progress-panel {
+    width: 100%;
+    min-width: 0;
+  }
+}
+
+@media (max-width: 620px) {
+  body { font-size: 17px; line-height: 1.7; }
+
+  .brand-copy strong { font-size: 13px; }
+  .brand-copy small { font-size: 10px; }
+  .primary-nav { font-size: 16px; }
+  .primary-nav a,
+  .primary-nav .nav-contact { padding-block: 14px; }
+
+  .eyebrow { font-size: 12px; }
+  .identity-caption,
+  .hero-note { font-size: 12px; }
+  .hero h1 { font-size: clamp(44px, 11vw, 50px); }
+  .hero-lede { font-size: 18px; line-height: 1.7; }
+
+  .section-heading h2 { font-size: 41px; }
+  .section-intro { font-size: 16px; line-height: 1.7; }
+
+  .project-preview { height: 230px; }
+  .project-body { padding: 22px 20px 24px; }
+  .project-meta { font-size: 12px; }
+  .project-body h3 { font-size: 30px; line-height: 1.18; }
+  .project-body > p:not(.project-meta) { font-size: 16px; line-height: 1.75; }
+  .tag-list span { font-size: 12px; padding: 6px 10px; }
+  .repo-signal { font-size: 12px !important; line-height: 1.6; }
+  .project-links { flex-wrap: wrap; gap: 14px 20px; }
+  .project-links a { font-size: 14px; }
+
+  .progress-panel { padding: 20px; }
+  .panel-heading h3 { font-size: 27px; }
+  .activity-top a { font-size: 15px; }
+  .activity-top time,
+  .activity-meta,
+  .sync-bar { font-size: 12px; }
+  .activity-commit { font-size: 14px; line-height: 1.6; }
+  .linkedin-status strong { font-size: 15px; }
+  .linkedin-status small,
+  .approval-note span { font-size: 12px; }
+  .linkedin-panel > p:not(.panel-note) { font-size: 15px; }
+
+  .about-story p { font-size: 17px; line-height: 1.8; }
+  .about-details span { font-size: 12px; }
+  .about-details strong { font-size: 16px; }
+  .about-details small { font-size: 14px; }
+
+  .approach-grid article h3 { font-size: 27px; }
+  .approach-grid article p:last-child { font-size: 16px; line-height: 1.75; }
+
+  .contact-section h2 { font-size: 44px; }
+  .contact-section p:not(.eyebrow) { font-size: 16px; line-height: 1.7; }
+  .button { min-height: 46px; padding: 12px 16px; font-size: 15px; }
+  .contact-actions a:not(.button) { font-size: 15px; }
+
+  .footer-brand strong { font-size: 14px; }
+  .site-footer > p,
+  .site-footer > small,
+  .footer-links a { font-size: 12px; }
+  .cookie-notice p { font-size: 13px; }
+  .cookie-notice button { min-height: 42px; font-size: 13px; }
+}
