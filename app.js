@@ -48,7 +48,7 @@
     const photo = customPath
       ? customPath + (customPath.includes("?") ? "&" : "?") + "v=" + encodeURIComponent(data.profile?.updated_at || "1")
       : defaultProfileImage;
-    $(".profile-avatar").forEach(image => {
+    $$(".profile-avatar").forEach(image => {
       image.onerror = () => { image.onerror = null; image.src = defaultProfileImage; };
       image.src = photo;
       image.alt = "Paul Ndwekia profile picture";

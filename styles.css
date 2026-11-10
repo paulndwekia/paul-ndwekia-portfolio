@@ -36,3 +36,6 @@ h1,h2,h3{font-family:"DM Serif Display",Georgia,serif;font-weight:400;letter-spa
 .preview-unavailable span{font-family:"DM Mono",monospace;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:#56738b}
 .preview-unavailable strong{max-width:480px;font-family:"DM Serif Display",Georgia,serif;font-size:clamp(21px,3vw,31px);font-weight:400;line-height:1.18}
 .project-preview>img{object-fit:cover;object-position:top center}
+
+.about-profile span{font-family:"DM Mono",monospace;font-size:10px;color:#84939b}
+.about-profile a[href*="change-profile-photo"]{font-family:"DM Mono",monospace;font-size:10px;color:#456f95;border-bottom:1px solid #b8c8d2;width:max-content}

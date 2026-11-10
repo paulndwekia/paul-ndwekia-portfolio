@@ -6,6 +6,7 @@ on:
     paths-ignore:
       - 'data/**'
       - 'assets/previews/**'
+      - 'assets/profile/**'
   schedule:
     - cron: "17 */6 * * *"
   workflow_dispatch:
@@ -34,7 +35,7 @@ jobs:
           node-version: 22
 
       - name: Register LinkedIn publication evidence
-        if: github.event_name == 'issues'
+        if: github.event_name == 'issues' && (startsWith(github.event.issue.title, 'LinkedIn publication:') || startsWith(github.event.issue.title, 'Withdraw LinkedIn evidence:'))
         env:
           GITHUB_EVENT_PATH: ${{ github.event_path }}
         run: node scripts/register-linkedin-publication.mjs
