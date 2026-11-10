@@ -117,12 +117,13 @@
     data.projects.forEach(project => {
       const record = evidenceFor(project.slug);
       const completed = Boolean(record);
+      const projectStatus = project.portfolio_status || (project.live_url ? "live" : "in-progress");
       const repo = (data.github?.repositories || []).find(item => item.name === project.repository);
       const card = create("article","project-card");
       card.dataset.projectSlug = project.slug;
       card.dataset.completed = String(completed);
-      card.dataset.live = String(Boolean(project.live_url));
-      card.dataset.progress = String(!completed && !Boolean(project.live_url));
+      card.dataset.live = String(!completed && projectStatus === "live");
+      card.dataset.progress = String(!completed && projectStatus !== "live");
       card.append(projectPreview(project, record));
       const body = create("div","project-body");
       const meta = create("p","project-meta", completed ? "Completed · LinkedIn publication verified" : (project.stage_label || "In progress"));
@@ -170,7 +171,7 @@
     completed: {
       label: "Completed",
       message: "Showing projects with verified publication evidence",
-      empty: "No projects have a registered LinkedIn completion record yet.",
+      empty: "No LinkedIn project announcements have been registered here yet. Add a published post using the evidence form to list it here.",
       matches: card => card.dataset.completed === "true"
     },
     live: {
