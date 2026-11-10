@@ -5,6 +5,7 @@ on:
     branches: [main]
     paths-ignore:
       - 'data/**'
+      - 'assets/previews/**'
   schedule:
     - cron: "17 */6 * * *"
   workflow_dispatch:
@@ -44,11 +45,23 @@ jobs:
           GITHUB_OWNER: paulndwekia
         run: node scripts/sync.mjs
 
+      - name: Install Playwright browser for project screenshots
+        if: github.event_name != 'issues'
+        run: |
+          npm install --prefix /tmp/portfolio-browser playwright
+          /tmp/portfolio-browser/node_modules/.bin/playwright install --with-deps chromium
+
+      - name: Capture real public project websites
+        if: github.event_name != 'issues'
+        env:
+          PLAYWRIGHT_MODULE: /tmp/portfolio-browser/node_modules/playwright/index.mjs
+        run: node scripts/capture-previews.mjs
+
       - name: Commit updated portfolio data
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add data/projects.json data/github-progress.json data/linkedin-evidence.json
+          git add data/projects.json data/github-progress.json data/linkedin-evidence.json assets/previews/
           if git diff --cached --quiet; then
             echo "No portfolio data changes."
           else
