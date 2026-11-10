@@ -21,7 +21,9 @@ Personal portfolio for work across finance, data and technology.
 3. Choose the project, paste the public LinkedIn post URL and, if available, the original public image URL.
 4. Submit. GitHub Actions validates the LinkedIn URL, records the evidence and refreshes the site data.
 
-This step is required because free official integrations do not provide unrestricted access to read personal LinkedIn posts. The workflow does not scrape LinkedIn or store LinkedIn login credentials.
+This step is required because free official integrations do not provide unrestricted access to read personal LinkedIn posts. The workflow does not scrape LinkedIn or store LinkedIn login credentials. The repository owner can use the **Withdraw deleted LinkedIn evidence** issue form if a post is deleted; this removes the active completion evidence so the project no longer qualifies as Completed.
+
+LinkedIn does not provide a reliable anonymous way to distinguish a deleted post from a login wall, privacy restriction or anti-bot response. The free setup therefore does not automatically downgrade a project based on an inconclusive HTTP check. The owner-triggered withdrawal form is the reliable deletion path.
 
 ## Privacy and security
 
