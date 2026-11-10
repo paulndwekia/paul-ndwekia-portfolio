@@ -61,9 +61,13 @@ jobs:
         uses: actions/github-script@v7
         with:
           script: |
+            const withdrawn = context.payload.issue.title.startsWith("Withdraw LinkedIn evidence:");
+            const message = withdrawn
+              ? "The LinkedIn publication evidence has been withdrawn. This project no longer qualifies as Completed on the portfolio."
+              : "The LinkedIn publication evidence was registered. This project now qualifies as Completed on the portfolio. If you supplied an original public image URL, it will appear on the project card after deployment.";
             await github.rest.issues.createComment({
               owner: context.repo.owner,
               repo: context.repo.repo,
               issue_number: context.issue.number,
-              body: "Publication evidence has been processed. The portfolio catalogue now uses this LinkedIn announcement to determine the project's completion label. A linked original image URL will be used on the project card after the website redeploys."
+              body: message
             });
