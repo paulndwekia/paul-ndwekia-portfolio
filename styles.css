@@ -880,3 +880,189 @@ body {
   .project-body > p:not(.project-meta),
   .approach-grid article p:last-child { color: #45545f; }
 }
+
+
+/* Lower the remaining near-white surfaces to a calm, cool stone palette. */
+:root {
+  --paper: #d9dfdb;
+  --white: #d4dbd5;
+  --muted: #465762;
+  --line: #b9c6c5;
+}
+body {
+  background: #d9dfdb;
+  color: #10243a;
+}
+.project-card {
+  background: #d2dad4;
+  border-color: #b9c6c2;
+}
+.progress-section {
+  background: #cbd6d4;
+  border-color: #b7c5c3;
+}
+.progress-panel {
+  background: #d7dfd9;
+  border-color: #b9c7c4;
+}
+.cookie-notice {
+  background: #d7dfd9;
+  border-color: #b5c3c1;
+}
+.button-light {
+  background: #d4ddd6;
+  border-color: #d4ddd6;
+}
+.preview-unavailable,
+.project-empty {
+  background: #d3dcd8;
+  border-color: #b8c7c3;
+}
+.project-body > p:not(.project-meta),
+.hero-lede,
+.section-intro,
+.about-story p,
+.approach-grid article p:last-child,
+.linkedin-panel > p:not(.panel-note) {
+  color: #354954;
+}
+.activity-commit { color: #354954; }
+.activity-meta,
+.activity-top time,
+.panel-note,
+.progress-footnote,
+.site-footer > p,
+.site-footer > small {
+  color: #4c5d66;
+}
+.tag-list span {
+  border-color: #bdc9c7;
+  color: #445a66;
+}
+
+/* Another desktop readability step: bigger body copy and stronger hierarchy. */
+@media (min-width: 851px) {
+  body {
+    font-size: 23px;
+    line-height: 1.8;
+  }
+  .brand-copy strong { font-size: 17px; }
+  .brand-copy small,
+  .primary-nav { font-size: 16px; }
+
+  .eyebrow,
+  .identity-caption,
+  .hero-note { font-size: 15px; }
+  .hero h1 {
+    font-size: clamp(76px, 6.4vw, 96px);
+    line-height: 1.04;
+  }
+  .hero-lede {
+    max-width: 980px;
+    font-size: 25px;
+    line-height: 1.82;
+  }
+  .hero-actions .button,
+  .hero-actions .text-link { font-size: 18px; }
+
+  .section-heading { gap: 22px; margin-bottom: 42px; }
+  .section-heading h2 {
+    font-size: clamp(64px, 5vw, 78px);
+    line-height: 1.06;
+  }
+  .section-intro {
+    max-width: 1040px;
+    font-size: 23px;
+    line-height: 1.82;
+  }
+
+  .filter-button {
+    min-height: 62px;
+    padding: 16px 22px;
+    font-size: 19px;
+  }
+
+  .project-grid { gap: 38px; }
+  .project-preview { height: 390px; }
+  .project-body { padding: 42px 46px 44px; }
+  .project-meta { font-size: 16px; }
+  .project-body h3 {
+    font-size: 46px;
+    line-height: 1.14;
+  }
+  .project-body > p:not(.project-meta) {
+    max-width: 1080px;
+    font-size: 22px;
+    line-height: 1.82;
+  }
+  .tag-list span { font-size: 15px; }
+  .repo-signal {
+    font-size: 16px !important;
+    line-height: 1.75;
+  }
+  .project-links a { font-size: 18px; }
+  .link-note { font-size: 15px; }
+
+  .progress-panel { padding: 42px; }
+  .panel-heading h3 { font-size: 42px; }
+  .panel-heading > a { font-size: 17px; }
+  .sync-bar,
+  .sync-bar button { font-size: 15px; }
+  .activity-top a { font-size: 20px; }
+  .activity-top time,
+  .activity-meta { font-size: 15px; }
+  .activity-commit {
+    font-size: 19px;
+    line-height: 1.78;
+  }
+  .activity-message { font-size: 17px; }
+  .panel-note,
+  .progress-footnote { font-size: 15px; }
+  .linkedin-status strong { font-size: 20px; }
+  .linkedin-status small { font-size: 15px; }
+  .linkedin-panel > p:not(.panel-note) { font-size: 19px; }
+  .approval-note strong { font-size: 18px; }
+  .approval-note span { font-size: 16px; }
+  .button-outline { font-size: 17px; }
+
+  .about-story p {
+    max-width: 1060px;
+    font-size: 23px;
+    line-height: 1.88;
+  }
+  .about-profile strong { font-size: 20px; }
+  .about-profile span,
+  .about-profile a { font-size: 15px; }
+  .about-details span { font-size: 15px; }
+  .about-details strong { font-size: 20px; }
+  .about-details small { font-size: 17px; }
+
+  .approach-grid article h3 { font-size: 37px; }
+  .approach-grid article p:last-child {
+    max-width: 1020px;
+    font-size: 22px;
+    line-height: 1.82;
+  }
+
+  .contact-section h2 {
+    font-size: clamp(70px, 5.4vw, 84px);
+  }
+  .contact-section p:not(.eyebrow) {
+    max-width: 980px;
+    font-size: 23px;
+    line-height: 1.82;
+  }
+  .contact-actions .button {
+    min-height: 58px;
+    padding: 16px 24px;
+    font-size: 18px;
+  }
+  .contact-actions a:not(.button) { font-size: 18px; }
+  .business-note { font-size: 14px !important; }
+
+  .site-footer { padding-block: 44px; }
+  .footer-brand strong { font-size: 18px; }
+  .site-footer > p,
+  .site-footer > small,
+  .footer-links a { font-size: 15px; }
+}
