@@ -55,7 +55,7 @@ h1,h2,h3{font-family:"DM Serif Display",Georgia,serif;font-weight:400;letter-spa
 .preview-nkaulele .cover-art{background:linear-gradient(130deg,#203a34,#64816a)}
 .preview-forex .cover-art{background:linear-gradient(130deg,#172f48,#3d6c7c)}
 .preview-investment .cover-art{background:linear-gradient(130deg,#162c43,#345773)}
-.preview-fintel .cover-art{background:linear-gradient(130deg,#142c42,#47738b)}
+.preview-fintel .cover-art{background:radial-gradient(ellipse at 78% 18%,rgba(143,185,162,.34),transparent 35%),linear-gradient(135deg,#081817 0%,#163b32 58%,#b38b43 125%)}
 .preview-gdp .cover-art{background:linear-gradient(130deg,#203b55,#567d96)}
 .project-preview>img{object-fit:cover;object-position:top center}
 @media(max-width:620px){.cover-art{padding:25px 23px}.cover-art>strong{font-size:32px}.cover-ornament{left:23px;right:23px}}
