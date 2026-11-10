@@ -75,8 +75,20 @@
       ? "Custom profile photo · GitHub remains the fallback"
       : "GitHub photo is the default";
   }
+  function buildProjectCover(project) {
+    const cover = create("div", "cover-art");
+    const motif = create("div", "cover-ornament");
+    motif.setAttribute("aria-hidden", "true");
+    cover.append(motif);
+    cover.append(
+      create("span", "", project.cover_kicker || project.category || "Selected work"),
+      create("strong", "", project.cover_title || project.name)
+    );
+    return cover;
+  }
+
   function projectPreview(project, evidence) {
-    const panel = create("div", "project-preview " + (project.preview_class || ""));
+    const panel = create("div", "project-preview " + (project.preview_class || "preview-github"));
     const imageUrl = evidence?.image_url || project.preview_image_url || project.preview_image;
     if (imageUrl) {
       const image = create("img");
@@ -84,23 +96,16 @@
       image.loading = "lazy";
       image.decoding = "async";
       image.addEventListener("error", () => {
-        panel.replaceChildren(create("div","preview-unavailable",
-          evidence?.image_url ? "LinkedIn image could not be loaded" : "Project preview could not be loaded"));
+        panel.replaceChildren(buildProjectCover(project));
       }, { once:true });
       panel.append(image, create("span","preview-label",
-        evidence?.image_url ? "LinkedIn project image" : "Project preview"));
+        evidence?.image_url ? "LinkedIn project image" : "Live project preview"));
       image.src = imageUrl;
       return panel;
     }
 
-    const empty = create("div","preview-unavailable");
-    empty.append(
-      create("span","",project.live_url ? "Live project" : "Project preview"),
-      create("strong","",project.live_url
-        ? "Live website screenshot is being prepared"
-        : "A public project screenshot has not been supplied")
-    );
-    panel.append(empty);
+    // A designed editorial cover is the intentional fallback for private and research projects.
+    panel.append(buildProjectCover(project));
     return panel;
   }
   function renderProjects() {
