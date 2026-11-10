@@ -1,0 +1,33 @@
+name: Change portfolio profile photo
+description: Upload a new profile picture for the portfolio or restore the GitHub avatar.
+title: "Profile photo update:"
+body:
+  - type: markdown
+    attributes:
+      value: |
+        This updates the picture shown in the website header, introduction, About section and footer for every visitor.
+        The uploaded photo becomes public as part of this public portfolio repository. Upload only a photo you own or have permission to publish.
+  - type: dropdown
+    id: action
+    attributes:
+      label: Action
+      options:
+        - Upload a new profile photo
+        - Restore the GitHub photo (default)
+    validations:
+      required: true
+  - type: textarea
+    id: profile_photo
+    attributes:
+      label: Profile photo image
+      description: For a new photo, attach a JPEG, PNG or WebP image using the attachment control in this box. The image must be 8 MB or smaller. To restore GitHub, leave this blank.
+      placeholder: Attach your photo here, or paste a public GitHub issue image attachment URL.
+    validations:
+      required: false
+  - type: checkboxes
+    id: confirmation
+    attributes:
+      label: Confirmation
+      options:
+        - label: I confirm that I have the right to publish this image on my public portfolio.
+          required: true

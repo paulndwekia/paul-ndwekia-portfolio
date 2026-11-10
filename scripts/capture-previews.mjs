@@ -29,19 +29,33 @@ try {
     const page = await context.newPage();
     try {
       console.log(`Capturing ${project.name}: ${project.live_url}`);
-      const response = await page.goto(project.live_url, {
-        waitUntil: "domcontentloaded",
-        timeout: 90000
-      });
-      if (response && response.status() >= 400) {
-        throw new Error(`Website returned HTTP ${response.status()}`);
+      let response = null;
+      let navigationError = null;
+      for (let attempt = 1; attempt <= 4; attempt++) {
+        try {
+          response = await page.goto(project.live_url, {
+            waitUntil: "domcontentloaded",
+            timeout: 90000
+          });
+          if (response && response.status() >= 500) throw new Error(`Website returned HTTP ${response.status()}`);
+          if (response && response.status() >= 400) throw new Error(`Website returned HTTP ${response.status()}`);
+          navigationError = null;
+          break;
+        } catch (error) {
+          navigationError = error;
+          if (attempt < 4) {
+            console.warn(`Attempt ${attempt}/4 failed for ${project.name}: ${error.message}; retrying in 20 seconds.`);
+            await page.waitForTimeout(20000);
+          }
+        }
       }
+      if (navigationError) throw navigationError;
       try {
-        await page.waitForLoadState("networkidle", { timeout: 10000 });
+        await page.waitForLoadState("networkidle", { timeout: 12000 });
       } catch {
         // Some dashboards keep connections open; a stable visible render is sufficient.
       }
-      await page.waitForTimeout(3500);
+      await page.waitForTimeout(5000);
       await page.evaluate(() => window.scrollTo(0, 0));
       await page.screenshot({
         path: outputPath,

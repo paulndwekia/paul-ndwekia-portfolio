@@ -22,7 +22,7 @@ concurrency:
 
 jobs:
   sync:
-    if: github.event_name != 'issues' || (github.event.issue.user.login == 'paulndwekia' && (startsWith(github.event.issue.title, 'LinkedIn publication:') || startsWith(github.event.issue.title, 'Withdraw LinkedIn evidence:')))
+    if: github.event_name != 'issues' || (github.event.issue.user.login == 'paulndwekia' && (startsWith(github.event.issue.title, 'LinkedIn publication:') || startsWith(github.event.issue.title, 'Withdraw LinkedIn evidence:') || startsWith(github.event.issue.title, 'Profile photo update:')))
     runs-on: ubuntu-latest
     steps:
       - name: Check out portfolio
@@ -39,6 +39,11 @@ jobs:
           GITHUB_EVENT_PATH: ${{ github.event_path }}
         run: node scripts/register-linkedin-publication.mjs
 
+      - name: Update portfolio profile photo
+        if: github.event_name == 'issues' && startsWith(github.event.issue.title, 'Profile photo update:')
+        env:
+          GITHUB_EVENT_PATH: ${{ github.event_path }}
+        run: node scripts/register-profile-photo.mjs
       - name: Refresh public GitHub projects and progress
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -61,7 +66,7 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add data/projects.json data/github-progress.json data/linkedin-evidence.json assets/previews/
+          git add data/projects.json data/github-progress.json data/linkedin-evidence.json data/profile.json assets/previews/ assets/profile/
           if git diff --cached --quiet; then
             echo "No portfolio data changes."
           else
@@ -75,9 +80,12 @@ jobs:
         with:
           script: |
             const withdrawn = context.payload.issue.title.startsWith("Withdraw LinkedIn evidence:");
-            const message = withdrawn
-              ? "The LinkedIn publication evidence has been withdrawn. This project no longer qualifies as Completed on the portfolio."
-              : "The LinkedIn publication evidence was registered. This project now qualifies as Completed on the portfolio. If you supplied an original public image URL, it will appear on the project card after deployment.";
+            const profileUpdate = context.payload.issue.title.startsWith("Profile photo update:");
+            const message = profileUpdate
+              ? "The portfolio profile photo setting was updated. The change will be visible to all visitors after the production deployment. The GitHub avatar remains the fallback."
+              : withdrawn
+                ? "The LinkedIn publication evidence has been withdrawn. This project no longer qualifies as Completed on the portfolio."
+                : "The LinkedIn publication evidence was registered. This project now qualifies as Completed on the portfolio. If you supplied an original public image URL, it will appear on the project card after deployment.";
             await github.rest.issues.createComment({
               owner: context.repo.owner,
               repo: context.repo.repo,

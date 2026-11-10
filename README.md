@@ -21,6 +21,10 @@ The existing Vercel project `paul-ndwekia-portfolio` is connected to this reposi
 - Projects without a public demo or supplied image are clearly shown as having no public preview rather than being represented by a fabricated screenshot.
 - Once the workflow commits the evidence and preview images, Vercel's Git integration deploys the update automatically.
 
+## Changing the portfolio profile photo
+
+Open [Change portfolio profile photo](https://github.com/paulndwekia/paul-ndwekia-portfolio/issues/new?template=change-profile-photo.yml), choose **Upload a new profile photo**, attach a JPEG, PNG or WebP image (8 MB maximum), confirm and submit. The owner-only GitHub Actions workflow copies the image into this repository and updates the header, introduction, About section and footer for all visitors. The GitHub avatar remains the default and can be restored from the same form. Uploaded photos become public as part of this public repository.
+
 ## Registering a LinkedIn project post
 
 1. Publish the project announcement on your personal LinkedIn profile.

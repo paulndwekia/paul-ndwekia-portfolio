@@ -2,7 +2,7 @@
   const $ = (selector, root=document) => root.querySelector(selector);
   const $$ = (selector, root=document) => [...root.querySelectorAll(selector)];
   const owner = "paulndwekia";
-  const data = { projects: [], evidence: [], github: null };
+  const data = { projects: [], evidence: [], github: null, profile: null };
   const year = $("#year");
   if (year) year.textContent = new Date().getFullYear();
 
@@ -41,6 +41,22 @@
     if (className) node.className = className;
     if (text !== undefined) node.textContent = text;
     return node;
+  }
+  const defaultProfileImage = "https://avatars.githubusercontent.com/u/270900506?v=4";
+  function renderProfile() {
+    const customPath = data.profile?.photo_path;
+    const photo = customPath
+      ? customPath + (customPath.includes("?") ? "&" : "?") + "v=" + encodeURIComponent(data.profile?.updated_at || "1")
+      : defaultProfileImage;
+    $(".profile-avatar").forEach(image => {
+      image.onerror = () => { image.onerror = null; image.src = defaultProfileImage; };
+      image.src = photo;
+      image.alt = "Paul Ndwekia profile picture";
+    });
+    const status = $("#profile-photo-status");
+    if (status) status.textContent = customPath
+      ? "Custom profile photo · GitHub remains the fallback"
+      : "GitHub photo is the default";
   }
   function projectPreview(project, evidence) {
     const panel = create("div", "project-preview " + (project.preview_class || ""));
@@ -160,15 +176,17 @@
 
   async function load() {
     try {
-      const [projects, evidence, github] = await Promise.all([
+      const [projects, evidence, github, profile] = await Promise.all([
         fetch("/data/projects.json",{cache:"no-store"}).then(r=>{if(!r.ok)throw Error("projects");return r.json()}),
         fetch("/data/linkedin-evidence.json",{cache:"no-store"}).then(r=>{if(!r.ok)throw Error("evidence");return r.json()}),
-        fetch("/data/github-progress.json",{cache:"no-store"}).then(r=>{if(!r.ok)throw Error("github");return r.json()})
+        fetch("/data/github-progress.json",{cache:"no-store"}).then(r=>{if(!r.ok)throw Error("github");return r.json()}),
+        fetch("/data/profile.json",{cache:"no-store"}).then(r=>{if(!r.ok)throw Error("profile");return r.json()})
       ]);
       data.projects = projects.projects || [];
       data.evidence = evidence.evidence || [];
       data.github = github;
-      renderProjects(); renderGitHub();
+      data.profile = profile;
+      renderProfile(); renderProjects(); renderGitHub();
     } catch (error) {
       const grid = $("#project-grid");
       if (grid) grid.textContent = "Project information is temporarily unavailable. Please refresh the page.";
