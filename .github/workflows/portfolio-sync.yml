@@ -1,0 +1,65 @@
+name: Portfolio data sync
+
+on:
+  schedule:
+    - cron: "17 */6 * * *"
+  workflow_dispatch:
+  issues:
+    types: [opened, edited]
+
+permissions:
+  contents: write
+  issues: write
+
+concurrency:
+  group: portfolio-data-sync
+  cancel-in-progress: false
+
+jobs:
+  sync:
+    if: github.event_name != 'issues' || contains(join(github.event.issue.labels.*.name, ','), 'linkedin-publication')
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out portfolio
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Register LinkedIn publication evidence
+        if: github.event_name == 'issues'
+        env:
+          GITHUB_EVENT_PATH: ${{ github.event_path }}
+        run: node scripts/register-linkedin-publication.mjs
+
+      - name: Refresh public GitHub projects and progress
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_OWNER: paulndwekia
+        run: node scripts/sync.mjs
+
+      - name: Commit updated portfolio data
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/projects.json data/github-progress.json data/linkedin-evidence.json
+          if git diff --cached --quiet; then
+            echo "No portfolio data changes."
+          else
+            git commit -m "chore: refresh portfolio progress and publication evidence"
+            git push
+          fi
+
+      - name: Confirm LinkedIn evidence was recorded
+        if: github.event_name == 'issues'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            await github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.issue.number,
+              body: "Publication evidence has been processed. The portfolio catalogue now uses this LinkedIn announcement to determine the project's completion label. A linked original image URL will be used on the project card after the website redeploys."
+            });
