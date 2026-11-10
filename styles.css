@@ -1156,3 +1156,138 @@ body {
   .sync-bar,
   .activity-meta { letter-spacing: .02em; }
 }
+
+
+/* Reduce pale/white surfaces further while keeping the page light and readable. */
+:root {
+  --paper: #cbd4cf;
+  --white: #c4cec7;
+  --muted: #334b57;
+  --line: #aebdb8;
+}
+body {
+  background: #cbd4cf;
+  color: #102b40;
+}
+.project-card {
+  background: #c3cec7;
+  border-color: #aebdb7;
+}
+.progress-section {
+  background: #bdcbc7;
+  border-color: #aabbb6;
+}
+.progress-panel {
+  background: #cad5ce;
+  border-color: #adbbb6;
+}
+.cookie-notice {
+  background: #cad5ce;
+  border-color: #aabbb6;
+}
+.button-light {
+  background: #c7d2cb;
+  border-color: #c7d2cb;
+}
+.preview-unavailable,
+.project-empty {
+  background: #c5d1cb;
+  border-color: #aabbb5;
+}
+.hero-lede,
+.section-intro,
+.project-body > p:not(.project-meta),
+.about-story p,
+.approach-grid article p:last-child,
+.linkedin-panel > p:not(.panel-note) {
+  color: #2f4651;
+}
+.activity-commit { color: #2f4651; }
+.activity-meta,
+.activity-top time,
+.panel-note,
+.progress-footnote,
+.site-footer > p,
+.site-footer > small {
+  color: #40545d;
+}
+.tag-list span {
+  border-color: #aebdb7;
+  color: #344b56;
+}
+
+/* Increase the remaining small labels and metadata so they read comfortably. */
+@media (min-width: 851px) {
+  .brand-copy small,
+  .eyebrow,
+  .identity-caption,
+  .hero-note,
+  .hero-image figcaption,
+  .cover-art > span,
+  .preview-label,
+  .filter-status,
+  .project-meta,
+  .tag-list span,
+  .repo-signal,
+  .link-note,
+  .sync-bar,
+  .sync-bar button,
+  .activity-top time,
+  .activity-meta,
+  .panel-note,
+  .progress-footnote,
+  .linkedin-status small,
+  .approval-note span,
+  .about-profile span,
+  .about-profile a,
+  .about-details span,
+  .about-details small,
+  .business-note,
+  .site-footer > p,
+  .site-footer > small,
+  .footer-links a,
+  .cookie-notice p,
+  .cookie-notice button {
+    font-size: 18px !important;
+    line-height: 1.65;
+  }
+  .project-links .link-note { font-size: 18px !important; }
+  .preview-label { padding: 9px 12px; }
+}
+
+@media (max-width: 850px) {
+  .brand-copy small,
+  .eyebrow,
+  .identity-caption,
+  .hero-note,
+  .hero-image figcaption,
+  .cover-art > span,
+  .preview-label,
+  .filter-status,
+  .project-meta,
+  .tag-list span,
+  .repo-signal,
+  .link-note,
+  .sync-bar,
+  .sync-bar button,
+  .activity-top time,
+  .activity-meta,
+  .panel-note,
+  .progress-footnote,
+  .linkedin-status small,
+  .approval-note span,
+  .about-profile span,
+  .about-profile a,
+  .about-details span,
+  .about-details small,
+  .business-note,
+  .site-footer > p,
+  .site-footer > small,
+  .footer-links a,
+  .cookie-notice p,
+  .cookie-notice button {
+    font-size: 15px !important;
+    line-height: 1.6;
+  }
+  .preview-label { padding: 8px 11px; }
+}
