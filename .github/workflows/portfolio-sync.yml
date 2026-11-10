@@ -17,7 +17,7 @@ concurrency:
 
 jobs:
   sync:
-    if: github.event_name != 'issues' || contains(join(github.event.issue.labels.*.name, ','), 'linkedin-publication')
+    if: github.event_name != 'issues' || (github.event.issue.user.login == 'paulndwekia' && (startsWith(github.event.issue.title, 'LinkedIn publication:') || startsWith(github.event.issue.title, 'Withdraw LinkedIn evidence:')))
     runs-on: ubuntu-latest
     steps:
       - name: Check out portfolio
