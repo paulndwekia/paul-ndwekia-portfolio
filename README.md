@@ -16,7 +16,10 @@ The existing Vercel project `paul-ndwekia-portfolio` is connected to this reposi
 - Commit activity is shown as progress evidence only. It never marks a project complete.
 - A project becomes **Completed** only after a LinkedIn publication record is submitted through the repository's **LinkedIn project publication** issue form.
 - A submitted LinkedIn post may include the original image URL. The site uses that image for the project preview.
-- Once the workflow commits the evidence, Vercel's Git integration can deploy the update automatically.
+- The workflow captures the public homepages of hosted projects with a headless browser and stores real screenshots in `assets/previews/`.
+- Previews are static images served by this portfolio; visitors do not need to call a third-party screenshot service.
+- Projects without a public demo or supplied image are clearly shown as having no public preview rather than being represented by a fabricated screenshot.
+- Once the workflow commits the evidence and preview images, Vercel's Git integration deploys the update automatically.
 
 ## Registering a LinkedIn project post
 
