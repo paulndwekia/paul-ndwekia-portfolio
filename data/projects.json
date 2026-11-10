@@ -18,7 +18,8 @@
       ],
       "cover_kicker": "Fixed income research",
       "cover_title": "Kenya Yield Curve",
-      "preview_class": "preview-yield"
+      "preview_class": "preview-yield",
+      "preview_image": "/assets/previews/kenya-yield-curve-risk-engine.jpg"
     },
     {
       "slug": "standpoint-financial-intelligence",
@@ -38,7 +39,8 @@
       ],
       "cover_kicker": "Kenyan market intelligence",
       "cover_title": "StandPoint",
-      "preview_class": "preview-standpoint"
+      "preview_class": "preview-standpoint",
+      "preview_image": "/assets/previews/standpoint-financial-intelligence.jpg"
     },
     {
       "slug": "buzz-social-discovery",
@@ -76,7 +78,8 @@
       ],
       "cover_kicker": "Kenyan quantitative finance",
       "cover_title": "Financial Analytics",
-      "preview_class": "preview-analytics"
+      "preview_class": "preview-analytics",
+      "preview_image": "/assets/previews/kenya-financial-analytics.jpg"
     },
     {
       "slug": "nkaulele-contractors",
@@ -94,7 +97,8 @@
       ],
       "cover_kicker": "Company website · Kenya",
       "cover_title": "Nkaulele Contractors",
-      "preview_class": "preview-nkaulele"
+      "preview_class": "preview-nkaulele",
+      "preview_image": "/assets/previews/nkaulele-contractors.jpg"
     },
     {
       "slug": "forexpilot-ai",
@@ -113,7 +117,8 @@
       ],
       "cover_kicker": "Forex research · Risk intelligence",
       "cover_title": "ForexPilot AI",
-      "preview_class": "preview-forex"
+      "preview_class": "preview-forex",
+      "preview_image": "/assets/previews/forexpilot-ai.jpg"
     },
     {
       "slug": "kenya-investment-intelligence",
@@ -130,7 +135,8 @@
       ],
       "cover_kicker": "Kenya · Investment research",
       "cover_title": "Research with a local lens.",
-      "preview_class": "preview-investment"
+      "preview_class": "preview-investment",
+      "preview_image_url": "https://raw.githubusercontent.com/paulndwekia/Rock_Investment_Outlook_2026/main/report/charts/04_risk_return.png"
     },
     {
       "slug": "fintel-kenya-financial-intelligence",
