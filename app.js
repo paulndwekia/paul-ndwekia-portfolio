@@ -173,13 +173,13 @@
     },
     completed: {
       label: "Completed",
-      message: "Showing projects with a LinkedIn announcement recorded in the portfolio",
-      empty: "Your LinkedIn posts are not imported automatically. Add their direct post links to the portfolio evidence register and they will appear here.",
+      message: "Showing projects listed or announced on LinkedIn",
+      empty: "No completed projects are currently recorded from LinkedIn profile listings or announcements.",
       matches: card => card.dataset.completed === "true"
     },
     live: {
       label: "Live sites",
-      message: "Showing projects marked as live, including private showcases",
+      message: "Showing live websites and showcases",
       empty: "No public live sites are listed at the moment.",
       matches: card => card.dataset.live === "true"
     },
