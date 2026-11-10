@@ -34,6 +34,15 @@ jobs:
         with:
           node-version: 22
 
+      - name: Validate portfolio scripts and data
+        run: |
+          node --check app.js
+          node --check scripts/sync.mjs
+          node --check scripts/capture-previews.mjs
+          node --check scripts/register-linkedin-publication.mjs
+          node --check scripts/register-profile-photo.mjs
+          node -e "for (const file of ['data/projects.json','data/linkedin-evidence.json','data/github-progress.json','data/profile.json']) JSON.parse(require('fs').readFileSync(file, 'utf8'))"
+
       - name: Register LinkedIn publication evidence
         if: github.event_name == 'issues' && (startsWith(github.event.issue.title, 'LinkedIn publication:') || startsWith(github.event.issue.title, 'Withdraw LinkedIn evidence:'))
         env:

@@ -196,25 +196,42 @@
     dot.classList.add("is-live");
   }
 
-  async function load() {
+  async function fetchJson(path) {
     try {
-      const [projects, evidence, github, profile] = await Promise.all([
-        fetch("/data/projects.json",{cache:"no-store"}).then(r=>{if(!r.ok)throw Error("projects");return r.json()}),
-        fetch("/data/linkedin-evidence.json",{cache:"no-store"}).then(r=>{if(!r.ok)throw Error("evidence");return r.json()}),
-        fetch("/data/github-progress.json",{cache:"no-store"}).then(r=>{if(!r.ok)throw Error("github");return r.json()}),
-        fetch("/data/profile.json",{cache:"no-store"}).then(r=>{if(!r.ok)throw Error("profile");return r.json()})
-      ]);
-      data.projects = projects.projects || [];
-      data.evidence = evidence.evidence || [];
-      data.github = github;
-      data.profile = profile;
-      renderProfile(); renderProjects(); renderGitHub();
+      const response = await fetch(path, { cache: "default" });
+      if (!response.ok) throw new Error(path + " returned " + response.status);
+      return await response.json();
     } catch (error) {
-      const grid = $("#project-grid");
-      if (grid) grid.textContent = "Project information is temporarily unavailable. Please refresh the page.";
-      const status = $("#github-sync-text");
-      if (status) status.textContent = "Repository data is temporarily unavailable.";
+      console.warn("Portfolio data unavailable:", path, error);
+      return null;
     }
+  }
+
+  async function load() {
+    // Projects are the only data dependency for the Selected Work section.
+    // Render them independently so slow profile/evidence/GitHub requests cannot hold the page.
+    const projectsPromise = fetchJson("/data/projects.json").then(projects => {
+      if (Array.isArray(projects?.projects) && projects.projects.length) {
+        data.projects = projects.projects;
+        renderProjects();
+      }
+    });
+
+    const [evidence, github, profile] = await Promise.all([
+      fetchJson("/data/linkedin-evidence.json"),
+      fetchJson("/data/github-progress.json"),
+      fetchJson("/data/profile.json")
+    ]);
+
+    if (Array.isArray(evidence?.evidence)) data.evidence = evidence.evidence;
+    if (Array.isArray(github?.repositories)) data.github = github;
+    if (profile && typeof profile === "object") data.profile = profile;
+
+    // Update profile and progress independently; project cards are already visible.
+    renderProfile();
+    renderGitHub();
+    await projectsPromise;
+    if (data.projects.length) renderProjects();
   }
 
   $("#github-refresh")?.addEventListener("click", async () => {
