@@ -14,7 +14,7 @@ The existing Vercel project `paul-ndwekia-portfolio` is connected to this reposi
 - GitHub Actions refreshes public repository activity every six hours.
 - New public, non-fork repositories are discovered and added to the portfolio as **In progress** entries.
 - Commit activity is shown as progress evidence only. It never marks a project complete.
-- A project becomes **Completed** only after a LinkedIn publication record is submitted through the repository's **LinkedIn project publication** issue form.
+- A project can become **Completed** when its LinkedIn profile Projects entry or public project announcement is recorded as evidence. A LinkedIn profile project listing is linked to the public profile; a post announcement can be registered with the **LinkedIn project publication** issue form.
 - A submitted LinkedIn post may include the original image URL. The site uses that image for the project preview.
 - The workflow captures the public homepages of hosted projects with a headless browser and stores real screenshots in `assets/previews/`.
 - Previews are static images served by this portfolio; visitors do not need to call a third-party screenshot service.
@@ -54,4 +54,4 @@ This is a static site. Open `index.html` in a browser or serve the repository ro
 The four project filters remain **Everything**, **Completed**, **Live sites**, and **In progress**. Each shows a live project count. Completed is evidence-based and only includes projects with a registered LinkedIn publication. Live sites are based on a configured public project URL. In progress contains projects that do not yet have registered completion evidence. The selected filter is preserved when project data refreshes; the controls also support keyboard and touch interaction.
 
 
-The project filters are intentionally styled as restrained editorial text controls rather than dashboard-style pill buttons. Their click behaviour is covered by a Playwright mobile-browser check in the GitHub Actions workflow; the test checks all four categories, visible card counts, active state and the empty state.
+The project filters retain the original four categories with restrained coloured surfaces and no numerical counters. Their click behaviour is covered by a Playwright mobile-browser check in the GitHub Actions workflow; the test checks all four categories, visible card counts, active state, empty state and Buzz's Live-sites classification.

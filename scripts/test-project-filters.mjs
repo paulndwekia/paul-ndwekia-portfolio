@@ -86,11 +86,15 @@ try {
   const colors = await page.locator(".filter-button").evaluateAll(nodes => nodes.map(node => getComputedStyle(node).backgroundColor));
   if (new Set(colors).size !== 4) throw new Error("Each project category should have its own background colour.");
   const buzz = JSON.parse(await readFile("data/projects.json","utf8")).projects.find(project => project.slug === "buzz-social-discovery");
-  if (!buzz || buzz.preview_url !== "https://buzz-social-platformbuzz-social-platform.onrender.com/" || buzz.preview_image !== "/assets/previews/buzz-social-discovery.jpg") {
+  if (!buzz || buzz.live_url !== "https://buzz-social-platformbuzz-social-platform.onrender.com/" || buzz.preview_url !== "https://buzz-social-platformbuzz-social-platform.onrender.com/" || buzz.preview_image !== "/assets/previews/buzz-social-discovery.jpg" || buzz.portfolio_status !== "live") {
     throw new Error("Buzz's original preview source was not preserved.");
   }
   const buzzCard = page.locator('[data-project-slug="buzz-social-discovery"] .project-preview img');
   if (await buzzCard.getAttribute("src") !== "/assets/previews/buzz-social-discovery.jpg") throw new Error("Buzz preview image is not attached to its card.");
+  const buzzProjectCard = page.locator('[data-project-slug="buzz-social-discovery"]');
+  if (await buzzProjectCard.getAttribute("data-live") !== "true" || await buzzProjectCard.getAttribute("data-progress") !== "false") throw new Error("Buzz must appear under Live sites and not In progress.");
+  const completedSlugs = await page.locator('.project-card[data-completed="true"]').evaluateAll(nodes => nodes.map(node => node.dataset.projectSlug));
+  if (!completedSlugs.includes("kenya-financial-analytics") || !completedSlugs.includes("kenya-yield-curve-risk-engine")) throw new Error("LinkedIn-listed completed projects are not reflected in Completed.");
   if (errors.length) throw new Error("Browser JavaScript errors: " + errors.join("; "));
 
   console.log("PASS: All four coloured project filters work on a 390px mobile viewport.");

@@ -1,4 +1,20 @@
 {
-  "updated_at": null,
-  "evidence": []
+  "updated_at": "2026-11-10T08:30:00.000Z",
+  "evidence": [
+    {
+      "project_slug": "kenya-financial-analytics",
+      "evidence_type": "linkedin-profile-project",
+      "profile_project_title": "Kenya Financial Analytics",
+      "source_url": "https://ke.linkedin.com/in/kieru-ndwekia-447023409",
+      "source_description": "Listed in the Projects section of the public LinkedIn profile."
+    },
+    {
+      "project_slug": "kenya-yield-curve-risk-engine",
+      "evidence_type": "linkedin-profile-project",
+      "profile_project_title": "Kenya Yield Curve & Interest Rate Risk Engine",
+      "source_url": "https://ke.linkedin.com/in/kieru-ndwekia-447023409",
+      "source_description": "Listed in the Projects section of the public LinkedIn profile."
+    }
+  ],
+  "withdrawals": []
 }

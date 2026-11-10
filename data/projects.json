@@ -9,7 +9,7 @@
       "live_label": "Visit project",
       "description": "A fixed-income research terminal for Treasury-bill observations, yield-curve construction, bond valuation and interest-rate risk measures including duration, convexity and DV01.",
       "category": "Fixed income research",
-      "stage_label": "Live research terminal · awaiting LinkedIn evidence",
+      "stage_label": "Completed · listed on LinkedIn",
       "stack": [
         "Fixed income",
         "Python",
@@ -20,7 +20,7 @@
       "cover_title": "Kenya Yield Curve",
       "preview_class": "preview-yield",
       "preview_image": "/assets/previews/kenya-yield-curve-risk-engine.jpg",
-      "portfolio_status": "live"
+      "portfolio_status": "completed"
     },
     {
       "slug": "standpoint-financial-intelligence",
@@ -48,10 +48,10 @@
       "slug": "buzz-social-discovery",
       "name": "Buzz — Entertainment & Social Discovery",
       "repository": "buzz-social-platform",
-      "live_url": null,
+      "live_url": "https://buzz-social-platformbuzz-social-platform.onrender.com/",
       "description": "A social discovery product built around finding what’s worth watching, listening to and sharing. The completed project is available as a private walkthrough.",
       "category": "Entertainment · Social discovery",
-      "stage_label": "Live project · private showcase available",
+      "stage_label": "Live site · private showcase available",
       "stack": [
         "Product design",
         "Social",
@@ -63,7 +63,8 @@
       "preview_class": "preview-buzz",
       "preview_url": "https://buzz-social-platformbuzz-social-platform.onrender.com/",
       "preview_image": "/assets/previews/buzz-social-discovery.jpg",
-      "portfolio_status": "live"
+      "portfolio_status": "live",
+      "live_label": "Visit Buzz"
     },
     {
       "slug": "kenya-financial-analytics",
@@ -73,7 +74,7 @@
       "live_label": "Visit project",
       "description": "A Kenyan-market quantitative finance workspace bringing market observations, FX and Treasury-bill analysis together with bond pricing, portfolio risk and financial research.",
       "category": "Financial analytics",
-      "stage_label": "Live application · awaiting LinkedIn evidence",
+      "stage_label": "Completed · listed on LinkedIn",
       "stack": [
         "Python",
         "Streamlit",
@@ -85,7 +86,7 @@
       "cover_title": "Financial Analytics",
       "preview_class": "preview-analytics",
       "preview_image": "/assets/previews/kenya-financial-analytics.jpg",
-      "portfolio_status": "live"
+      "portfolio_status": "completed"
     },
     {
       "slug": "nkaulele-contractors",

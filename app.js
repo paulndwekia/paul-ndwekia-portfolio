@@ -52,7 +52,7 @@
     return dateLabel(value);
   };
   const slugify = value => String(value || "").toLowerCase().replace(/[^a-z0-9]+/g,"-").replace(/^-|-$/g,"");
-  const evidenceFor = slug => data.evidence.find(item => item.project_slug === slug && item.post_url);
+  const evidenceFor = slug => data.evidence.find(item => item.project_slug === slug && (item.post_url || item.source_url));
 
   function create(tag, className, text) {
     const node = document.createElement(tag);
@@ -126,7 +126,7 @@
       card.dataset.progress = String(!completed && projectStatus !== "live");
       card.append(projectPreview(project, record));
       const body = create("div","project-body");
-      const meta = create("p","project-meta", completed ? "Completed · LinkedIn publication verified" : (project.stage_label || "In progress"));
+      const meta = create("p","project-meta", completed ? (record.evidence_type === "linkedin-profile-project" ? "Completed · listed on LinkedIn" : "Completed · LinkedIn announcement verified") : (project.stage_label || "In progress"));
       const heading = create("h3","",project.name);
       const description = create("p","",project.description || repo?.description || "A project in the finance, data and technology space.");
       const tags = create("div","tag-list");
@@ -155,6 +155,9 @@
       if (record?.post_url) {
         const post = create("a","","LinkedIn announcement");
         post.href = record.post_url; post.target = "_blank"; post.rel = "noopener"; links.append(post);
+      } else if (record?.source_url) {
+        const profile = create("a","","LinkedIn profile");
+        profile.href = record.source_url; profile.target = "_blank"; profile.rel = "noopener"; links.append(profile);
       }
       body.append(meta, heading, description, tags, signal, links);
       card.append(body); grid.append(card);
