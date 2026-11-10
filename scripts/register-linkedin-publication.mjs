@@ -8,8 +8,8 @@ if (issue?.user?.login !== "paulndwekia") throw new Error("Only the portfolio ow
 if (!issue?.body) throw new Error("Issue body is missing.");
 
 function field(name) {
-  const section = issue.body.split(/\\n### /).find(part => part.startsWith(name + "\\n"));
-  return section ? section.slice(name.length + 1).split(/\\n### /)[0].trim() : "";
+  const section = issue.body.split(/\n### /).find(part => part.startsWith(name + "\n"));
+  return section ? section.slice(name.length + 1).split(/\n### /)[0].trim() : "";
 }
 const slug = field("Project");
 if (!slug || slug.toLowerCase() === "select a project") throw new Error("Choose a project in the issue form.");
@@ -29,15 +29,16 @@ if (issue.title.startsWith("Withdraw LinkedIn evidence:")) {
     reason: "Owner reported that the LinkedIn publication was deleted or withdrawn."
   });
   registry.updated_at = new Date().toISOString();
-  await writeFile(path,JSON.stringify(registry,null,2) + "\\n");
+  await writeFile(path,JSON.stringify(registry,null,2) + "\n");
   console.log("Withdrawn LinkedIn publication evidence for " + slug + ".");
 } else if (issue.title.startsWith("LinkedIn publication:")) {
   const postUrl = field("LinkedIn post URL");
   const imageUrl = field("Original project image URL (optional)");
-  const publishedAt = field("Publication date (optional)") || new Date().toISOString().slice(0,10);
+  const publishedInput = field("Publication date (optional)");
+  const publishedAt = !publishedInput || publishedInput.toLowerCase() === "none" ? new Date().toISOString().slice(0,10) : publishedInput;
   let parsed;
   try { parsed = new URL(postUrl); } catch { throw new Error("Enter a valid LinkedIn post URL."); }
-  if (parsed.protocol !== "https:" || !/(^|\\.)linkedin\\.com$/i.test(parsed.hostname)) {
+  if (parsed.protocol !== "https:" || !/(^|\.)linkedin\.com$/i.test(parsed.hostname)) {
     throw new Error("The publication URL must be an https://www.linkedin.com/... URL.");
   }
   let parsedImage = null;
@@ -56,7 +57,7 @@ if (issue.title.startsWith("Withdraw LinkedIn evidence:")) {
   registry.evidence = registry.evidence.filter(item => item.project_slug !== slug);
   registry.evidence.push(record);
   registry.updated_at = new Date().toISOString();
-  await writeFile(path,JSON.stringify(registry,null,2) + "\\n");
+  await writeFile(path,JSON.stringify(registry,null,2) + "\n");
   console.log("Registered LinkedIn publication evidence for " + slug + ".");
 } else {
   throw new Error("Unsupported evidence action.");
