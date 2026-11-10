@@ -51,7 +51,7 @@ try {
   const cases = [
     { key: "live", visible: 3, status: "Showing live websites and showcases", slugs: ["standpoint-financial-intelligence","buzz-social-discovery","nkaulele-contractors"] },
     { key: "progress", visible: 4, status: "Showing projects still being built or researched", slugs: ["forexpilot-ai","kenya-investment-intelligence","fintel-kenya-financial-intelligence","gdp-dashboard"] },
-    { key: "completed", visible: 2, status: "Showing projects listed or announced on LinkedIn", slugs: ["kenya-yield-curve-risk-engine","kenya-financial-analytics"] },
+    { key: "completed", visible: 5, status: "Showing completed projects, including all live sites and showcases", slugs: ["kenya-yield-curve-risk-engine","standpoint-financial-intelligence","buzz-social-discovery","kenya-financial-analytics","nkaulele-contractors"] },
     { key: "all", visible: 9, status: "Showing all projects", slugs: ["kenya-yield-curve-risk-engine","standpoint-financial-intelligence","buzz-social-discovery","kenya-financial-analytics","nkaulele-contractors","forexpilot-ai","kenya-investment-intelligence","fintel-kenya-financial-intelligence","gdp-dashboard"] }
   ];
 
