@@ -49,10 +49,10 @@ try {
   if (total !== 9) throw new Error(`Expected 9 project cards; found ${total}.`);
 
   const cases = [
-    { key: "live", visible: 5, status: "Showing projects with a public live site" },
-    { key: "progress", visible: 4, status: "Showing projects that are not yet publicly live or completion-verified" },
-    { key: "completed", visible: 0, status: "Showing projects with verified publication evidence" },
-    { key: "all", visible: 9, status: "Showing all projects" }
+    { key: "live", visible: 5, status: "Showing projects marked as live, including private showcases", slugs: ["kenya-yield-curve-risk-engine","standpoint-financial-intelligence","buzz-social-discovery","kenya-financial-analytics","nkaulele-contractors"] },
+    { key: "progress", visible: 4, status: "Showing projects still being built or researched", slugs: ["forexpilot-ai","kenya-investment-intelligence","fintel-kenya-financial-intelligence","gdp-dashboard"] },
+    { key: "completed", visible: 0, status: "Showing projects with a LinkedIn announcement recorded in the portfolio", slugs: [] },
+    { key: "all", visible: 9, status: "Showing all projects", slugs: ["kenya-yield-curve-risk-engine","standpoint-financial-intelligence","buzz-social-discovery","kenya-financial-analytics","nkaulele-contractors","forexpilot-ai","kenya-investment-intelligence","fintel-kenya-financial-intelligence","gdp-dashboard"] }
   ];
 
   for (const test of cases) {
@@ -62,13 +62,17 @@ try {
       visible: document.querySelectorAll(".project-card:not([hidden])").length,
       total: document.querySelectorAll(".project-card").length,
       status: document.querySelector("#project-filter-status")?.textContent || "missing status",
-      active: [...document.querySelectorAll(".filter-button[aria-pressed='true']")].map(button => button.dataset.filter)
+      active: [...document.querySelectorAll(".filter-button[aria-pressed='true']")].map(button => button.dataset.filter),
+      slugs: [...document.querySelectorAll(".project-card:not([hidden])")].map(card => card.dataset.projectSlug)
     }));
     if (observed.visible !== test.visible) {
       throw new Error(`${test.key} filter mismatch: expected ${test.visible} visible; observed ${JSON.stringify(observed)}; browser errors: ${errors.join(" | ")}`);
     }
     if (!observed.status.includes(test.status)) {
       throw new Error(`${test.key} status mismatch: ${observed.status}`);
+    }
+    if (test.slugs && JSON.stringify([...observed.slugs].sort()) !== JSON.stringify([...test.slugs].sort())) {
+      throw new Error(`${test.key} shows the wrong projects: ${JSON.stringify(observed.slugs)}`);
     }
     const activeCount = await page.locator('.filter-button[aria-pressed="true"]').count();
     if (activeCount !== 1) throw new Error(`${test.key}: expected exactly one active category, found ${activeCount}.`);
