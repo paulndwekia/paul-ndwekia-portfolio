@@ -1,0 +1,68 @@
+import { mkdir, readFile, stat } from "node:fs/promises";
+import path from "node:path";
+
+const playwrightPath = process.env.PLAYWRIGHT_MODULE || "playwright";
+const { chromium } = await import(playwrightPath);
+const projectsData = JSON.parse(await readFile("data/projects.json", "utf8"));
+const projects = (projectsData.projects || []).filter(project => project.live_url && project.preview_image);
+const outputDir = path.resolve("assets/previews");
+await mkdir(outputDir, { recursive: true });
+
+if (!projects.length) {
+  console.log("No hosted projects have preview paths configured.");
+  process.exit(0);
+}
+
+const browser = await chromium.launch({ headless: true });
+let captured = 0;
+let failed = 0;
+
+try {
+  for (const project of projects) {
+    const outputPath = path.join(outputDir, path.basename(project.preview_image));
+    const context = await browser.newContext({
+      viewport: { width: 1440, height: 960 },
+      deviceScaleFactor: 1,
+      ignoreHTTPSErrors: true,
+      reducedMotion: "reduce"
+    });
+    const page = await context.newPage();
+    try {
+      console.log(`Capturing ${project.name}: ${project.live_url}`);
+      const response = await page.goto(project.live_url, {
+        waitUntil: "domcontentloaded",
+        timeout: 90000
+      });
+      if (response && response.status() >= 400) {
+        throw new Error(`Website returned HTTP ${response.status()}`);
+      }
+      try {
+        await page.waitForLoadState("networkidle", { timeout: 10000 });
+      } catch {
+        // Some dashboards keep connections open; a stable visible render is sufficient.
+      }
+      await page.waitForTimeout(3500);
+      await page.evaluate(() => window.scrollTo(0, 0));
+      await page.screenshot({
+        path: outputPath,
+        type: "jpeg",
+        quality: 84,
+        fullPage: false,
+        animations: "disabled"
+      });
+      const file = await stat(outputPath);
+      if (file.size < 12000) throw new Error(`Screenshot unexpectedly small (${file.size} bytes)`);
+      console.log(`Saved ${outputPath} (${file.size} bytes)`);
+      captured++;
+    } catch (error) {
+      console.warn(`Could not capture ${project.name}: ${error.message}`);
+      failed++;
+    } finally {
+      await context.close();
+    }
+  }
+} finally {
+  await browser.close();
+}
+
+console.log(`Project screenshots: ${captured} captured, ${failed} unavailable.`);
