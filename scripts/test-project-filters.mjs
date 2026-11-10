@@ -49,7 +49,7 @@ try {
   if (total !== 9) throw new Error(`Expected 9 project cards; found ${total}.`);
 
   const cases = [
-    { key: "live", visible: 5, status: "Showing 5 of 9 projects" },
+    { key: "live", visible: 5, status: "Showing projects with a public live site" },
     { key: "progress", visible: 4, status: "Showing projects that are not yet publicly live or completion-verified" },
     { key: "completed", visible: 0, status: "Showing projects with verified publication evidence" },
     { key: "all", visible: 9, status: "Showing all projects" }
@@ -78,7 +78,7 @@ try {
     throw new Error("Empty state should be hidden when Everything is selected.");
   }
   const buttonTexts = await page.locator(".filter-button").allTextContents();
-  if (buttonTexts.some(text => /\\d/.test(text))) throw new Error("Project filter buttons should not display numbers.");
+  if (buttonTexts.some(text => /\d/.test(text))) throw new Error("Project filter buttons should not display numbers.");
   const colors = await page.locator(".filter-button").evaluateAll(nodes => nodes.map(node => getComputedStyle(node).backgroundColor));
   if (new Set(colors).size !== 4) throw new Error("Each project category should have its own background colour.");
   const buzz = JSON.parse(await readFile("data/projects.json","utf8")).projects.find(project => project.slug === "buzz-social-discovery");
