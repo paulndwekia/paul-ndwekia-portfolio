@@ -1,24 +1,24 @@
 {
   "owner": "paulndwekia",
-  "generated_at": "2026-11-10T19:45:47.493Z",
+  "generated_at": "2026-11-11T06:26:53.741Z",
   "repositories": [
-    {
-      "name": "fintel-kenya-financial-intelligence",
-      "html_url": "https://github.com/paulndwekia/fintel-kenya-financial-intelligence",
-      "description": "FINTEL — Kenya Financial Intelligence platform",
-      "language": "TypeScript",
-      "stars": 0,
-      "pushed_at": "2026-11-10T19:38:06Z",
-      "latest_commit": "Finish FINTEL registration, navigation and CBK T-Bill ingestion"
-    },
     {
       "name": "Kenya-Financial-Analytics",
       "html_url": "https://github.com/paulndwekia/Kenya-Financial-Analytics",
       "description": "Kenyan quantitative finance and market intelligence platform powered by official Central Bank of Kenya data, covering FX, Treasury Bills, yield curves, bonds, options, portfolios and risk analytics.",
       "language": "Python",
       "stars": 0,
-      "pushed_at": "2026-11-09T23:46:30Z",
+      "pushed_at": "2026-11-10T21:17:06Z",
       "latest_commit": "chore: update CBK market data"
+    },
+    {
+      "name": "fintel-kenya-financial-intelligence",
+      "html_url": "https://github.com/paulndwekia/fintel-kenya-financial-intelligence",
+      "description": "FINTEL — Kenya Financial Intelligence platform",
+      "language": "TypeScript",
+      "stars": 0,
+      "pushed_at": "2026-11-10T20:21:17Z",
+      "latest_commit": "Deduplicate repeated CBK Bond issue codes"
     },
     {
       "name": "Rock_Investment_Outlook_2026",
