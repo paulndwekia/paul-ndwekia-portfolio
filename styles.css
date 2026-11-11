@@ -1104,7 +1104,9 @@ body {
 .project-card:hover .project-preview.preview-nkaulele > img {
   transform: scale(.962);
   box-shadow: 0 14px 33px rgba(0,0,0,.29), 0 2px 6px rgba(0,0,0,.22);
-}\n\n/* Nairobi hero — deliberate desktop composition, responsive image crop and
+}
+
+/* Nairobi hero — deliberate desktop composition, responsive image crop and
    a resilient visual fallback if Wikimedia is temporarily unreachable. */
 @media (min-width: 1024px) and (pointer: fine) {
   .hero {
@@ -1202,4 +1204,4 @@ body {
 @media (prefers-reduced-motion: reduce) {
   .hero-image img,
   .hero-image:hover img { transition: none; transform: none; }
-}\n
+}
