@@ -92,23 +92,27 @@
     },
     {
       "slug": "nkaulele-contractors",
-      "name": "Nkaulele Contractors",
+      "name": "Nkaulele Contractors Limited",
       "repository": "nkaulele-contractors-website",
       "live_url": "https://nkaulele-contractors-website.vercel.app/",
       "live_label": "Visit website",
-      "description": "A company website created to give a contracting business a clear, professional online presence and an accessible place to introduce its services.",
-      "category": "Company website",
-      "stage_label": "Live · included in Completed",
+      "description": "The official company website for Nkaulele Contractors Limited, based in Nkoilale, Maasai Mara. It introduces the company, construction and civil engineering services, project approach, company-provided work imagery and direct project enquiries.",
+      "category": "Company website · Construction & civil engineering",
+      "stage_label": "Live · company website",
       "stack": [
-        "Website",
-        "Frontend",
+        "Next.js",
+        "React",
+        "JavaScript",
+        "CSS",
         "Vercel"
       ],
-      "cover_kicker": "Company website · Kenya",
+      "cover_kicker": "Construction · Civil engineering · Kenya",
       "cover_title": "Nkaulele Contractors",
       "preview_class": "preview-nkaulele",
-      "preview_image": "/assets/previews/nkaulele-contractors.jpg",
-      "portfolio_status": "live"
+      "preview_image": "/assets/previews/nkaulele-contractors-home-2026.svg",
+      "portfolio_status": "live",
+      "preview_alt": "Full-width home page preview for Nkaulele Contractors Limited, showing the company wordmark, navigation, hero, authentic company site photograph and location strip",
+      "preview_label": "Full home-page view · Nkaulele Contractors"
     },
     {
       "slug": "forexpilot-ai",

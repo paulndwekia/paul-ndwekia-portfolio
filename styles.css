@@ -1092,3 +1092,16 @@ body {
 @media(prefers-reduced-motion:reduce) {
  .project-preview > img, .project-card:hover .project-preview > img { transition:none; transform:none; }
 }
+
+/* Nkaulele full website preview frame: gently inset to keep every edge visible. */
+.project-preview.preview-nkaulele {
+  background: linear-gradient(135deg,#17271f,#304638);
+}
+.project-preview.preview-nkaulele > img {
+  transform: scale(.945);
+  box-shadow: 0 11px 28px rgba(0,0,0,.27), 0 1px 3px rgba(0,0,0,.2);
+}
+.project-card:hover .project-preview.preview-nkaulele > img {
+  transform: scale(.962);
+  box-shadow: 0 14px 33px rgba(0,0,0,.29), 0 2px 6px rgba(0,0,0,.22);
+}
