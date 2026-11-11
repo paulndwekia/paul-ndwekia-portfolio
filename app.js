@@ -93,14 +93,14 @@
     const imageUrl = evidence?.image_url || project.preview_image_url || project.preview_image;
     if (imageUrl) {
       const image = create("img");
-      image.alt = project.name + (evidence?.image_url ? " — original LinkedIn project image" : " — project preview");
+      image.alt = project.preview_alt || (project.name + (evidence?.image_url ? " — original LinkedIn project image" : " — project preview"));
       image.loading = "lazy";
       image.decoding = "async";
       image.addEventListener("error", () => {
         panel.replaceChildren(buildProjectCover(project));
       }, { once:true });
       panel.append(image, create("span","preview-label",
-        evidence?.image_url ? "LinkedIn project image" : (project.live_url ? "Live website capture" : "Project preview")));
+        project.preview_label || (evidence?.image_url ? "LinkedIn project image" : (project.live_url ? "Live website capture" : "Project preview")));
       image.src = imageUrl;
       return panel;
     }

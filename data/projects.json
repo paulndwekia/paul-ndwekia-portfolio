@@ -38,11 +38,13 @@
         "Express",
         "PostgreSQL"
       ],
-      "cover_kicker": "Kenyan market intelligence",
-      "cover_title": "StandPoint",
+      "cover_kicker": "Fixed income analytics · StandPoint",
+      "cover_title": "Yield Curve",
       "preview_class": "preview-standpoint",
-      "preview_image": "/assets/previews/standpoint-financial-intelligence.jpg",
-      "portfolio_status": "live"
+      "preview_image": "/assets/previews/standpoint-yield-curve-nov-2026.svg",
+      "portfolio_status": "live",
+      "preview_alt": "StandPoint Yield Curve workspace interface preview based on the latest screen supplied on 11 November 2026",
+      "preview_label": "Latest interface preview · 11 Nov 2026"
     },
     {
       "slug": "buzz-social-discovery",
@@ -152,9 +154,9 @@
       "name": "FINTEL — Kenya Financial Intelligence",
       "repository": "fintel-kenya-financial-intelligence",
       "live_url": "https://fintel-kenya-financial-intelligence.onrender.com/",
-      "description": "An independent Kenyan market intelligence platform bringing CBK FX and key-rate observations, Treasury Bill and Bond data, yield-curve tools, quantitative models and evidence-aware financial research into one workspace.",
+      "description": "An independent Kenyan financial intelligence platform bringing CBK market observations, FX, Treasury Bills and Bonds, yield-curve tools, quantitative models and source-aware research into one workspace.",
       "category": "Fintech · Kenyan market intelligence",
-      "stage_label": "Live · redesigned release in review",
+      "stage_label": "In progress · live build",
       "stack": [
         "React",
         "TypeScript",
@@ -162,11 +164,14 @@
         "Python",
         "CBK data"
       ],
-      "cover_kicker": "Kenya · Market intelligence",
+      "cover_kicker": "Independent Kenyan market intelligence",
       "cover_title": "FINTEL",
       "preview_class": "preview-fintel",
       "portfolio_status": "in-progress",
-      "live_label": "Visit FINTEL"
+      "live_label": "Visit FINTEL",
+      "preview_image": "/assets/previews/fintel-market-intelligence.svg",
+      "preview_alt": "FINTEL product interface preview based on its current React homepage and design system",
+      "preview_label": "Product interface preview · current build"
     },
     {
       "slug": "gdp-dashboard",
