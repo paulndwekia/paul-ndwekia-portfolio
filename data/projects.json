@@ -137,21 +137,26 @@
     },
     {
       "slug": "kenya-investment-intelligence",
-      "name": "Kenya Investment Intelligence",
+      "name": "Rock Investment Outlook 2026",
       "repository": "Rock_Investment_Outlook_2026",
-      "live_url": null,
-      "description": "A research-led project exploring Kenya’s investment landscape, macroeconomic context and market information through a structured analytical lens.",
-      "category": "Kenya · Investment research",
-      "stage_label": "Research build · awaiting LinkedIn evidence",
+      "live_url": "https://kenyainvestmentintelligence.streamlit.app/",
+      "description": "Co-developed with Edward Chege Waweru for the Rock Investment Bank Research Challenge 2026. This completed research examines Kenya’s banking, telecommunications and manufacturing sectors, bringing together market performance, macroeconomic conditions, fixed-income evidence, risk analysis and conditional 12-month scenarios. The companion Streamlit platform makes the research easier to explore. The remaining step is to showcase the completed work on LinkedIn.",
+      "category": "Kenya equity research · Macroeconomics · Investment outlook",
+      "stage_label": "Completed · LinkedIn showcase pending",
       "stack": [
-        "Research",
         "Python",
-        "Financial analysis"
+        "Streamlit",
+        "Pandas",
+        "NumPy",
+        "Plotly",
+        "SQLite"
       ],
-      "cover_kicker": "Kenya · Investment research",
-      "cover_title": "Research with a local lens.",
+      "cover_kicker": "Rock Investment Bank Research Challenge · 2026",
+      "cover_title": "Kenya Investment Outlook",
       "preview_class": "preview-investment",
-      "portfolio_status": "in-progress"
+      "portfolio_status": "completed",
+      "live_label": "Open Streamlit platform",
+      "report_url": "https://github.com/paulndwekia/Rock_Investment_Outlook_2026/blob/main/report/Rock_Investment_Outlook_2026_Report.md"
     },
     {
       "slug": "fintel-kenya-financial-intelligence",

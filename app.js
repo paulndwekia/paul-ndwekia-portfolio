@@ -148,14 +148,14 @@
       const card = create("article","project-card");
       card.dataset.projectSlug = project.slug;
       card.dataset.completed = String(completed);
-      card.dataset.live = String(projectStatus === "live");
+      card.dataset.live = String(Boolean(project.live_url) || projectStatus === "live");
       card.dataset.progress = String(!completed && projectStatus !== "live");
       card.append(projectPreview(project, record));
       const body = create("div","project-body");
       const metaLabel = record
         ? (record.evidence_type === "linkedin-profile-project" ? "Completed · listed on LinkedIn" : "Completed · LinkedIn announcement verified")
         : projectStatus === "live" ? (project.stage_label || "Live · included in Completed")
-        : projectStatus === "completed" ? "Completed project"
+        : projectStatus === "completed" ? (project.stage_label || "Completed project")
         : (project.stage_label || "In progress");
       const meta = create("p","project-meta", metaLabel);
       const heading = create("h3","",project.name);
@@ -182,6 +182,10 @@
         source.href = repo.html_url; source.target = "_blank"; source.rel = "noopener"; links.append(source);
       } else if (project.repository && !repo) {
         links.append(create("span","link-note","Private source"));
+      }
+      if (project.report_url) {
+        const report = create("a","","Read research report");
+        report.href = project.report_url; report.target = "_blank"; report.rel = "noopener"; links.append(report);
       }
       if (record?.post_url) {
         const post = create("a","","LinkedIn announcement");
