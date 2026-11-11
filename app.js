@@ -37,6 +37,32 @@
     });
   }
 
+  function wireHeroImageFallback() {
+    const image = $(".hero-image img");
+    const frame = image?.closest(".hero-image");
+    if (!image || !frame) return;
+
+    const fallbacks = (image.dataset.fallbackSrcs || "")
+      .split("|")
+      .map(url => url.trim())
+      .filter(Boolean);
+
+    const handleImageError = () => {
+      const nextSource = fallbacks.shift();
+      if (nextSource) {
+        image.src = nextSource;
+        return;
+      }
+
+      frame.classList.add("is-image-unavailable");
+      image.remove();
+    };
+
+    image.addEventListener("error", handleImageError);
+    if (image.complete && image.naturalWidth === 0) handleImageError();
+  }
+  wireHeroImageFallback();
+
   const dateLabel = value => {
     if (!value) return "Date unavailable";
     const date = new Date(value);
