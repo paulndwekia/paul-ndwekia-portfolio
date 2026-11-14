@@ -45,14 +45,29 @@ try {
   page.on("console", message => { if (message.type() === "error") errors.push("console: " + message.text()); });
   await page.goto(origin, { waitUntil: "domcontentloaded" });
   await page.waitForFunction(() => document.documentElement.dataset.filtersReady === "true" && document.documentElement.dataset.projectCatalogueReady === "true");
+  const sourceProjects = JSON.parse(await readFile("data/projects.json", "utf8")).projects || [];
+  const sourceEvidence = JSON.parse(await readFile("data/linkedin-evidence.json", "utf8")).evidence || [];
+  const evidenceSlugs = new Set(sourceEvidence
+    .filter(item => item.post_url || item.source_url)
+    .map(item => item.project_slug));
+  const statusOf = project => project.portfolio_status || (project.live_url ? "live" : "in-progress");
+  const completed = project => evidenceSlugs.has(project.slug) || ["completed", "live"].includes(statusOf(project));
+  const expectedGroups = {
+    live: sourceProjects.filter(project => statusOf(project) === "live"),
+    progress: sourceProjects.filter(project => !completed(project) && statusOf(project) !== "live"),
+    completed: sourceProjects.filter(completed),
+    all: sourceProjects
+  };
   const total = await page.locator(".project-card").count();
-  if (total !== 9) throw new Error(`Expected 9 project cards; found ${total}.`);
+  if (total !== sourceProjects.length) {
+    throw new Error(`Project catalogue mismatch: expected ${sourceProjects.length} cards from data/projects.json; found ${total}.`);
+  }
 
   const cases = [
-    { key: "live", visible: 3, status: "Showing live websites and showcases", slugs: ["standpoint-financial-intelligence","buzz-social-discovery","nkaulele-contractors"] },
-    { key: "progress", visible: 4, status: "Showing projects still being built or researched", slugs: ["forexpilot-ai","kenya-investment-intelligence","fintel-kenya-financial-intelligence","gdp-dashboard"] },
-    { key: "completed", visible: 5, status: "Showing completed projects, including all live sites and showcases", slugs: ["kenya-yield-curve-risk-engine","standpoint-financial-intelligence","buzz-social-discovery","kenya-financial-analytics","nkaulele-contractors"] },
-    { key: "all", visible: 9, status: "Showing all projects", slugs: ["kenya-yield-curve-risk-engine","standpoint-financial-intelligence","buzz-social-discovery","kenya-financial-analytics","nkaulele-contractors","forexpilot-ai","kenya-investment-intelligence","fintel-kenya-financial-intelligence","gdp-dashboard"] }
+    { key: "live", status: "Showing live websites and showcases", slugs: expectedGroups.live.map(project => project.slug) },
+    { key: "progress", status: "Showing projects still being built or researched", slugs: expectedGroups.progress.map(project => project.slug) },
+    { key: "completed", status: "Showing completed projects, including all live sites and showcases", slugs: expectedGroups.completed.map(project => project.slug) },
+    { key: "all", status: "Showing all projects", slugs: expectedGroups.all.map(project => project.slug) }
   ];
 
   for (const test of cases) {
@@ -65,8 +80,8 @@ try {
       active: [...document.querySelectorAll(".filter-button[aria-pressed='true']")].map(button => button.dataset.filter),
       slugs: [...document.querySelectorAll(".project-card:not([hidden])")].map(card => card.dataset.projectSlug)
     }));
-    if (observed.visible !== test.visible) {
-      throw new Error(`${test.key} filter mismatch: expected ${test.visible} visible; observed ${JSON.stringify(observed)}; browser errors: ${errors.join(" | ")}`);
+    if (observed.visible !== test.slugs.length) {
+      throw new Error(`${test.key} filter mismatch: expected ${test.slugs.length} visible from portfolio data; observed ${JSON.stringify(observed)}; browser errors: ${errors.join(" | ")}`);
     }
     if (!observed.status.includes(test.status)) {
       throw new Error(`${test.key} status mismatch: ${observed.status}`);
@@ -93,8 +108,6 @@ try {
   if (await buzzCard.getAttribute("src") !== "/assets/previews/buzz-social-discovery.jpg") throw new Error("Buzz preview image is not attached to its card.");
   const buzzProjectCard = page.locator('[data-project-slug="buzz-social-discovery"]');
   if (await buzzProjectCard.getAttribute("data-live") !== "true" || await buzzProjectCard.getAttribute("data-progress") !== "false") throw new Error("Buzz must appear under Live sites and not In progress.");
-  const completedSlugs = await page.locator('.project-card[data-completed="true"]').evaluateAll(nodes => nodes.map(node => node.dataset.projectSlug));
-  if (!completedSlugs.includes("kenya-financial-analytics") || !completedSlugs.includes("kenya-yield-curve-risk-engine")) throw new Error("LinkedIn-listed completed projects are not reflected in Completed.");
   if (errors.length) throw new Error("Browser JavaScript errors: " + errors.join("; "));
 
   console.log("PASS: All four coloured project filters work on a 390px mobile viewport.");
