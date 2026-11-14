@@ -126,7 +126,7 @@
         panel.replaceChildren(buildProjectCover(project));
       }, { once:true });
       panel.append(image, create("span","preview-label",
-        project.preview_label || (evidence?.image_url ? "LinkedIn project image" : (project.live_url ? "Live website capture" : "Project preview")));
+        project.preview_label || (evidence?.image_url ? "LinkedIn project image" : (project.live_url ? "Live website capture" : "Project preview"))));
       image.src = imageUrl;
       return panel;
     }
