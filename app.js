@@ -124,26 +124,28 @@
   }
 
   function projectPreview(project, evidence) {
-    const panel = create("div", "project-preview " + (project.preview_class || "preview-github"));
-    const caption = create("span", "preview-label", projectPreviewLabel(project, evidence));
+    const wrapper = create("figure", "project-preview-wrap");
+    const frame = create("div", "project-preview " + (project.preview_class || "preview-github"));
+    const caption = create("figcaption", "project-preview-caption", projectPreviewLabel(project, evidence));
     const imageUrl = evidence?.image_url || project.preview_image_url || project.preview_image;
+
     if (imageUrl) {
       const image = create("img");
       image.alt = project.preview_alt || (project.name + (evidence?.image_url ? " — original LinkedIn project image" : " — project preview"));
       image.loading = "lazy";
       image.decoding = "async";
       image.addEventListener("error", () => {
-        // Keep the caption visible when a screenshot fails and the designed cover takes over.
-        panel.replaceChildren(buildProjectCover(project), caption);
+        // The caption is a separate figure element, so it stays visible on fallback.
+        frame.replaceChildren(buildProjectCover(project));
       }, { once:true });
-      panel.append(image, caption);
+      frame.append(image);
       image.src = imageUrl;
-      return panel;
+    } else {
+      frame.append(buildProjectCover(project));
     }
 
-    // Designed covers are labelled too, so every project card has a clear preview caption.
-    panel.append(buildProjectCover(project), caption);
-    return panel;
+    wrapper.append(frame, caption);
+    return wrapper;
   }
   function renderProjects() {
     const grid = $("#project-grid");
