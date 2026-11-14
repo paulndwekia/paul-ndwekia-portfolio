@@ -1,7 +1,16 @@
 {
   "owner": "paulndwekia",
-  "generated_at": "2026-11-14T18:05:55.239Z",
+  "generated_at": "2026-11-14T22:26:38.507Z",
   "repositories": [
+    {
+      "name": "Kenya-Financial-Analytics",
+      "html_url": "https://github.com/paulndwekia/Kenya-Financial-Analytics",
+      "description": "Kenyan quantitative finance and market intelligence platform powered by official Central Bank of Kenya data, covering FX, Treasury Bills, yield curves, bonds, options, portfolios and risk analytics.",
+      "language": "Python",
+      "stars": 0,
+      "pushed_at": "2026-11-14T19:55:30Z",
+      "latest_commit": "chore: update CBK market data"
+    },
     {
       "name": "fintel-kenya-financial-intelligence",
       "html_url": "https://github.com/paulndwekia/fintel-kenya-financial-intelligence",
@@ -10,15 +19,6 @@
       "stars": 0,
       "pushed_at": "2026-11-14T10:03:19Z",
       "latest_commit": "Complete FINTEL data and analytics workspaces"
-    },
-    {
-      "name": "Kenya-Financial-Analytics",
-      "html_url": "https://github.com/paulndwekia/Kenya-Financial-Analytics",
-      "description": "Kenyan quantitative finance and market intelligence platform powered by official Central Bank of Kenya data, covering FX, Treasury Bills, yield curves, bonds, options, portfolios and risk analytics.",
-      "language": "Python",
-      "stars": 0,
-      "pushed_at": "2026-11-13T21:25:09Z",
-      "latest_commit": "chore: update CBK market data"
     },
     {
       "name": "Rock_Investment_Outlook_2026",
