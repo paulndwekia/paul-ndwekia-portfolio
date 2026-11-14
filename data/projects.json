@@ -21,7 +21,7 @@
       "preview_class": "preview-yield",
       "preview_image": "/assets/previews/kenya-yield-curve-risk-engine.jpg",
       "portfolio_status": "completed",
-      "preview_label": "Yield-curve research terminal"
+      "preview_label": "Kenya Yield Curve · Treasury yield and interest-rate risk workspace"
     },
     {
       "slug": "standpoint-financial-intelligence",
@@ -45,7 +45,7 @@
       "preview_image": "/assets/previews/standpoint-yield-curve-nov-2026.svg",
       "portfolio_status": "live",
       "preview_alt": "StandPoint Yield Curve workspace interface preview based on the latest screen supplied on 11 November 2026",
-      "preview_label": "Latest interface preview · 11 Nov 2026"
+      "preview_label": "StandPoint · financial intelligence and yield-curve workspace"
     },
     {
       "slug": "buzz-social-discovery",
@@ -68,7 +68,7 @@
       "preview_image": "/assets/previews/buzz-social-discovery.jpg",
       "portfolio_status": "live",
       "live_label": "Visit Buzz",
-      "preview_label": "Entertainment discovery platform"
+      "preview_label": "Buzz · entertainment and social discovery platform"
     },
     {
       "slug": "kenya-financial-analytics",
@@ -91,7 +91,7 @@
       "preview_class": "preview-analytics",
       "preview_image": "/assets/previews/kenya-financial-analytics.jpg",
       "portfolio_status": "completed",
-      "preview_label": "Kenya market analytics workspace"
+      "preview_label": "Kenya Financial Analytics · Kenyan market research dashboard"
     },
     {
       "slug": "nkaulele-contractors",
@@ -115,7 +115,7 @@
       "preview_image": "/assets/previews/nkaulele-contractors-home-2026.svg",
       "portfolio_status": "live",
       "preview_alt": "Full-width home page preview for Nkaulele Contractors Limited, showing the company wordmark, navigation, hero, authentic company site photograph and location strip",
-      "preview_label": "Full home-page view · Nkaulele Contractors"
+      "preview_label": "Nkaulele Contractors · company website"
     },
     {
       "slug": "forexpilot-ai",
@@ -137,7 +137,7 @@
       "preview_class": "preview-forex",
       "preview_image": "/assets/previews/forexpilot-ai.jpg",
       "portfolio_status": "in-progress",
-      "preview_label": "Forex research interface"
+      "preview_label": "ForexPilot AI · forex research workspace"
     },
     {
       "slug": "kenya-investment-intelligence",
@@ -161,7 +161,7 @@
       "portfolio_status": "completed",
       "live_label": "Open Streamlit platform",
       "report_url": "https://github.com/paulndwekia/Rock_Investment_Outlook_2026/blob/main/report/Rock_Investment_Outlook_2026_Report.md",
-      "preview_label": "Research overview · Streamlit companion"
+      "preview_label": "Rock Investment Outlook 2026 · research and Streamlit companion"
     },
     {
       "slug": "fintel-kenya-financial-intelligence",
@@ -185,7 +185,7 @@
       "live_label": "Visit FINTEL",
       "preview_image": "/assets/previews/fintel-market-intelligence.svg",
       "preview_alt": "FINTEL product interface preview based on its current React homepage and design system",
-      "preview_label": "Product interface preview · current build"
+      "preview_label": "FINTEL · Kenyan financial intelligence workspace"
     },
     {
       "slug": "gdp-dashboard",
@@ -202,7 +202,7 @@
       "cover_title": "gdp dashboard",
       "preview_class": "preview-gdp",
       "portfolio_status": "in-progress",
-      "preview_label": "GitHub project · Python"
+      "preview_label": "GDP Dashboard · public GitHub project"
     }
   ]
 }
