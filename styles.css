@@ -1239,3 +1239,43 @@ body {
 }
 @media (prefers-reduced-motion: reduce) { .approach-grid article, .approach-grid article:hover { transition: none; transform: none; } }
 
+
+
+/* Project preview captions — always visible below the image or designed cover. */
+.project-preview-wrap {
+  display: block;
+  min-width: 0;
+  margin: 0;
+  background: #f4f6f6;
+  border-bottom: 1px solid var(--line);
+}
+.project-preview-wrap .project-preview {
+  height: 260px !important;
+  min-height: 0;
+  margin: 0;
+  border: 0;
+  padding: 13px;
+}
+.project-preview-caption {
+  display: block;
+  min-height: 42px;
+  margin: 0;
+  padding: 10px 16px 11px;
+  border-top: 1px solid #e1e7e8;
+  background: #f4f6f6;
+  color: #53636d;
+  font-family: "DM Sans", Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 500;
+  line-height: 1.5;
+  letter-spacing: 0;
+  text-transform: none;
+}
+.project-preview-wrap .project-preview .preview-label { display: none !important; }
+@media (max-width: 850px) {
+  .project-preview-wrap .project-preview { height: 235px !important; }
+}
+@media (max-width: 620px) {
+  .project-preview-wrap .project-preview { height: 225px !important; }
+  .project-preview-caption { min-height: 0; padding: 10px 13px; font-size: 11px; }
+}
