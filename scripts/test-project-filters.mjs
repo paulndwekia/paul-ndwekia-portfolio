@@ -104,7 +104,7 @@ try {
   if (liveWithUrls.some(project => project.site_status !== "live")) {
     throw new Error("Every project with a configured public website must remain in Live sites.");
   }
-  if (liveWithUrls.some(project => !project.preview_image || !/\\.jpe?g$/i.test(project.preview_image))) {
+  if (liveWithUrls.some(project => !project.preview_image || !project.preview_image.endsWith(".jpg"))) {
     throw new Error("Every public live website must have a correctly named JPEG capture path.");
   }
   for (const project of liveWithUrls) {

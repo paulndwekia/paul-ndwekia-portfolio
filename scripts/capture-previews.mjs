@@ -21,7 +21,7 @@ try {
   for (const project of projects) {
     // All browser captures are JPEGs. Never put JPEG bytes behind an SVG/PNG extension.
     const configuredName = path.basename(project.preview_image);
-    const jpegName = configuredName.replace(/\\.(?:svg|png|webp|jpe?g)$/i, ".jpg");
+    const jpegName = configuredName.replace(/\.(?:svg|png|webp|jpe?g)$/i, ".jpg");
     const outputPath = path.join(outputDir, jpegName);
     const context = await browser.newContext({
       viewport: { width: 1440, height: 960 },
