@@ -107,10 +107,10 @@ try {
   if (liveWithUrls.some(project => !project.preview_image || !project.preview_image.endsWith(".jpg"))) {
     throw new Error("Every public live website must have a correctly named JPEG capture path.");
   }
+  const staticHtml = await readFile("index.html", "utf8");
   for (const project of liveWithUrls) {
-    const image = page.locator(`[data-project-slug="${project.slug}"] .project-preview img`);
-    if (await image.getAttribute("src") !== project.preview_image) {
-      throw new Error(`${project.slug} is not using its configured live capture image.`);
+    if (!staticHtml.includes(`src="${project.preview_image}"`)) {
+      throw new Error(`${project.slug} is not wired to its configured live capture image in the initial page markup.`);
     }
   }
   if (!expectedGroups.live.some(project => project.slug === "nkaulele-contractors")) {
