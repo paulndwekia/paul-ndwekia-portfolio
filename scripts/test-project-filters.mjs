@@ -53,7 +53,7 @@ try {
   const statusOf = project => project.portfolio_status || (project.live_url ? "live" : "in-progress");
   const completed = project => evidenceSlugs.has(project.slug) || ["completed", "live"].includes(statusOf(project));
   const expectedGroups = {
-    live: sourceProjects.filter(project => statusOf(project) === "live"),
+    live: sourceProjects.filter(project => project.site_status === "live" && Boolean(project.live_url)),
     progress: sourceProjects.filter(project => !completed(project) && statusOf(project) !== "live"),
     completed: sourceProjects.filter(completed),
     all: sourceProjects
@@ -64,7 +64,7 @@ try {
   }
 
   const cases = [
-    { key: "live", status: "Showing live websites and showcases", slugs: expectedGroups.live.map(project => project.slug) },
+    { key: "live", status: "Showing public project websites and demos", slugs: expectedGroups.live.map(project => project.slug) },
     { key: "progress", status: "Showing projects still being built or researched", slugs: expectedGroups.progress.map(project => project.slug) },
     { key: "completed", status: "Showing completed projects, including all live sites and showcases", slugs: expectedGroups.completed.map(project => project.slug) },
     { key: "all", status: "Showing all projects", slugs: expectedGroups.all.map(project => project.slug) }
@@ -100,6 +100,19 @@ try {
   if (buttonTexts.some(text => /\d/.test(text))) throw new Error("Project filter buttons should not display numbers.");
   const colors = await page.locator(".filter-button").evaluateAll(nodes => nodes.map(node => getComputedStyle(node).backgroundColor));
   if (new Set(colors).size !== 4) throw new Error("Each project category should have its own background colour.");
+  const liveWithUrls = sourceProjects.filter(project => Boolean(project.live_url));
+  if (liveWithUrls.some(project => project.site_status !== "live")) {
+    throw new Error("Every project with a configured public website must remain in Live sites.");
+  }
+  if (!expectedGroups.live.some(project => project.slug === "nkaulele-contractors")) {
+    throw new Error("Nkaulele Contractors must remain in Live sites.");
+  }
+  for (const slug of ["standpoint-financial-intelligence","buzz-social-discovery","kenya-yield-curve-risk-engine","kenya-financial-analytics","nkaulele-contractors","kenya-investment-intelligence"]) {
+    if (!expectedGroups.live.some(project => project.slug === slug)) {
+      throw new Error(`${slug} is missing from Live sites.`);
+    }
+  }
+
   const buzz = JSON.parse(await readFile("data/projects.json","utf8")).projects.find(project => project.slug === "buzz-social-discovery");
   if (!buzz || buzz.live_url !== "https://buzz-social-platformbuzz-social-platform.onrender.com/" || buzz.preview_url !== "https://buzz-social-platformbuzz-social-platform.onrender.com/" || buzz.preview_image !== "/assets/previews/buzz-social-discovery.jpg" || buzz.portfolio_status !== "live") {
     throw new Error("Buzz's original preview source was not preserved.");

@@ -1279,3 +1279,24 @@ body {
   .project-preview-wrap .project-preview { height: 225px !important; }
   .project-preview-caption { min-height: 0; padding: 10px 13px; font-size: 11px; }
 }
+
+
+/* Keep project filters compact on phones without hiding categories below the fold. */
+@media (max-width: 760px) {
+  .filter-row {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    gap: 9px !important;
+  }
+  .filter-button {
+    min-height: 46px;
+    justify-content: center;
+    padding: 10px 12px;
+    text-align: center;
+  }
+}
+@media (max-width: 360px) {
+  .filter-button { font-size: 13px !important; padding-inline: 8px; }
+}
+
+/* Filtered cards must stay hidden even when component display styles are applied. */
+#project-grid > .project-card[hidden] { display: none !important; }

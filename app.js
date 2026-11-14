@@ -156,11 +156,14 @@
       const record = evidenceFor(project.slug);
       const projectStatus = project.portfolio_status || (project.live_url ? "live" : "in-progress");
       const completed = Boolean(record) || projectStatus === "completed" || projectStatus === "live";
+      // Website availability and project completion are separate dimensions.
+      // A deployed build can be public while its work remains in progress.
+      const hasLiveSite = Boolean(project.live_url) && project.site_status !== "not-live";
       const repo = (data.github?.repositories || []).find(item => item.name === project.repository);
       const card = create("article","project-card");
       card.dataset.projectSlug = project.slug;
       card.dataset.completed = String(completed);
-      card.dataset.live = String(projectStatus === "live");
+      card.dataset.live = String(hasLiveSite);
       card.dataset.progress = String(!completed && projectStatus !== "live");
       card.append(projectPreview(project, record));
       const body = create("div","project-body");
@@ -226,7 +229,7 @@
     },
     live: {
       label: "Live sites",
-      message: "Showing live websites and showcases",
+      message: "Showing public project websites and demos",
       empty: "No public live sites are listed at the moment.",
       matches: card => card.dataset.live === "true"
     },
