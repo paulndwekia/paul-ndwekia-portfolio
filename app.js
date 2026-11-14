@@ -114,8 +114,18 @@
     return cover;
   }
 
+  function projectPreviewLabel(project, evidence) {
+    if (project.preview_label) return project.preview_label;
+    if (evidence?.image_url) return "LinkedIn project image";
+    if (project.preview_image_url || project.preview_image) {
+      return project.live_url ? "Website preview" : "Project preview";
+    }
+    return project.live_url ? "Live project overview" : "Project overview";
+  }
+
   function projectPreview(project, evidence) {
     const panel = create("div", "project-preview " + (project.preview_class || "preview-github"));
+    const caption = create("span", "preview-label", projectPreviewLabel(project, evidence));
     const imageUrl = evidence?.image_url || project.preview_image_url || project.preview_image;
     if (imageUrl) {
       const image = create("img");
@@ -123,16 +133,16 @@
       image.loading = "lazy";
       image.decoding = "async";
       image.addEventListener("error", () => {
-        panel.replaceChildren(buildProjectCover(project));
+        // Keep the caption visible when a screenshot fails and the designed cover takes over.
+        panel.replaceChildren(buildProjectCover(project), caption);
       }, { once:true });
-      panel.append(image, create("span","preview-label",
-        project.preview_label || (evidence?.image_url ? "LinkedIn project image" : (project.live_url ? "Live website capture" : "Project preview"))));
+      panel.append(image, caption);
       image.src = imageUrl;
       return panel;
     }
 
-    // A designed editorial cover is the intentional fallback for private and research projects.
-    panel.append(buildProjectCover(project));
+    // Designed covers are labelled too, so every project card has a clear preview caption.
+    panel.append(buildProjectCover(project), caption);
     return panel;
   }
   function renderProjects() {
@@ -301,7 +311,8 @@
           cover_title: image.dataset.coverTitle,
           name: image.alt
         };
-        panel.replaceChildren(buildProjectCover(project));
+        const caption = panel.querySelector(".preview-label") || create("span", "preview-label", "Project overview");
+        panel.replaceChildren(buildProjectCover(project), caption);
       }, { once:true });
     });
   }
