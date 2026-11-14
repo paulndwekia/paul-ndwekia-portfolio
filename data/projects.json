@@ -20,7 +20,8 @@
       "cover_title": "Kenya Yield Curve",
       "preview_class": "preview-yield",
       "preview_image": "/assets/previews/kenya-yield-curve-risk-engine.jpg",
-      "portfolio_status": "completed"
+      "portfolio_status": "completed",
+      "preview_label": "Yield-curve research terminal"
     },
     {
       "slug": "standpoint-financial-intelligence",
@@ -66,7 +67,8 @@
       "preview_url": "https://buzz-social-platformbuzz-social-platform.onrender.com/",
       "preview_image": "/assets/previews/buzz-social-discovery.jpg",
       "portfolio_status": "live",
-      "live_label": "Visit Buzz"
+      "live_label": "Visit Buzz",
+      "preview_label": "Entertainment discovery platform"
     },
     {
       "slug": "kenya-financial-analytics",
@@ -88,7 +90,8 @@
       "cover_title": "Financial Analytics",
       "preview_class": "preview-analytics",
       "preview_image": "/assets/previews/kenya-financial-analytics.jpg",
-      "portfolio_status": "completed"
+      "portfolio_status": "completed",
+      "preview_label": "Kenya market analytics workspace"
     },
     {
       "slug": "nkaulele-contractors",
@@ -133,7 +136,8 @@
       "cover_title": "ForexPilot AI",
       "preview_class": "preview-forex",
       "preview_image": "/assets/previews/forexpilot-ai.jpg",
-      "portfolio_status": "in-progress"
+      "portfolio_status": "in-progress",
+      "preview_label": "Forex research interface"
     },
     {
       "slug": "kenya-investment-intelligence",
@@ -156,7 +160,8 @@
       "preview_class": "preview-investment",
       "portfolio_status": "completed",
       "live_label": "Open Streamlit platform",
-      "report_url": "https://github.com/paulndwekia/Rock_Investment_Outlook_2026/blob/main/report/Rock_Investment_Outlook_2026_Report.md"
+      "report_url": "https://github.com/paulndwekia/Rock_Investment_Outlook_2026/blob/main/report/Rock_Investment_Outlook_2026_Report.md",
+      "preview_label": "Research overview · Streamlit companion"
     },
     {
       "slug": "fintel-kenya-financial-intelligence",
@@ -196,7 +201,8 @@
       "cover_kicker": "Public GitHub project",
       "cover_title": "gdp dashboard",
       "preview_class": "preview-gdp",
-      "portfolio_status": "in-progress"
+      "portfolio_status": "in-progress",
+      "preview_label": "GitHub project · Python"
     }
   ]
 }
