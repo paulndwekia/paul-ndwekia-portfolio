@@ -148,7 +148,7 @@
       const card = create("article","project-card");
       card.dataset.projectSlug = project.slug;
       card.dataset.completed = String(completed);
-      card.dataset.live = String(Boolean(project.live_url) || projectStatus === "live");
+      card.dataset.live = String(projectStatus === "live");
       card.dataset.progress = String(!completed && projectStatus !== "live");
       card.append(projectPreview(project, record));
       const body = create("div","project-body");
