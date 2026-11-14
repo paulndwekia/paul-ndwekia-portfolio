@@ -58,3 +58,8 @@ The project filters retain the original four categories with restrained coloured
 
 
 **Category rule:** `Completed` reflects project completion evidence and manually verified completion status. `Live sites` is independent: every project with a configured public website or demo is listed there, even when development is still in progress. A live in-progress build can appear under both `Live sites` and `In progress` without being labelled completed. Finished projects such as StandPoint, Buzz, Kenya Yield Curve, Kenya Financial Analytics, Nkaulele Contractors and Rock Investment Outlook remain in `Completed`; live sites among them also appear in `Live sites`.
+
+
+## Live project captures
+
+Every configured public project URL has its own JPEG screenshot in `assets/previews/`. The six-hour GitHub Actions workflow visits each URL with Playwright and captures the visible first screen. Capture files are always stored with a `.jpg` extension and checked for a valid JPEG signature before they are committed. A project without a configured public website is not given a fabricated live screenshot.

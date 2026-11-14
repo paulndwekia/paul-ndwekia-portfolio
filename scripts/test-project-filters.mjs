@@ -104,6 +104,15 @@ try {
   if (liveWithUrls.some(project => project.site_status !== "live")) {
     throw new Error("Every project with a configured public website must remain in Live sites.");
   }
+  if (liveWithUrls.some(project => !project.preview_image || !/\\.jpe?g$/i.test(project.preview_image))) {
+    throw new Error("Every public live website must have a correctly named JPEG capture path.");
+  }
+  for (const project of liveWithUrls) {
+    const image = page.locator(`[data-project-slug="${project.slug}"] .project-preview img`);
+    if (await image.getAttribute("src") !== project.preview_image) {
+      throw new Error(`${project.slug} is not using its configured live capture image.`);
+    }
+  }
   if (!expectedGroups.live.some(project => project.slug === "nkaulele-contractors")) {
     throw new Error("Nkaulele Contractors must remain in Live sites.");
   }

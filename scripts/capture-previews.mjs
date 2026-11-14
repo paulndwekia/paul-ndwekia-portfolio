@@ -19,7 +19,10 @@ let failed = 0;
 
 try {
   for (const project of projects) {
-    const outputPath = path.join(outputDir, path.basename(project.preview_image));
+    // All browser captures are JPEGs. Never put JPEG bytes behind an SVG/PNG extension.
+    const configuredName = path.basename(project.preview_image);
+    const jpegName = configuredName.replace(/\\.(?:svg|png|webp|jpe?g)$/i, ".jpg");
+    const outputPath = path.join(outputDir, jpegName);
     const context = await browser.newContext({
       viewport: { width: 1440, height: 960 },
       deviceScaleFactor: 1,
@@ -67,6 +70,10 @@ try {
       });
       const file = await stat(outputPath);
       if (file.size < 12000) throw new Error(`Screenshot unexpectedly small (${file.size} bytes)`);
+      const signature = await readFile(outputPath);
+      if (signature[0] !== 0xff || signature[1] !== 0xd8 || signature[2] !== 0xff) {
+        throw new Error("Captured file does not have a JPEG signature.");
+      }
       console.log(`Saved ${outputPath} (${file.size} bytes)`);
       captured++;
     } catch (error) {

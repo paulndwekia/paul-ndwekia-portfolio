@@ -43,7 +43,7 @@
       "cover_kicker": "Fixed income analytics · StandPoint",
       "cover_title": "Yield Curve",
       "preview_class": "preview-standpoint",
-      "preview_image": "/assets/previews/standpoint-yield-curve-nov-2026.svg",
+      "preview_image": "/assets/previews/standpoint-yield-curve-nov-2026.jpg",
       "portfolio_status": "live",
       "preview_alt": "StandPoint Yield Curve workspace interface preview based on the latest screen supplied on 11 November 2026",
       "preview_label": "StandPoint · financial intelligence and yield-curve workspace",
@@ -116,7 +116,7 @@
       "cover_kicker": "Construction · Civil engineering · Kenya",
       "cover_title": "Nkaulele Contractors",
       "preview_class": "preview-nkaulele",
-      "preview_image": "/assets/previews/nkaulele-contractors-home-2026.svg",
+      "preview_image": "/assets/previews/nkaulele-contractors-home-2026.jpg",
       "portfolio_status": "live",
       "preview_alt": "Full-width home page preview for Nkaulele Contractors Limited, showing the company wordmark, navigation, hero, authentic company site photograph and location strip",
       "preview_label": "Nkaulele Contractors · company website",
@@ -168,7 +168,8 @@
       "live_label": "Open Streamlit platform",
       "report_url": "https://github.com/paulndwekia/Rock_Investment_Outlook_2026/blob/main/report/Rock_Investment_Outlook_2026_Report.md",
       "preview_label": "Rock Investment Outlook 2026 · research and Streamlit companion",
-      "site_status": "live"
+      "site_status": "live",
+      "preview_image": "/assets/previews/rock-investment-outlook-2026.jpg"
     },
     {
       "slug": "fintel-kenya-financial-intelligence",
@@ -190,7 +191,7 @@
       "preview_class": "preview-fintel",
       "portfolio_status": "in-progress",
       "live_label": "Visit FINTEL",
-      "preview_image": "/assets/previews/fintel-market-intelligence.svg",
+      "preview_image": "/assets/previews/fintel-market-intelligence.jpg",
       "preview_alt": "FINTEL product interface preview based on its current React homepage and design system",
       "preview_label": "FINTEL · Kenyan financial intelligence workspace",
       "site_status": "live"
