@@ -113,6 +113,15 @@ try {
       throw new Error(`${project.slug} is not wired to its configured live capture image in the initial page markup.`);
     }
   }
+  for (const project of liveWithUrls) {
+    const image = page.locator(`[data-project-slug="${project.slug}"] .project-preview img`);
+    await image.waitFor({ state: "attached" });
+    await image.evaluate(async node => {
+      node.loading = "eager";
+      await node.decode();
+      if (!node.naturalWidth || !node.naturalHeight) throw new Error("Preview image decoded without dimensions.");
+    });
+  }
   if (!expectedGroups.live.some(project => project.slug === "nkaulele-contractors")) {
     throw new Error("Nkaulele Contractors must remain in Live sites.");
   }
