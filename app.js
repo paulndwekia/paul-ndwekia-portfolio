@@ -202,6 +202,10 @@
         const report = create("a","","Read research report");
         report.href = project.report_url; report.target = "_blank"; report.rel = "noopener"; links.append(report);
       }
+      if (project.progress_url) {
+        const progress = create("a","","Development progress");
+        progress.href = project.progress_url; progress.target = "_blank"; progress.rel = "noopener"; links.append(progress);
+      }
       if (record?.post_url) {
         const post = create("a","","LinkedIn announcement");
         post.href = record.post_url; post.target = "_blank"; post.rel = "noopener"; links.append(post);
