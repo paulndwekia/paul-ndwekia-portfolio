@@ -171,7 +171,8 @@
       "portfolio_status": "in-progress",
       "report_url": "https://github.com/paulndwekia/Rock_Investment_Outlook_2026/blob/main/report/Rock_Investment_Outlook_2026_Report.md",
       "preview_label": "Kenya Investment Intelligence · live research dashboard",
-      "site_status": "live"
+      "site_status": "live",
+      "progress_url": "https://github.com/paulndwekia/Rock_Investment_Outlook_2026/pull/1"
     },
     {
       "slug": "fintel-kenya-financial-intelligence",
