@@ -4,7 +4,13 @@ import path from "node:path";
 const playwrightPath = process.env.PLAYWRIGHT_MODULE || "playwright";
 const { chromium } = await import(playwrightPath);
 const projectsData = JSON.parse(await readFile("data/projects.json", "utf8"));
-const projects = (projectsData.projects || []).filter(project => (project.preview_url || project.live_url) && project.preview_image);
+const requestedSlugs = String(process.env.PREVIEW_PROJECT_SLUG || "")
+  .split(",").map(value => value.trim()).filter(Boolean);
+const projects = (projectsData.projects || []).filter(project =>
+  (project.preview_url || project.live_url) &&
+  project.preview_image &&
+  (!requestedSlugs.length || requestedSlugs.includes(project.slug))
+);
 const outputDir = path.resolve("assets/previews");
 await mkdir(outputDir, { recursive: true });
 
