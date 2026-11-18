@@ -4,7 +4,6 @@ on:
   push:
     branches: [main]
     paths-ignore:
-      - 'data/**'
       - 'assets/previews/**'
       - 'assets/profile/**'
   schedule:
