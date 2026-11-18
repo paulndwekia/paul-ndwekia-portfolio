@@ -57,7 +57,7 @@ The four project filters remain **Everything**, **Completed**, **Live sites**, a
 The project filters retain the original four categories with restrained coloured surfaces and no numerical counters. Their click behaviour is covered by a Playwright mobile-browser check in the GitHub Actions workflow; the test checks all four categories, visible card counts, active state, empty state and Buzz's Live-sites classification.
 
 
-**Category rule:** `Completed` reflects project completion evidence and manually verified completion status. `Live sites` is independent: every project with a configured public website or demo is listed there, even when development is still in progress. A live in-progress build can appear under both `Live sites` and `In progress` without being labelled completed. Finished projects such as StandPoint, Buzz, Kenya Yield Curve, Kenya Financial Analytics, Nkaulele Contractors and Rock Investment Outlook remain in `Completed`; live sites among them also appear in `Live sites`.
+**Category rule:** `Completed` reflects project completion evidence and manually verified completion status. `Live sites` is independent: every project with a configured public website or demo is listed there, even when development is still in progress. A live in-progress build can appear under both `Live sites` and `In progress` without being labelled completed. Finished projects such as StandPoint, Buzz, Kenya Yield Curve, Kenya Financial Analytics and Nkaulele Contractors remain in `Completed`; live sites among them also appear in `Live sites`. Kenya Investment Intelligence is currently listed under `Live sites` and `In progress` while its public dashboard and approved data integration are being completed.
 
 
 ## Live project captures
