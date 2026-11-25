@@ -1,6 +1,6 @@
 {
   "owner": "paulndwekia",
-  "generated_at": "2026-11-24T22:29:24.963Z",
+  "generated_at": "2026-11-25T08:38:53.776Z",
   "repositories": [
     {
       "name": "Kenya-Financial-Analytics",
@@ -8,7 +8,7 @@
       "description": "Kenyan quantitative finance and market intelligence platform powered by official Central Bank of Kenya data, covering FX, Treasury Bills, yield curves, bonds, options, portfolios and risk analytics.",
       "language": "Python",
       "stars": 0,
-      "pushed_at": "2026-11-24T02:10:58Z",
+      "pushed_at": "2026-11-24T23:52:48Z",
       "latest_commit": "chore: update CBK market data"
     },
     {
