@@ -77,7 +77,7 @@
       "slug": "kenya-financial-analytics",
       "name": "Kenya Financial Analytics",
       "repository": "Kenya-Financial-Analytics",
-      "live_url": "https://kenya-financial-analytics-terminal-paulkieru-7166.vercel.app",
+      "live_url": "https://kenya-financial-analytics.vercel.app",
       "live_label": "Open analytics terminal",
       "description": "An independent Kenyan-market research terminal for analysing foreign exchange, Central Bank of Kenya Treasury-bill auctions, yield curves, bond and options pricing, portfolio performance, strategy backtesting and market risk. Sixteen focused workspaces bring the research together, with source-attributed observations stored in PostgreSQL.",
       "category": "Financial analytics · Kenyan markets",
@@ -98,7 +98,7 @@
       "portfolio_status": "completed",
       "preview_label": "Kenya Financial Analytics · Kenyan market research terminal",
       "site_status": "live",
-      "preview_url": "https://kenya-financial-analytics-terminal-paulkieru-7166.vercel.app",
+      "preview_url": "https://kenya-financial-analytics.vercel.app",
       "preview_alt": "Kenya Financial Analytics research terminal showing the Kenyan market workspaces and source-aware market data",
       "source_url": "https://github.com/paulndwekia/Kenya-Financial-Analytics"
     },
