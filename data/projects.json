@@ -200,7 +200,8 @@
       "site_status": "live",
       "live_label": "Open live dashboard",
       "preview_image": "/assets/previews/gdp-research-dashboard.jpg",
-      "preview_alt": "GDP Research Dashboard overview showing the emerald global GDP chart, largest economies and source freshness information"
+      "preview_alt": "GDP Research Dashboard overview showing the emerald global GDP chart, largest economies and source freshness information",
+      "source_url": "https://github.com/paulndwekia/gdp-dashboard/tree/rebuild/gdp-analytics-dashboard"
     }
   ]
 }
