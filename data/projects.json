@@ -123,29 +123,6 @@
       "site_status": "live"
     },
     {
-      "slug": "forexpilot-ai",
-      "name": "ForexPilot AI",
-      "repository": "forexpilot-ai",
-      "live_url": "https://forexpilot-web.onrender.com/",
-      "live_label": "Open project",
-      "description": "An independent forex research partner focused on historical market data, strategy testing, disciplined risk analysis and a careful path toward demo validation.",
-      "category": "Forex research · Risk intelligence",
-      "stage_label": "In development · research foundation",
-      "stack": [
-        "Python",
-        "Next.js",
-        "Quant research",
-        "Supabase"
-      ],
-      "cover_kicker": "Forex research · Risk intelligence",
-      "cover_title": "ForexPilot AI",
-      "preview_class": "preview-forex",
-      "preview_image": "/assets/previews/forexpilot-ai.jpg",
-      "portfolio_status": "in-progress",
-      "preview_label": "ForexPilot AI · forex research workspace",
-      "site_status": "live"
-    },
-    {
       "slug": "kenya-investment-intelligence",
       "name": "Kenya Investment Intelligence",
       "repository": "Rock_Investment_Outlook_2026",
