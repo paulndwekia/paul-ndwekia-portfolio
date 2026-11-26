@@ -192,9 +192,9 @@
         const visit = create("a","",project.live_label || "Visit project");
         visit.href = project.live_url; visit.target = "_blank"; visit.rel = "noopener"; links.append(visit);
       }
-      if (repo?.html_url) {
+      if (project.source_url || repo?.html_url) {
         const source = create("a","","Source code");
-        source.href = repo.html_url; source.target = "_blank"; source.rel = "noopener"; links.append(source);
+        source.href = project.source_url || repo.html_url; source.target = "_blank"; source.rel = "noopener"; links.append(source);
       } else if (project.repository && !repo) {
         links.append(create("span","link-note","Private source"));
       }
