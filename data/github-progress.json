@@ -1,14 +1,23 @@
 {
   "owner": "paulndwekia",
-  "generated_at": "2026-11-26T06:36:58.842Z",
+  "generated_at": "2026-11-26T11:59:14.419Z",
   "repositories": [
+    {
+      "name": "gdp-dashboard",
+      "html_url": "https://github.com/paulndwekia/gdp-dashboard",
+      "description": null,
+      "language": "TypeScript",
+      "stars": 0,
+      "pushed_at": "2026-11-26T11:53:01Z",
+      "latest_commit": "Build GDP Atlas research dashboard"
+    },
     {
       "name": "Kenya-Financial-Analytics",
       "html_url": "https://github.com/paulndwekia/Kenya-Financial-Analytics",
       "description": "Kenyan quantitative finance and market intelligence platform powered by official Central Bank of Kenya data, covering FX, Treasury Bills, yield curves, bonds, options, portfolios and risk analytics.",
       "language": "Python",
       "stars": 0,
-      "pushed_at": "2026-11-25T23:36:45Z",
+      "pushed_at": "2026-11-26T11:17:43Z",
       "latest_commit": "chore: update CBK market data"
     },
     {
@@ -28,15 +37,6 @@
       "stars": 0,
       "pushed_at": "2026-11-14T10:03:19Z",
       "latest_commit": "Complete FINTEL data and analytics workspaces"
-    },
-    {
-      "name": "gdp-dashboard",
-      "html_url": "https://github.com/paulndwekia/gdp-dashboard",
-      "description": null,
-      "language": "Python",
-      "stars": 0,
-      "pushed_at": "2026-09-11T17:14:42Z",
-      "latest_commit": "Initial commit"
     }
   ]
 }
