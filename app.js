@@ -227,7 +227,7 @@
     },
     completed: {
       label: "Completed",
-      message: "Showing completed projects, including all live sites and showcases",
+      message: "Showing finished projects and live showcases",
       empty: "No completed or live projects are recorded yet.",
       matches: card => card.dataset.completed === "true"
     },
