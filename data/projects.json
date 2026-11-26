@@ -178,21 +178,29 @@
     },
     {
       "slug": "gdp-dashboard",
-      "name": "gdp dashboard",
+      "name": "GDP Research Dashboard",
       "repository": "gdp-dashboard",
-      "live_url": null,
-      "description": "A public GitHub project by Paul Ndwekia. Project details will be expanded as the work develops.",
-      "category": "GitHub project",
-      "stage_label": "In progress · discovered on GitHub",
+      "live_url": "https://gdp-research-dashboard-paulkieru-7166.vercel.app/",
+      "description": "An independent macroeconomic research dashboard for exploring the size and direction of the global economy. It combines reported annual GDP from the World Bank with separate IMF World Economic Outlook estimates and projections, alongside country profiles, economy comparisons, regional monitoring, growth analysis, rankings, assumption-led scenarios and a searchable indicator explorer with CSV downloads. Source freshness, coverage and methodology stay visible so reported data is not confused with estimates.",
+      "category": "Macroeconomic research · Data analytics",
+      "stage_label": "Live · included in Completed",
       "stack": [
-        "Python"
+        "Next.js",
+        "React",
+        "TypeScript",
+        "World Bank API",
+        "IMF WEO",
+        "Recharts"
       ],
-      "cover_kicker": "Public GitHub project",
-      "cover_title": "gdp dashboard",
+      "cover_kicker": "Macroeconomic research · Official data",
+      "cover_title": "GDP Research Dashboard",
       "preview_class": "preview-gdp",
-      "portfolio_status": "in-progress",
-      "preview_label": "GDP Dashboard · public GitHub project",
-      "site_status": "not-live"
+      "portfolio_status": "live",
+      "preview_label": "GDP Research Dashboard · global macroeconomic research and data explorer",
+      "site_status": "live",
+      "live_label": "Open live dashboard",
+      "preview_image": "/assets/previews/gdp-research-dashboard.jpg",
+      "preview_alt": "GDP Research Dashboard overview showing the emerald global GDP chart, largest economies and source freshness information"
     }
   ]
 }
