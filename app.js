@@ -215,6 +215,13 @@
       } else if (project.repository && !repo) {
         links.append(create("span","link-note","Private source"));
       }
+      if (project.case_study_url) {
+        const caseStudy = create("a","","Read case study");
+        caseStudy.href = project.case_study_url;
+        caseStudy.target = project.case_study_url.startsWith("http") ? "_blank" : "";
+        caseStudy.rel = "noopener";
+        links.append(caseStudy);
+      }
       if (project.report_url) {
         const report = create("a","","Read research report");
         report.href = project.report_url; report.target = "_blank"; report.rel = "noopener"; links.append(report);
