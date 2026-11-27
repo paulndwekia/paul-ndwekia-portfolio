@@ -1,0 +1,48 @@
+name: Portfolio validation
+
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - "index.html"
+      - "styles.css"
+      - "app.js"
+      - "data/**"
+      - "scripts/**"
+      - ".github/workflows/portfolio-validation.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Check out portfolio
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Validate scripts and portfolio data
+        run: |
+          node --check app.js
+          node --check scripts/sync.mjs
+          node --check scripts/capture-previews.mjs
+          node --check scripts/register-linkedin-publication.mjs
+          node --check scripts/register-profile-photo.mjs
+          node -e "for (const file of ['data/projects.json','data/linkedin-evidence.json','data/github-progress.json','data/profile.json']) JSON.parse(require('fs').readFileSync(file, 'utf8'))"
+
+      - name: Install Playwright
+        run: |
+          npm install --prefix /tmp/portfolio-browser playwright
+          /tmp/portfolio-browser/node_modules/.bin/playwright install --with-deps chromium
+
+      - name: Test project catalogue on a mobile viewport
+        env:
+          PLAYWRIGHT_MODULE: /tmp/portfolio-browser/node_modules/playwright/index.mjs
+        run: node scripts/test-project-filters.mjs
