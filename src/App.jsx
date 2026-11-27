@@ -152,7 +152,7 @@ function AboutSection(){
   return <section className="about-section section-wrap" id="about">
     <div className="section-heading"><Reveal><p className="eyebrow">A little about me</p><h2>Still learning. Still building.</h2></Reveal><Reveal><p className="section-intro">I’m a Financial Engineering student at JKUAT. The software I build is often connected to something I’m trying to understand more deeply.</p></Reveal></div>
     <div className="about-layout">
-      <Reveal className="about-photo-wrap"><figure className="about-photo-frame"><img src="/assets/paul-campus.webp" alt="Paul Ndwekia looking at his phone outside a JKUAT campus building" width="960" height="1280" loading="eager" decoding="async"/><figcaption><span>Outside the screen</span><span>Juja · JKUAT</span></figcaption></figure></Reveal>
+      
       <Reveal className="about-copy" delay={0.1}>
         <div className="about-identity"><img src={profilePhoto} alt="Paul Ndwekia profile" onError={e=>{e.currentTarget.src=defaultAvatar;}}/><div><strong>Paul Ndwekia</strong><span>Financial Engineering · JKUAT · Expected 2029</span><A href={photoIssueUrl} className="small-link">Change profile photo </A></div></div>
         <p>I study Financial Engineering at Jomo Kenyatta University of Agriculture and Technology. Building software is one of the ways I work through what I’m learning — especially when a financial idea can become a tool someone else can use.</p>
@@ -168,7 +168,8 @@ function CampusGallery(){
   const photos=[
     {alt:"The JKUAT main campus entrance gate with its red gear sculpture",title:"The main gate",place:"JKUAT · Juja",position:"0% 0%"},
     {alt:"The road between JKUAT campus buildings, with flags along the central driveway",title:"The campus road",place:"Juja",position:"100% 0%"},
-    {alt:"One of the academic buildings at JKUAT and its courtyard",title:"The academic block",place:"JKUAT"}
+    {alt:"One of the academic buildings at JKUAT and its courtyard",title:"The academic block",place:"JKUAT"},
+    {alt:"Paul Ndwekia looking at his phone outside a campus building",title:"Between lectures",place:"Juja · JKUAT",position:"100% 100%"}
   ];
   return <section className="campus-gallery section-wrap" id="campus">
     <div className="section-heading">
