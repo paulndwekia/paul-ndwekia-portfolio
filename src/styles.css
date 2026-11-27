@@ -398,3 +398,4 @@ img{display:block;max-width:100%}
  .campus-gallery-grid{grid-template-columns:1fr;gap:23px}
  .campus-gallery-image img{width:100%;height:auto}
 }
+.campus-gallery-image{aspect-ratio:4/3;background-size:200% 200%;background-repeat:no-repeat;background-position:center;background-color:#E4EAED}
