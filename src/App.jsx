@@ -167,17 +167,16 @@ function AboutSection(){
 function CampusGallery(){
   const photos=[
     {alt:"The JKUAT main campus entrance gate with its red gear sculpture",title:"The main gate",place:"JKUAT · Juja",position:"0% 0%"},
-    {alt:"The road between JKUAT campus buildings, with flags along the central driveway",title:"Along the campus road",place:"Juja",position:"100% 0%"},
-    {alt:"One of JKUAT’s academic buildings and its courtyard",title:"The academic block",place:"JKUAT",position:"0% 100%"},
-    {alt:"A second view across the JKUAT academic courtyard",title:"Around the courtyard",place:"Main campus",position:"100% 100%"}
+    {alt:"The road between JKUAT campus buildings, with flags along the central driveway",title:"The campus road",place:"Juja",position:"100% 0%"},
+    {alt:"One of the academic buildings at JKUAT and its courtyard",title:"The academic block",place:"JKUAT"}
   ];
   return <section className="campus-gallery section-wrap" id="campus">
     <div className="section-heading">
       <Reveal><p className="eyebrow">Outside the screen</p><h2>A few corners of JKUAT.</h2></Reveal>
-      <Reveal><p className="section-intro">The place behind a lot of the work. I wanted these photographs here too, not buried in a folder.</p></Reveal>
+      <Reveal><p className="section-intro">The place behind a lot of the work. These are photographs from the campus itself.</p></Reveal>
     </div>
     <div className="campus-gallery-grid">{photos.map(photo=><figure className="campus-gallery-item" key={photo.title}>
-      <div className="campus-gallery-image" role="img" aria-label={photo.alt} style={{backgroundImage:"url(/assets/campus-gallery.webp)",backgroundPosition:photo.position}}/>
+      <div className="campus-gallery-image" role="img" aria-label={photo.alt} style={{backgroundImage:"url(/assets/campus-gallery.webp)",backgroundPosition:photo.position||"0% 100%"}}/>
       <figcaption><strong>{photo.title}</strong><span>{photo.place}</span></figcaption>
     </figure>)}</div>
   </section>;
