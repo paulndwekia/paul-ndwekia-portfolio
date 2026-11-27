@@ -302,3 +302,112 @@ h1, h2, h3 { font-family: "DM Serif Display", Georgia, serif; font-weight: 400; 
   .research-preview-item h3{font-size:23px}
   .about-photo{width:100%;max-width:420px;margin-top:18px}
 }
+
+
+/* Research discipline signals: restrained colour, consistent across portfolio and case studies */
+.project-discipline{margin:0 0 8px;font:500 9px/1.4 "DM Mono",monospace;letter-spacing:.11em;text-transform:uppercase}
+.project-card[data-discipline="financial-markets"] .project-discipline{color:#477365}
+.project-card[data-discipline="fixed-income"] .project-discipline{color:#9a7145}
+.project-card[data-discipline="macroeconomic-research"] .project-discipline{color:#496e98}
+.project-card[data-discipline="investment-research"] .project-discipline{color:#75649a}
+.project-card[data-discipline="financial-infrastructure"] .project-discipline{color:#426c72}
+.project-card[data-discipline="fintech-platforms"] .project-discipline{color:#a36d4f}
+.project-card[data-discipline="digital-products"] .project-discipline{color:#a45e68}
+.project-card[data-discipline="client-work"] .project-discipline{color:#74786d}
+
+/* Research publication */
+.research-page{padding-bottom:70px}
+.research-page-hero{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(250px,.9fr);gap:48px;align-items:end;padding:70px 0 54px;border-bottom:1px solid var(--line)}
+.research-page-hero h1{font-size:clamp(45px,6vw,76px);line-height:1.02;max-width:760px;margin:0 0 20px}
+.research-page-hero .research-intro{max-width:650px;color:#5f6b65;font-size:16px;line-height:1.8;margin:0}
+.research-side-note{border-left:2px solid #a9b5a8;padding:8px 0 8px 20px;color:#65746b;font-size:12px;line-height:1.8}
+.research-side-note strong{display:block;color:var(--ink);font-size:14px;margin-bottom:5px}
+.research-index{display:flex;flex-wrap:wrap;gap:12px 24px;padding:18px 0 22px;border-bottom:1px solid var(--line);font:500 9px "DM Mono",monospace;letter-spacing:.09em;text-transform:uppercase;color:#748078}
+.research-index a{border-bottom:1px solid #b8c1b6;padding-bottom:3px}
+.research-index a:hover{color:#426b5d}
+.research-section{padding:64px 0 74px;border-bottom:1px solid var(--line)}
+.research-section-heading{display:flex;justify-content:space-between;align-items:end;gap:34px;margin-bottom:24px}
+.research-section-heading h2{font-size:clamp(34px,4vw,48px);margin:0;line-height:1.1}
+.research-section-heading>p{max-width:420px;color:var(--muted);font-size:13px;line-height:1.8;margin:0}
+.research-filter-row{display:flex;flex-wrap:wrap;gap:8px;margin:22px 0 10px}
+.research-filter-button{border:1px solid var(--line);background:transparent;color:#647169;padding:9px 13px;font:500 9px "DM Mono",monospace;letter-spacing:.08em;text-transform:uppercase;cursor:pointer}
+.research-filter-button[aria-pressed="true"]{background:var(--deep);color:#fffdf8;border-color:var(--deep)}
+.research-filter-status{margin:0 0 22px;color:#92968d;font:9px "DM Mono",monospace}
+.case-study-list{border-top:1px solid var(--line)}
+.case-study{display:grid;grid-template-columns:minmax(0,.95fr) minmax(0,1.05fr);gap:clamp(28px,5vw,66px);align-items:start;padding:34px 0 38px;border-bottom:1px solid var(--line);scroll-margin-top:110px}
+.case-study[hidden]{display:none}
+.case-study:nth-child(even) .case-study-visual{order:2}
+.case-study-visual{position:relative;overflow:hidden;background:#e6e4db;aspect-ratio:1.38/1;min-width:0}
+.case-study-visual img{display:block;width:100%;height:100%;object-fit:cover;transition:transform .65s cubic-bezier(.2,.7,.2,1),filter .45s ease}
+.case-study:hover .case-study-visual img{transform:scale(1.025)}
+.case-study-visual figcaption{position:absolute;bottom:0;left:0;right:0;padding:35px 15px 12px;background:linear-gradient(transparent,#132421bb);color:#fffdf8;font:9px "DM Mono",monospace;letter-spacing:.08em;text-transform:uppercase}
+.case-study-copy{min-width:0}
+.case-study-eyebrow{display:flex;flex-wrap:wrap;align-items:center;gap:9px;margin:0 0 14px;font:9px "DM Mono",monospace;letter-spacing:.1em;text-transform:uppercase}
+.discipline-tag,.status-tag{display:inline-flex;align-items:center;padding:5px 8px;border:1px solid transparent}
+.discipline-tag.financial-markets{color:#426f60;background:#e4ede7;border-color:#d3e0d7}
+.discipline-tag.fixed-income{color:#936a3d;background:#f1e9dc;border-color:#e6dac6}
+.discipline-tag.macro{color:#476e99;background:#e5ebf2;border-color:#d5deea}
+.discipline-tag.investment{color:#70618f;background:#ece8f3;border-color:#ded8eb}
+.discipline-tag.systems{color:#426e72;background:#e4eeee;border-color:#d3e1e1}
+.discipline-tag.product{color:#9a625d;background:#f2e8e5;border-color:#e7d9d5}
+.discipline-tag.client{color:#687263;background:#eaede6;border-color:#dce1d7}
+.status-tag{color:#66736c;background:#f1efe8;border-color:#e2dfd5}
+.case-study-copy h3{font-size:clamp(27px,3vw,37px);line-height:1.12;margin:0 0 12px}
+.case-study-lede{color:#59675f;font-size:14px;line-height:1.8;margin:0 0 16px}
+.case-study-detail{margin:0 0 17px;padding-left:14px;border-left:2px solid #c8c9bb;color:#647169;font-size:12px;line-height:1.75}
+.case-study-detail strong{color:#3f5148;font-weight:600}
+.case-study-tags{display:flex;flex-wrap:wrap;gap:6px;margin:15px 0 18px}
+.case-study-tags span{border:1px solid #dedbd1;padding:5px 8px;color:#68746c;font:8px "DM Mono",monospace;letter-spacing:.03em}
+.case-study-links{display:flex;flex-wrap:wrap;gap:9px 17px;padding-top:13px;border-top:1px solid #e0ddd4}
+.case-study-links a{color:#4d6d5c;font-size:11px;font-weight:600;border-bottom:1px solid #aebbb0;padding-bottom:3px}
+.case-study-links a:hover{color:#263e35}
+.report-library{border-top:1px solid var(--line)}
+.report-row{display:grid;grid-template-columns:minmax(115px,.27fr) minmax(0,1fr) minmax(130px,.26fr);gap:24px;align-items:start;padding:22px 0;border-bottom:1px solid var(--line)}
+.report-kind{font:9px "DM Mono",monospace;text-transform:uppercase;letter-spacing:.1em;color:#8b9188}
+.report-row h3{font-size:23px;line-height:1.2;margin:0 0 6px}
+.report-row p{font-size:12px;line-height:1.75;color:#667169;margin:0}
+.report-action{justify-self:end;color:#4d6d5c;font-size:11px;font-weight:600;border-bottom:1px solid #aebbb0;padding:4px 0}
+.research-integrity{margin-top:26px;padding:20px 22px;background:#ebe9df;border-left:3px solid #9a7145}
+.research-integrity h3{font-size:21px;margin:0 0 6px}
+.research-integrity p{color:#606d65;font-size:12px;line-height:1.8;margin:0}
+.research-collaboration{display:grid;grid-template-columns:1fr 1fr;gap:30px;margin-top:25px}
+.research-collaboration p{color:#667169;font-size:13px;line-height:1.8;margin:0}
+.research-contact{padding:54px 0 0}
+.research-contact h2{font-size:clamp(34px,4vw,48px);margin:0 0 10px}
+.research-contact p{max-width:580px;color:#68756f;font-size:13px;line-height:1.8}
+.research-page .site-footer{margin-top:48px}
+.reveal{opacity:1;transform:none}
+.reveal-ready .reveal:not(.is-visible){opacity:0;transform:translateY(14px)}
+.reveal-ready .reveal.is-visible{opacity:1;transform:translateY(0);transition:opacity .6s ease,transform .6s cubic-bezier(.2,.7,.2,1)}
+@media(max-width:850px){
+ .research-page-hero{grid-template-columns:1fr;gap:22px;padding:52px 0 40px}
+ .research-side-note{max-width:520px}
+ .case-study{grid-template-columns:minmax(0,.85fr) minmax(0,1.15fr);gap:28px}
+ .report-row{grid-template-columns:110px minmax(0,1fr);gap:12px 20px}
+ .report-action{grid-column:2;justify-self:start}
+}
+@media(max-width:680px){
+ .research-page{padding-bottom:48px}
+ .research-page-hero{padding:38px 0 30px;gap:17px}
+ .research-page-hero h1{font-size:clamp(38px,11vw,54px)}
+ .research-page-hero .research-intro{font-size:14px}
+ .research-index{gap:10px 15px;padding:14px 0 18px;font-size:8px}
+ .research-section{padding:46px 0 52px}
+ .research-section-heading{display:block;margin-bottom:21px}
+ .research-section-heading>p{margin-top:12px}
+ .case-study{grid-template-columns:1fr;gap:18px;padding:22px 0 25px}
+ .case-study:nth-child(even) .case-study-visual{order:0}
+ .case-study-visual{aspect-ratio:1.25/1}
+ .case-study-copy h3{font-size:28px}
+ .case-study-lede{font-size:13px}
+ .report-row{grid-template-columns:1fr;gap:7px;padding:18px 0}
+ .report-row h3{font-size:21px}
+ .report-action{grid-column:1}
+ .research-collaboration{grid-template-columns:1fr;gap:16px}
+ .research-contact{padding-top:40px}
+}
+@media(prefers-reduced-motion:reduce){
+ .case-study-visual img{transition:none}
+ .reveal-ready .reveal:not(.is-visible){opacity:1;transform:none}
+ .reveal-ready .reveal.is-visible{transition:none}
+}
