@@ -157,31 +157,6 @@
       "progress_url": "https://github.com/paulndwekia/Rock_Investment_Outlook_2026/pull/1"
     },
     {
-      "slug": "fintel-kenya-financial-intelligence",
-      "name": "FINTEL — Kenya Financial Intelligence",
-      "repository": "fintel-kenya-financial-intelligence",
-      "live_url": "https://fintel-kenya-financial-intelligence.onrender.com/",
-      "description": "An independent Kenyan financial intelligence platform bringing CBK market observations, FX, Treasury Bills and Bonds, yield-curve tools, quantitative models and source-aware research into one workspace.",
-      "category": "Fintech · Kenyan market intelligence",
-      "stage_label": "In progress · live build",
-      "stack": [
-        "React",
-        "TypeScript",
-        "Node.js",
-        "Python",
-        "CBK data"
-      ],
-      "cover_kicker": "Independent Kenyan market intelligence",
-      "cover_title": "FINTEL",
-      "preview_class": "preview-fintel",
-      "portfolio_status": "in-progress",
-      "live_label": "Visit FINTEL",
-      "preview_image": "/assets/previews/fintel-market-intelligence.jpg",
-      "preview_alt": "FINTEL product interface preview based on its current React homepage and design system",
-      "preview_label": "FINTEL · Kenyan financial intelligence workspace",
-      "site_status": "live"
-    },
-    {
       "slug": "gdp-dashboard",
       "name": "GDP Research Dashboard",
       "repository": "gdp-dashboard",
