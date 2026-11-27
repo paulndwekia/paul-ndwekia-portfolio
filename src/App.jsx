@@ -3,8 +3,6 @@ import projectData from "../data/projects.json";
 import githubData from "../data/github-progress.json";
 import linkedinData from "../data/linkedin-evidence.json";
 import profileData from "../data/profile.json";
-import BlurText from "./components/BlurText";
-import FadeContent from "./components/FadeContent";
 import SpotlightCard from "./components/SpotlightCard";
 
 const projects=[...(projectData.projects||[])].sort((a,b)=>(a.display_order??999)-(b.display_order??999));
@@ -38,10 +36,8 @@ function useReducedMotion(){
   },[]);
   return reduced;
 }
-function Reveal({children,className="",delay=0}){
-  const reduced=useReducedMotion();
-  if(reduced)return <div className={className}>{children}</div>;
-  return <FadeContent className={className} effect="fade" duration={0.68} ease="power2.out" delay={delay} threshold={0.12} initialOpacity={1} trigger="mount" once>{children}</FadeContent>;
+function Reveal({children,className=""}){
+  return <div className={className}>{children}</div>;
 }
 function Header({research=false}){
   const [open,setOpen]=useState(false);
@@ -156,7 +152,7 @@ function AboutSection(){
   return <section className="about-section section-wrap" id="about">
     <div className="section-heading"><Reveal><p className="eyebrow">A little about me</p><h2>Still learning. Still building.</h2></Reveal><Reveal><p className="section-intro">I’m a Financial Engineering student at JKUAT. The software I build is often connected to something I’m trying to understand more deeply.</p></Reveal></div>
     <div className="about-layout">
-      <Reveal className="about-photo-wrap"><figure className="about-photo-frame"><img src="/assets/paul-campus.webp" alt="Paul Ndwekia looking at his phone outside a JKUAT campus building" width="840" height="1118" loading="eager" decoding="async"/><figcaption><span>Outside the screen</span><span>Juja · JKUAT</span></figcaption></figure></Reveal>
+      <Reveal className="about-photo-wrap"><figure className="about-photo-frame"><img src="/assets/paul-campus.webp" alt="Paul Ndwekia looking at his phone outside a JKUAT campus building" width="960" height="1280" loading="eager" decoding="async"/><figcaption><span>Outside the screen</span><span>Juja · JKUAT</span></figcaption></figure></Reveal>
       <Reveal className="about-copy" delay={0.1}>
         <div className="about-identity"><img src={profilePhoto} alt="Paul Ndwekia profile" onError={e=>{e.currentTarget.src=defaultAvatar;}}/><div><strong>Paul Ndwekia</strong><span>Financial Engineering · JKUAT · Expected 2029</span><A href={photoIssueUrl} className="small-link">Change profile photo </A></div></div>
         <p>I study Financial Engineering at Jomo Kenyatta University of Agriculture and Technology. Building software is one of the ways I work through what I’m learning — especially when a financial idea can become a tool someone else can use.</p>
@@ -169,26 +165,21 @@ function AboutSection(){
   </section>;
 }
 function CampusGallery(){
+  const photos=[
+    {src:"/assets/campus-gate.webp",alt:"The JKUAT main campus entrance gate with its red gear sculpture",title:"The main gate",place:"JKUAT · Juja"},
+    {src:"/assets/campus-road.webp",alt:"The road between campus buildings at JKUAT",title:"Along the campus road",place:"Juja"},
+    {src:"/assets/campus-building.webp",alt:"A view of one of JKUAT’s academic buildings and its courtyard",title:"The academic block",place:"JKUAT"},
+    {src:"/assets/campus-courtyard.webp",alt:"Another view across the JKUAT academic courtyard",title:"Around the courtyard",place:"Main campus"}
+  ];
   return <section className="campus-gallery section-wrap" id="campus">
     <div className="section-heading">
-      <Reveal><p className="eyebrow">A little beyond the screen</p><h2>Juja, in between everything else.</h2></Reveal>
-      <Reveal><p className="section-intro">A few familiar corners from the place where I study, work through ideas and spend most of my week.</p></Reveal>
+      <Reveal><p className="eyebrow">Outside the screen</p><h2>A few corners of JKUAT.</h2></Reveal>
+      <Reveal><p className="section-intro">The place behind a lot of the work. I wanted these photographs here too, not buried in a folder.</p></Reveal>
     </div>
-    <div className="campus-gallery-grid">
-      <figure className="campus-gallery-item">
-        <div className="campus-gallery-image"><img src="/assets/paul-campus-alt.webp" alt="Paul Ndwekia standing on a campus walkway in Juja" width="840" height="959" loading="lazy" decoding="async"/></div>
-        <figcaption><strong>An afternoon in Juja</strong><span>JKUAT campus</span></figcaption>
-      </figure>
-      <figure className="campus-gallery-item campus-gate-item">
-        <div className="campus-gallery-image"><img src="https://upload.wikimedia.org/wikipedia/commons/9/9a/JKUAT-Main-Campus-Gate-A.jpg" alt="The main entrance gate at Jomo Kenyatta University of Agriculture and Technology" width="3000" height="1750" loading="lazy" decoding="async"/></div>
-        <figcaption><strong>JKUAT Main Campus Gate A</strong><span>Juja · Main entrance</span></figcaption>
-        <p className="image-credit">Photo: Elvis Onsomu / Wikimedia Commons · <A href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</A> · <A href="https://commons.wikimedia.org/wiki/File:JKUAT-Main-Campus-Gate-A.jpg">Source</A></p>
-      </figure>
-      <figure className="campus-gallery-item">
-        <div className="campus-gallery-image"><img src="/assets/paul-hero.webp" alt="Paul Ndwekia on the JKUAT campus" width="840" height="840" loading="lazy" decoding="async"/></div>
-        <figcaption><strong>On campus</strong><span>Financial Engineering · JKUAT</span></figcaption>
-      </figure>
-    </div>
+    <div className="campus-gallery-grid">{photos.map(photo=><figure className="campus-gallery-item" key={photo.src}>
+      <div className="campus-gallery-image"><img src={photo.src} alt={photo.alt} width="1024" height="768" loading="lazy" decoding="async"/></div>
+      <figcaption><strong>{photo.title}</strong><span>{photo.place}</span></figcaption>
+    </figure>)}</div>
   </section>;
 }
 function ContactSection(){
@@ -212,13 +203,13 @@ function HomePage(){
   return <><Header/><main>
     <section className="hero"><div className="hero-grid section-wrap">
       <div className="hero-copy"><p className="eyebrow eyebrow-light">Nairobi, Kenya <span className="eyebrow-divider">/</span> JKUAT</p><p className="hero-kicker">FINANCIAL ENGINEERING · SOFTWARE · RESEARCH</p>
-        <div className="hero-heading" role="heading" aria-level="1"><BlurText text="I build financial tools that make the numbers easier to understand." animateBy="words" direction="top" delay={42} threshold={0.12} stepDuration={0.24} blur={7} distance={26}/></div>
+        <div className="hero-heading"><h1>I build financial tools that make the numbers easier to understand.</h1></div>
         <p className="hero-lede">I’m Paul Ndwekia. I study Financial Engineering and build software around the questions I keep coming back to: how do Kenyan markets behave, what is the data telling us, and how can we make it useful?</p>
         <div className="hero-actions"><A href="#work" className="button button-primary">Explore my work <span></span></A><A href="#about" className="hero-text-link">A little about me <span></span></A></div>
         <div className="hero-foot"><span>Financial markets</span><span>Quantitative research</span><span>Software products</span></div>
       </div>
       <figure className="hero-portrait">
-        <img src="/assets/paul-hero.webp" alt="Paul Ndwekia standing on the JKUAT campus" width="840" height="840" fetchPriority="high" decoding="async"/>
+        <img src="/assets/paul-hero.webp" alt="Paul Ndwekia standing on the JKUAT campus" width="1024" height="1024" fetchPriority="high" decoding="async"/>
         <figcaption className="hero-photo-caption"><span>Paul Ndwekia</span><span>Juja · JKUAT</span></figcaption>
       </figure>
     </div><div className="hero-bottom section-wrap"><span>FINANCE <i>×</i> DATA <i>×</i> TECHNOLOGY</span><span className="hero-bottom-note">A personal portfolio of projects and research</span></div></section>
