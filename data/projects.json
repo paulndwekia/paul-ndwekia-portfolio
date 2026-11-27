@@ -32,7 +32,9 @@
       "display_order": 1,
       "featured": true,
       "project_story": "Market observations, auction results and research tools often sit in separate places. I wanted one workspace where the numbers could be explored together without losing sight of where they came from.",
-      "project_scope": "FX and Treasury markets · Yield curves · Valuation · Portfolio and risk research"
+      "project_scope": "FX and Treasury markets · Yield curves · Valuation · Portfolio and risk research",
+      "case_study_url": "/research/#kenya-financial-analytics",
+      "report_url": "https://kenya-financial-analytics.vercel.app/api/report"
     },
     {
       "slug": "standpoint-financial-intelligence",
@@ -61,7 +63,8 @@
       "display_order": 2,
       "featured": true,
       "project_story": "I wanted financial information and useful campus tools to sit within one product, rather than asking students to move between unrelated services.",
-      "project_scope": "Market monitoring · Financial learning · Quantitative tools · Campus experience"
+      "project_scope": "Market monitoring · Financial learning · Quantitative tools · Campus experience",
+      "case_study_url": "/research/#standpoint"
     },
     {
       "slug": "gdp-dashboard",
@@ -90,7 +93,8 @@
       "preview_alt": "GDP Research Dashboard overview showing the emerald global GDP chart, largest economies and source freshness information",
       "source_url": "https://github.com/paulndwekia/gdp-dashboard/tree/rebuild/gdp-analytics-dashboard",
       "display_order": 3,
-      "featured": false
+      "featured": false,
+      "case_study_url": "/research/#gdp-research"
     },
     {
       "slug": "kenya-yield-curve-risk-engine",
@@ -115,7 +119,8 @@
       "preview_label": "Kenya Yield Curve · Treasury yield and interest-rate risk workspace",
       "site_status": "live",
       "display_order": 4,
-      "featured": false
+      "featured": false,
+      "case_study_url": "/research/#yield-curve"
     },
     {
       "slug": "fintel-kenya-financial-intelligence",
@@ -142,7 +147,8 @@
       "preview_label": "FINTEL · Kenyan financial intelligence workspace",
       "site_status": "live",
       "display_order": 5,
-      "featured": false
+      "featured": false,
+      "case_study_url": "/research/#fintel"
     },
     {
       "slug": "kenya-investment-intelligence",
@@ -173,7 +179,8 @@
       "site_status": "live",
       "progress_url": "https://github.com/paulndwekia/Rock_Investment_Outlook_2026/pull/1",
       "display_order": 6,
-      "featured": false
+      "featured": false,
+      "case_study_url": "/research/#kenya-investment-intelligence"
     },
     {
       "slug": "nkaulele-contractors",
