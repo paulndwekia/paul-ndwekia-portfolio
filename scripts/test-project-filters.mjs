@@ -152,6 +152,28 @@ try {
   if (await buzzCard.getAttribute("src") !== "/assets/previews/buzz-social-discovery.jpg") throw new Error("Buzz preview image is not attached to its card.");
   const buzzProjectCard = page.locator('[data-project-slug="buzz-social-discovery"]');
   if (await buzzProjectCard.getAttribute("data-live") !== "true" || await buzzProjectCard.getAttribute("data-progress") !== "false") throw new Error("Buzz must appear under Live sites and not In progress.");
+  // The research publication has its own four-discipline filter and report library.
+  await page.goto(`${origin}/research/`, { waitUntil: "domcontentloaded" });
+  await page.waitForFunction(() =>
+    document.documentElement.dataset.filtersReady === "true" &&
+    document.querySelectorAll(".case-study").length === 8
+  );
+  const researchGroups = { all:8, markets:2, macro:2, systems:1, products:3 };
+  for (const [key, expectedCount] of Object.entries(researchGroups)) {
+    await page.locator(`[data-case-filter="${key}"]`).click();
+    await page.waitForTimeout(120);
+    const visible = await page.locator(".case-study:not([hidden])").count();
+    if (visible !== expectedCount) {
+      throw new Error(`Research ${key} filter mismatch: expected ${expectedCount}, got ${visible}.`);
+    }
+  }
+  await page.locator('[data-case-filter="all"]').click();
+  if (await page.locator(".report-row").count() !== 4) {
+    throw new Error("The research archive should show all four report and technical-note entries.");
+  }
+  if (await page.locator(".case-study-links a").count() < 15) {
+    throw new Error("The research case studies are missing links to their live products or source material.");
+  }
   if (errors.length) throw new Error("Browser JavaScript errors: " + errors.join("; "));
 
   console.log("PASS: All four coloured project filters work on a 390px mobile viewport.");
