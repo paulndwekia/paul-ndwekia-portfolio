@@ -27,6 +27,8 @@ jobs:
     steps:
       - name: Check out portfolio
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - name: Set up Node
         uses: actions/setup-node@v4
@@ -87,7 +89,19 @@ jobs:
             echo "No portfolio data changes."
           else
             git commit -m "chore: refresh portfolio progress and publication evidence"
-            git push
+            # Another actor may update the branch after checkout. Rebase the
+            # generated data commit onto the latest branch before pushing.
+            for attempt in 1 2 3; do
+              git fetch origin "$GITHUB_REF_NAME"
+              git rebase "origin/$GITHUB_REF_NAME"
+              if git push origin "HEAD:$GITHUB_REF_NAME"; then
+                echo "Portfolio update pushed to $GITHUB_REF_NAME."
+                exit 0
+              fi
+              echo "::warning::Push was rejected; refreshing the branch before retry $attempt/3."
+            done
+            echo "::error::Could not push the portfolio update after three attempts."
+            exit 1
           fi
 
       - name: Confirm LinkedIn evidence change
