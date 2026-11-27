@@ -37,6 +37,52 @@
     });
   }
 
+  function setupResearchFilters() {
+    const buttons = $$("[data-case-filter]");
+    if (!buttons.length) return;
+    const cases = $$(".case-study");
+    const status = $("#research-filter-status");
+    const labels = {all:"all case studies",markets:"financial markets and fixed income",macro:"macroeconomic research",systems:"financial technology systems",products:"digital products and client work"};
+    const apply = value => {
+      const filter = labels[value] ? value : "all";
+      let visible = 0;
+      cases.forEach(item => {
+        const matches = filter === "all" || item.dataset.researchDiscipline === filter || (filter === "markets" && item.dataset.researchDiscipline === "fixed-income");
+        item.hidden = !matches;
+        if (matches) visible++;
+      });
+      buttons.forEach(button => {
+        const active = button.dataset.caseFilter === filter;
+        button.setAttribute("aria-pressed", String(active));
+      });
+      if (status) status.textContent = "Showing " + visible + " " + labels[filter];
+    };
+    buttons.forEach(button => button.addEventListener("click", () => apply(button.dataset.caseFilter)));
+    apply("all");
+  }
+
+  function setupRevealEffects() {
+    const items = $$(".reveal");
+    if (!items.length) return;
+    const reduced = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (reduced || !("IntersectionObserver" in window)) {
+      items.forEach(item => item.classList.add("is-visible"));
+      return;
+    }
+    document.documentElement.classList.add("reveal-ready");
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("is-visible");
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.08, rootMargin: "0px 0px -36px 0px" });
+    items.forEach(item => observer.observe(item));
+  }
+  setupResearchFilters();
+  setupRevealEffects();
+
   function wireHeroImageFallback() {
     const image = $(".hero-image img");
     const frame = image?.closest(".hero-image");
@@ -164,6 +210,7 @@
       const card = create("article","project-card");
       if (project.featured) card.classList.add("is-featured");
       card.dataset.projectSlug = project.slug;
+      card.dataset.discipline = project.discipline || "client-work";
       if (project.featured) card.dataset.featured = "true";
       card.dataset.completed = String(completed);
       card.dataset.live = String(hasLiveSite);
@@ -176,6 +223,7 @@
         : projectStatus === "completed" ? (project.stage_label || "Completed project")
         : (project.stage_label || "In progress");
       const meta = create("p","project-meta", project.featured ? "Selected case study · " + metaLabel : metaLabel);
+      const discipline = create("p","project-discipline", project.discipline_label || project.category || "Selected work");
       const heading = create("h3","",project.name);
       const description = create("p","",project.description || repo?.description || "A project in the finance, data and technology space.");
       let projectContext = null;
@@ -215,6 +263,13 @@
       } else if (project.repository && !repo) {
         links.append(create("span","link-note","Private source"));
       }
+      if (project.case_study_url) {
+        const caseStudy = create("a","","Read case study");
+        caseStudy.href = project.case_study_url;
+        caseStudy.target = project.case_study_url.startsWith("http") ? "_blank" : "";
+        caseStudy.rel = "noopener";
+        links.append(caseStudy);
+      }
       if (project.report_url) {
         const report = create("a","","Read research report");
         report.href = project.report_url; report.target = "_blank"; report.rel = "noopener"; links.append(report);
@@ -230,7 +285,7 @@
         const profile = create("a","","LinkedIn profile");
         profile.href = record.source_url; profile.target = "_blank"; profile.rel = "noopener"; links.append(profile);
       }
-      body.append(meta, heading, description);
+      body.append(meta, discipline, heading, description);
       if (projectContext) body.append(projectContext);
       body.append(tags, signal, links);
       card.append(body); grid.append(card);

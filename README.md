@@ -5,6 +5,13 @@ Personal portfolio for work across finance, data and technology.
 **Live site:** https://paul-ndwekia-portfolio.vercel.app  
 **GitHub:** https://github.com/paulndwekia
 
+## Portfolio structure
+
+- `index.html` is the personal homepage.
+- `research/index.html` is the case-study and report library, covering finance, fixed income, macroeconomic research, financial technology and selected product work.
+- `assets/paul-hero.webp` and `assets/paul-campus.webp` are the owner's supplied photographs, used without AI retouching.
+- `data/projects.json` holds project status, discipline labels, case-study links and source links. The research archive keeps collaboration, data caveats and project limitations explicit.
+
 ## Deployment
 
 The existing Vercel project `paul-ndwekia-portfolio` is connected to this repository. Commits pushed to the `main` branch trigger Vercel deployments automatically. The production domain remains https://paul-ndwekia-portfolio.vercel.app.
