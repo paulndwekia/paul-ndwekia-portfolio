@@ -19,7 +19,9 @@ const mime = {
 const server = createServer(async (request, response) => {
   try {
     const url = new URL(request.url || "/", "http://127.0.0.1");
-    const pathname = decodeURIComponent(url.pathname === "/" ? "/index.html" : url.pathname);
+    const requestedPath = decodeURIComponent(url.pathname === "/" ? "/index.html" : url.pathname);
+    // Match Vercel's static hosting behaviour: /research/ resolves to research/index.html.
+    const pathname = requestedPath.endsWith("/") ? requestedPath + "index.html" : requestedPath;
     const filePath = path.resolve(root, "." + pathname);
     if (!filePath.startsWith(root + path.sep) && filePath !== path.join(root, "index.html")) {
       response.writeHead(403).end("Forbidden");
