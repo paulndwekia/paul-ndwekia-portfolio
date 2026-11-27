@@ -166,18 +166,18 @@ function AboutSection(){
 }
 function CampusGallery(){
   const photos=[
-    {src:"/assets/campus-gate.webp",alt:"The JKUAT main campus entrance gate with its red gear sculpture",title:"The main gate",place:"JKUAT · Juja"},
-    {src:"/assets/campus-road.webp",alt:"The road between campus buildings at JKUAT",title:"Along the campus road",place:"Juja"},
-    {src:"/assets/campus-building.webp",alt:"A view of one of JKUAT’s academic buildings and its courtyard",title:"The academic block",place:"JKUAT"},
-    {src:"/assets/campus-courtyard.webp",alt:"Another view across the JKUAT academic courtyard",title:"Around the courtyard",place:"Main campus"}
+    {alt:"The JKUAT main campus entrance gate with its red gear sculpture",title:"The main gate",place:"JKUAT · Juja",position:"0% 0%"},
+    {alt:"The road between JKUAT campus buildings, with flags along the central driveway",title:"Along the campus road",place:"Juja",position:"100% 0%"},
+    {alt:"One of JKUAT’s academic buildings and its courtyard",title:"The academic block",place:"JKUAT",position:"0% 100%"},
+    {alt:"A second view across the JKUAT academic courtyard",title:"Around the courtyard",place:"Main campus",position:"100% 100%"}
   ];
   return <section className="campus-gallery section-wrap" id="campus">
     <div className="section-heading">
       <Reveal><p className="eyebrow">Outside the screen</p><h2>A few corners of JKUAT.</h2></Reveal>
       <Reveal><p className="section-intro">The place behind a lot of the work. I wanted these photographs here too, not buried in a folder.</p></Reveal>
     </div>
-    <div className="campus-gallery-grid">{photos.map(photo=><figure className="campus-gallery-item" key={photo.src}>
-      <div className="campus-gallery-image"><img src={photo.src} alt={photo.alt} width="1024" height="768" loading="lazy" decoding="async"/></div>
+    <div className="campus-gallery-grid">{photos.map(photo=><figure className="campus-gallery-item" key={photo.title}>
+      <div className="campus-gallery-image" role="img" aria-label={photo.alt} style={{backgroundImage:"url(/assets/campus-gallery.webp)",backgroundPosition:photo.position}}/>
       <figcaption><strong>{photo.title}</strong><span>{photo.place}</span></figcaption>
     </figure>)}</div>
   </section>;
