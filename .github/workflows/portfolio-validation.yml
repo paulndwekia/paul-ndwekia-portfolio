@@ -5,9 +5,14 @@ on:
     branches: [main]
     paths:
       - "index.html"
+      - "research/**"
+      - "src/**"
       - "styles.css"
       - "app.js"
       - "data/**"
+      - "assets/**"
+      - "package.json"
+      - "vite.config.js"
       - "scripts/**"
       - ".github/workflows/portfolio-validation.yml"
   workflow_dispatch:
@@ -18,7 +23,7 @@ permissions:
 jobs:
   validate:
     runs-on: ubuntu-latest
-    timeout-minutes: 15
+    timeout-minutes: 20
     steps:
       - name: Check out portfolio
         uses: actions/checkout@v4
@@ -28,21 +33,18 @@ jobs:
         with:
           node-version: 22
 
-      - name: Validate scripts and portfolio data
+      - name: Validate data and build React application
         run: |
-          node --check app.js
-          node --check scripts/sync.mjs
-          node --check scripts/capture-previews.mjs
-          node --check scripts/register-linkedin-publication.mjs
-          node --check scripts/register-profile-photo.mjs
           node -e "for (const file of ['data/projects.json','data/linkedin-evidence.json','data/github-progress.json','data/profile.json']) JSON.parse(require('fs').readFileSync(file, 'utf8'))"
+          npm install --no-audit --no-fund
+          npm run build
 
       - name: Install Playwright
         run: |
           npm install --prefix /tmp/portfolio-browser playwright
           /tmp/portfolio-browser/node_modules/.bin/playwright install --with-deps chromium
 
-      - name: Test project catalogue on a mobile viewport
+      - name: Test desktop and narrow Android-sized layouts
         env:
           PLAYWRIGHT_MODULE: /tmp/portfolio-browser/node_modules/playwright/index.mjs
         run: node scripts/test-project-filters.mjs
