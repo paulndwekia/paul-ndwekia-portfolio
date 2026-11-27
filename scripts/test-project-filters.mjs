@@ -58,6 +58,19 @@ try {
     completed: sourceProjects.filter(completed),
     all: sourceProjects
   };
+  const featured = await page.locator(".project-card.is-featured").evaluateAll(nodes => nodes.map(node => node.dataset.projectSlug));
+  if (JSON.stringify(featured) !== JSON.stringify(["kenya-financial-analytics", "standpoint-financial-intelligence"])) {
+    throw new Error("The two featured financial case studies are not first in the intended order: " + JSON.stringify(featured));
+  }
+  for (const slug of featured) {
+    const card = page.locator(`.project-card[data-project-slug="${slug}"]`);
+    if (await card.locator(".project-context").count() !== 1) {
+      throw new Error(`${slug} must include its project context and scope.`);
+    }
+  }
+  if (await page.locator(".focus-section").count() !== 1) {
+    throw new Error("The homepage must explain the three areas of work before the project catalogue.");
+  }
   const total = await page.locator(".project-card").count();
   if (total !== sourceProjects.length) {
     throw new Error(`Project catalogue mismatch: expected ${sourceProjects.length} cards from data/projects.json; found ${total}.`);
@@ -142,7 +155,8 @@ try {
   if (errors.length) throw new Error("Browser JavaScript errors: " + errors.join("; "));
 
   console.log("PASS: All four coloured project filters work on a 390px mobile viewport.");
-  console.log("PASS: No number counters appear; counts, active state, empty state and Buzz preview are correct.");
+  console.log("PASS: Featured case studies, focus areas, mobile filters and project previews are correct.");
+  console.log("PASS: No number counters appear; category state, empty state and Buzz preview are correct.");
 } finally {
   await browser.close();
   await new Promise(resolve => server.close(resolve));
