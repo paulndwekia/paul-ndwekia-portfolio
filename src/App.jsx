@@ -6,7 +6,6 @@ import profileData from "../data/profile.json";
 import BlurText from "./components/BlurText";
 import FadeContent from "./components/FadeContent";
 import SpotlightCard from "./components/SpotlightCard";
-import TiltedCard from "./components/TiltedCard";
 
 const projects=[...(projectData.projects||[])].sort((a,b)=>(a.display_order??999)-(b.display_order??999));
 const repositories=githubData.repositories||[];
@@ -42,7 +41,7 @@ function useReducedMotion(){
 function Reveal({children,className="",delay=0}){
   const reduced=useReducedMotion();
   if(reduced)return <div className={className}>{children}</div>;
-  return <FadeContent className={className} effect="fade" duration={0.68} ease="power2.out" delay={delay} threshold={0.12} initialOpacity={0.04} trigger="scroll" once>{children}</FadeContent>;
+  return <FadeContent className={className} effect="fade" duration={0.68} ease="power2.out" delay={delay} threshold={0.12} initialOpacity={1} trigger="mount" once>{children}</FadeContent>;
 }
 function Header({research=false}){
   const [open,setOpen]=useState(false);
@@ -58,7 +57,7 @@ function Header({research=false}){
       <A href="/#work" onClick={close} aria-current={!research?"page":undefined}>Selected work</A>
       <A href="/research/" onClick={close} aria-current={research?"page":undefined}>Research & reports</A>
       <A href="/#progress" onClick={close}>In the work</A><A href="/#about" onClick={close}>About</A>
-      <A href="/#contact" className="nav-contact" onClick={close}>Contact <span aria-hidden="true">↗</span></A>
+      <A href="/#contact" className="nav-contact" onClick={close}>Contact <span aria-hidden="true"></span></A>
     </nav>
   </div>{open&&<button className="nav-scrim" aria-label="Close navigation" onClick={close}/>}</header>;
 }
@@ -91,7 +90,7 @@ function ProjectCard({project}){
         {project.project_story&&<p className="project-story">{project.project_story}</p>}
         <p className="project-scope">{project.project_scope||(project.stack||[]).slice(0,6).join(" · ")}</p>
         <div className="project-actions">
-          {project.live_url&&<A href={project.live_url} className="project-action-primary">{project.live_label||"Open live project"} <span>↗</span></A>}
+          {project.live_url&&<A href={project.live_url} className="project-action-primary">{project.live_label||"Open live project"} <span></span></A>}
           {repo&&<A href={repo} className="project-action-link">Source repository</A>}
           {project.case_study_url&&<A href={project.case_study_url} className="project-action-link">Case study</A>}
           {project.report_url&&<A href={project.report_url} className="project-action-link">Research output</A>}
@@ -137,7 +136,7 @@ function FocusSection(){
     ["Research & analysis","Macroeconomic comparisons, yield curves, valuation and risk. I like making assumptions and data limitations visible rather than hiding them in the footnotes."],
     ["Software that helps","I build interfaces and data systems that turn an analytical idea into something another person can actually explore and use."]
   ];
-  return <section className="focus-section"><div className="section-wrap"><Reveal><p className="eyebrow eyebrow-light">Where the interests meet</p><h2 className="focus-title">I tend to start with a question.</h2></Reveal><div className="focus-grid">{items.map(([title,copy],i)=><Reveal key={title} delay={i*.07}><article className="focus-item"><span className="focus-mark">0{i+1}</span><h3>{title}</h3><p>{copy}</p></article></Reveal>)}</div></div></section>;
+  return <section className="focus-section"><div className="section-wrap"><Reveal><p className="eyebrow eyebrow-light">Where the interests meet</p><h2 className="focus-title">I tend to start with a question.</h2></Reveal><div className="focus-grid">{items.map(([title,copy],i)=><Reveal key={title} delay={i*.07}><article className="focus-item"><h3>{title}</h3><p>{copy}</p></article></Reveal>)}</div></div></section>;
 }
 function ProgressSection(){
   const recent=[...repositories].sort((a,b)=>new Date(b.pushed_at)-new Date(a.pushed_at)).slice(0,4);
@@ -145,10 +144,10 @@ function ProgressSection(){
   return <section className="progress-section" id="progress"><div className="section-wrap">
     <div className="section-heading"><Reveal><p className="eyebrow">A little behind the scenes</p><h2>Work in motion.</h2></Reveal><Reveal><p className="section-intro">I keep a public trail of repositories and published work. Activity is evidence of development, not proof that every feature is finished.</p></Reveal></div>
     <div className="progress-grid">
-      <Reveal><div className="activity-panel"><div className="panel-heading"><div><span className="panel-kicker">GitHub</span><h3>Recent development</h3></div><A href={githubUrl} className="panel-link">My repositories ↗</A></div><div className="activity-list">{recent.map(r=><article className="activity-item" key={r.name}><span className="activity-dot"/><div className="activity-copy"><A href={r.html_url} className="activity-repo">{r.name.replaceAll("-"," ")}</A><p>{r.latest_commit||r.description||"Public repository update"}</p><small>{dateLabel(r.pushed_at)}{r.language?" · "+r.language:""}</small></div></article>)}</div><p className="panel-footnote">Public GitHub activity refreshed by the portfolio workflow.</p></div></Reveal>
-      <Reveal delay={0.1}><div className="publication-panel"><div className="panel-heading"><div><span className="panel-kicker">LinkedIn</span><h3>Published work</h3></div><A href={linkedinUrl} className="panel-link">My profile ↗</A></div>
-        {verified.length?<div className="publication-list">{verified.map((p,i)=><article className="publication-item" key={p.project_slug+i}><span className="publication-mark">in</span><div><strong>{p.profile_project_title||p.project_slug.replaceAll("-"," ")}</strong><p>{p.source_description||"Publication evidence linked to my LinkedIn profile."}</p><A href={p.post_url||p.source_url} className="small-link">{p.post_url?"Read publication":"View LinkedIn profile"} ↗</A></div></article>)}</div>:<p className="publication-empty">I’ll add project publication links here as they are verified.</p>}
-        <div className="publication-actions"><A href={publicationIssueUrl} className="small-link">Register a project post ↗</A><A href={withdrawalIssueUrl} className="small-link">Withdraw deleted evidence ↗</A></div>
+      <Reveal><div className="activity-panel"><div className="panel-heading"><div><span className="panel-kicker">GitHub</span><h3>Recent development</h3></div><A href={githubUrl} className="panel-link">My repositories </A></div><div className="activity-list">{recent.map(r=><article className="activity-item" key={r.name}><span className="activity-dot"/><div className="activity-copy"><A href={r.html_url} className="activity-repo">{r.name.replaceAll("-"," ")}</A><p>{r.latest_commit||r.description||"Public repository update"}</p><small>{dateLabel(r.pushed_at)}{r.language?" · "+r.language:""}</small></div></article>)}</div><p className="panel-footnote">Public GitHub activity refreshed by the portfolio workflow.</p></div></Reveal>
+      <Reveal delay={0.1}><div className="publication-panel"><div className="panel-heading"><div><span className="panel-kicker">LinkedIn</span><h3>Published work</h3></div><A href={linkedinUrl} className="panel-link">My profile </A></div>
+        {verified.length?<div className="publication-list">{verified.map((p,i)=><article className="publication-item" key={p.project_slug+i}><span className="publication-mark">in</span><div><strong>{p.profile_project_title||p.project_slug.replaceAll("-"," ")}</strong><p>{p.source_description||"Publication evidence linked to my LinkedIn profile."}</p><A href={p.post_url||p.source_url} className="small-link">{p.post_url?"Read publication":"View LinkedIn profile"} </A></div></article>)}</div>:<p className="publication-empty">I’ll add project publication links here as they are verified.</p>}
+        <div className="publication-actions"><A href={publicationIssueUrl} className="small-link">Register a project post </A><A href={withdrawalIssueUrl} className="small-link">Withdraw deleted evidence </A></div>
       </div></Reveal>
     </div>
   </div></section>;
@@ -157,9 +156,9 @@ function AboutSection(){
   return <section className="about-section section-wrap" id="about">
     <div className="section-heading"><Reveal><p className="eyebrow">A little about me</p><h2>Still learning. Still building.</h2></Reveal><Reveal><p className="section-intro">I’m a Financial Engineering student at JKUAT. The software I build is often connected to something I’m trying to understand more deeply.</p></Reveal></div>
     <div className="about-layout">
-      <Reveal className="about-photo-wrap"><figure className="about-photo-frame"><img src="/assets/paul-campus.webp" alt="Paul Ndwekia looking at his phone on the JKUAT campus" loading="lazy" decoding="async"/><figcaption><span>Outside the screen</span><span>Juja · JKUAT</span></figcaption></figure></Reveal>
+      <Reveal className="about-photo-wrap"><figure className="about-photo-frame"><img src="/assets/paul-campus.webp" alt="Paul Ndwekia looking at his phone outside a JKUAT campus building" width="840" height="1118" loading="eager" decoding="async"/><figcaption><span>Outside the screen</span><span>Juja · JKUAT</span></figcaption></figure></Reveal>
       <Reveal className="about-copy" delay={0.1}>
-        <div className="about-identity"><img src={profilePhoto} alt="Paul Ndwekia profile" onError={e=>{e.currentTarget.src=defaultAvatar;}}/><div><strong>Paul Ndwekia</strong><span>Financial Engineering · JKUAT · Expected 2029</span><A href={photoIssueUrl} className="small-link">Change profile photo ↗</A></div></div>
+        <div className="about-identity"><img src={profilePhoto} alt="Paul Ndwekia profile" onError={e=>{e.currentTarget.src=defaultAvatar;}}/><div><strong>Paul Ndwekia</strong><span>Financial Engineering · JKUAT · Expected 2029</span><A href={photoIssueUrl} className="small-link">Change profile photo </A></div></div>
         <p>I study Financial Engineering at Jomo Kenyatta University of Agriculture and Technology. Building software is one of the ways I work through what I’m learning — especially when a financial idea can become a tool someone else can use.</p>
         <p>I’m particularly interested in Kenyan capital markets, fixed income, foreign exchange and quantitative research. I enjoy understanding where the data comes from, checking the assumptions and making the result easier to work with.</p>
         <p>I’ve also built products outside finance and delivered a website for a real business. Those projects have taught me as much about product decisions and finishing details as they have about code.</p>
@@ -169,9 +168,32 @@ function AboutSection(){
     </div>
   </section>;
 }
+function CampusGallery(){
+  return <section className="campus-gallery section-wrap" id="campus">
+    <div className="section-heading">
+      <Reveal><p className="eyebrow">A little beyond the screen</p><h2>Juja, in between everything else.</h2></Reveal>
+      <Reveal><p className="section-intro">A few familiar corners from the place where I study, work through ideas and spend most of my week.</p></Reveal>
+    </div>
+    <div className="campus-gallery-grid">
+      <figure className="campus-gallery-item">
+        <div className="campus-gallery-image"><img src="/assets/paul-campus-alt.webp" alt="Paul Ndwekia standing on a campus walkway in Juja" width="840" height="959" loading="lazy" decoding="async"/></div>
+        <figcaption><strong>An afternoon in Juja</strong><span>JKUAT campus</span></figcaption>
+      </figure>
+      <figure className="campus-gallery-item campus-gate-item">
+        <div className="campus-gallery-image"><img src="https://upload.wikimedia.org/wikipedia/commons/9/9a/JKUAT-Main-Campus-Gate-A.jpg" alt="The main entrance gate at Jomo Kenyatta University of Agriculture and Technology" width="3000" height="1750" loading="lazy" decoding="async"/></div>
+        <figcaption><strong>JKUAT Main Campus Gate A</strong><span>Juja · Main entrance</span></figcaption>
+        <p className="image-credit">Photo: Elvis Onsomu / Wikimedia Commons · <A href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</A> · <A href="https://commons.wikimedia.org/wiki/File:JKUAT-Main-Campus-Gate-A.jpg">Source</A></p>
+      </figure>
+      <figure className="campus-gallery-item">
+        <div className="campus-gallery-image"><img src="/assets/paul-hero.webp" alt="Paul Ndwekia on the JKUAT campus" width="840" height="840" loading="lazy" decoding="async"/></div>
+        <figcaption><strong>On campus</strong><span>Financial Engineering · JKUAT</span></figcaption>
+      </figure>
+    </div>
+  </section>;
+}
 function ContactSection(){
   const wa="https://wa.me/254745120235?text=Hello%20Paul%2C%20I%27m%20contacting%20you%20regarding%20a%20business%20enquiry.";
-  return <section className="contact-section" id="contact"><div className="section-wrap contact-inner"><Reveal><p className="eyebrow eyebrow-light">Get in touch</p><h2>Have something worth working through?</h2><p>I’m glad to hear from people working on financial research, useful software and ideas that deserve a closer look.</p><div className="contact-actions"><A href="mailto:p98001630@gmail.com" className="button button-light">Email me <span>↗</span></A><A href={wa} className="button button-outline-light">WhatsApp · Business enquiries</A></div><div className="contact-socials"><A href={linkedinUrl}>LinkedIn ↗</A><A href={githubUrl}>GitHub ↗</A></div></Reveal></div></section>;
+  return <section className="contact-section" id="contact"><div className="section-wrap contact-inner"><Reveal><p className="eyebrow eyebrow-light">Get in touch</p><h2>Have something worth working through?</h2><p>I’m glad to hear from people working on financial research, useful software and ideas that deserve a closer look.</p><div className="contact-actions"><A href="mailto:p98001630@gmail.com" className="button button-light">Email me <span></span></A><A href={wa} className="button button-outline-light">WhatsApp · Business enquiries</A></div><div className="contact-socials"><A href={linkedinUrl}>LinkedIn </A><A href={githubUrl}>GitHub </A></div></Reveal></div></section>;
 }
 function Footer(){
   return <footer className="site-footer"><div className="section-wrap footer-inner">
@@ -192,14 +214,15 @@ function HomePage(){
       <div className="hero-copy"><p className="eyebrow eyebrow-light">Nairobi, Kenya <span className="eyebrow-divider">/</span> JKUAT</p><p className="hero-kicker">FINANCIAL ENGINEERING · SOFTWARE · RESEARCH</p>
         <div className="hero-heading" role="heading" aria-level="1"><BlurText text="I build financial tools that make the numbers easier to understand." animateBy="words" direction="top" delay={42} threshold={0.12} stepDuration={0.24} blur={7} distance={26}/></div>
         <p className="hero-lede">I’m Paul Ndwekia. I study Financial Engineering and build software around the questions I keep coming back to: how do Kenyan markets behave, what is the data telling us, and how can we make it useful?</p>
-        <div className="hero-actions"><A href="#work" className="button button-primary">Explore my work <span>↘</span></A><A href="#about" className="hero-text-link">A little about me <span>↘</span></A></div>
+        <div className="hero-actions"><A href="#work" className="button button-primary">Explore my work <span></span></A><A href="#about" className="hero-text-link">A little about me <span></span></A></div>
         <div className="hero-foot"><span>Financial markets</span><span>Quantitative research</span><span>Software products</span></div>
       </div>
-      <div className="hero-portrait"><div className="portrait-outline"/><div className="portrait-label portrait-label-top"><span>01 / PAUL NDWEKIA</span><span>JUJA, KENYA</span></div>
-        <TiltedCard imageSrc="/assets/paul-hero.webp" altText="Paul Ndwekia standing on the JKUAT campus" captionText="JKUAT · Juja" containerHeight="min(86vw, 520px)" containerWidth="100%" imageHeight="100%" imageWidth="100%" scaleOnHover={1.025} rotateAmplitude={4} showTooltip={false} glare={0.12} shadow={0.2} parallax={0.5} gyroscope={false} intro={false} radius={12} smoothness={0.72}/>
-        <div className="portrait-label portrait-label-bottom"><span>FINANCIAL ENGINEERING</span><span>EXPECTED 2029</span></div><div className="portrait-accent"/></div>
+      <figure className="hero-portrait">
+        <img src="/assets/paul-hero.webp" alt="Paul Ndwekia standing on the JKUAT campus" width="840" height="840" fetchPriority="high" decoding="async"/>
+        <figcaption className="hero-photo-caption"><span>Paul Ndwekia</span><span>Juja · JKUAT</span></figcaption>
+      </figure>
     </div><div className="hero-bottom section-wrap"><span>FINANCE <i>×</i> DATA <i>×</i> TECHNOLOGY</span><span className="hero-bottom-note">A personal portfolio of projects and research</span></div></section>
-    <FocusSection/><WorkSection/><ProgressSection/><AboutSection/><ContactSection/>
+    <FocusSection/><WorkSection/><ProgressSection/><AboutSection/><CampusGallery/><ContactSection/>
   </main><Footer/><CookieNotice/></>;
 }
 
@@ -223,7 +246,7 @@ function ResearchCard({item}){
       <div className="research-detail"><strong>What I worked on</strong><p>{item.work}</p></div>
       <div className="research-detail research-integrity"><strong>Scope & research integrity</strong><p>{item.integrity}</p></div>
       <div className="research-tags">{item.tags.map(tag=><span key={tag}>{tag}</span>)}</div>
-      <div className="research-links">{item.links.map(([label,url])=><A key={url} href={url}>{label} ↗</A>)}</div>
+      <div className="research-links">{item.links.map(([label,url])=><A key={url} href={url}>{label} </A>)}</div>
     </div>
   </article></Reveal>;
 }
@@ -244,10 +267,10 @@ function ResearchPage(){
       <p className="research-filter-status" role="status" aria-live="polite" data-research-count>Showing {visible.length} case studies</p><div className="research-list">{visible.map(item=><ResearchCard item={item} key={item.id}/>)}</div>
     </section>
     <section className="research-section section-wrap" id="reports"><div className="section-heading"><Reveal><p className="eyebrow">Reports & publications</p><h2>Research you can read.</h2></Reveal><Reveal><p className="section-intro">A short catalogue of deliverables connected to the projects above. Live data-generated reports are labelled separately from fixed-date research documents.</p></Reveal></div>
-      <div className="report-library">{reports.map(([kind,title,desc,url,action])=><article className="report-row" key={title}><span className="report-kind">{kind}</span><div><h3>{title}</h3><p>{desc}</p></div><A href={url} className="report-action">{action} ↗</A></article>)}</div>
+      <div className="report-library">{reports.map(([kind,title,desc,url,action])=><article className="report-row" key={title}><span className="report-kind">{kind}</span><div><h3>{title}</h3><p>{desc}</p></div><A href={url} className="report-action">{action} </A></article>)}</div>
     </section>
-    <section className="method-section"><div className="method-copy"><p className="eyebrow eyebrow-light">One rule across the research</p><h2>Show the source.<br/>Show the assumption.</h2><p>Historical observations, modelled results and forward-looking scenarios have different meanings. When I can, I keep the origin of the data, sample period and method close to the output. If the evidence is incomplete, the honest answer is to say so.</p></div><div className="method-points"><div><span>01</span><strong>Know where the numbers came from.</strong><p>Sources, dates and definitions should be visible.</p></div><div><span>02</span><strong>Show what the model is doing.</strong><p>Calculations need their assumptions and limitations.</p></div><div><span>03</span><strong>Keep unfinished work honest.</strong><p>A live link is not the same as a finished module.</p></div></div></section>
-    <section className="research-contact section-wrap"><p className="eyebrow">Questions or corrections</p><h2>Good research gets better when it is questioned.</h2><p>For questions about a project, a source or an assumption, the best route is to get in touch directly.</p><A href="/#contact" className="button button-primary">Contact me <span>↗</span></A></section>
+    <section className="method-section"><div className="method-copy"><p className="eyebrow eyebrow-light">One rule across the research</p><h2>Show the source.<br/>Show the assumption.</h2><p>Historical observations, modelled results and forward-looking scenarios have different meanings. When I can, I keep the origin of the data, sample period and method close to the output. If the evidence is incomplete, the honest answer is to say so.</p></div><div className="method-points"><div><strong>Know where the numbers came from.</strong><p>Sources, dates and definitions should be visible.</p></div><div><strong>Show what the model is doing.</strong><p>Calculations need their assumptions and limitations.</p></div><div><strong>Keep unfinished work honest.</strong><p>A live link is not the same as a finished module.</p></div></div></section>
+    <section className="research-contact section-wrap"><p className="eyebrow">Questions or corrections</p><h2>Good research gets better when it is questioned.</h2><p>For questions about a project, a source or an assumption, the best route is to get in touch directly.</p><A href="/#contact" className="button button-primary">Contact me <span></span></A></section>
   </main><Footer/><CookieNotice/></>;
 }
 export default function App(){
