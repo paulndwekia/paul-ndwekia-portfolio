@@ -210,6 +210,7 @@
       const card = create("article","project-card");
       if (project.featured) card.classList.add("is-featured");
       card.dataset.projectSlug = project.slug;
+      card.dataset.discipline = project.discipline || "client-work";
       if (project.featured) card.dataset.featured = "true";
       card.dataset.completed = String(completed);
       card.dataset.live = String(hasLiveSite);
@@ -222,6 +223,7 @@
         : projectStatus === "completed" ? (project.stage_label || "Completed project")
         : (project.stage_label || "In progress");
       const meta = create("p","project-meta", project.featured ? "Selected case study · " + metaLabel : metaLabel);
+      const discipline = create("p","project-discipline", project.discipline_label || project.category || "Selected work");
       const heading = create("h3","",project.name);
       const description = create("p","",project.description || repo?.description || "A project in the finance, data and technology space.");
       let projectContext = null;
@@ -283,7 +285,7 @@
         const profile = create("a","","LinkedIn profile");
         profile.href = record.source_url; profile.target = "_blank"; profile.rel = "noopener"; links.append(profile);
       }
-      body.append(meta, heading, description);
+      body.append(meta, discipline, heading, description);
       if (projectContext) body.append(projectContext);
       body.append(tags, signal, links);
       card.append(body); grid.append(card);
