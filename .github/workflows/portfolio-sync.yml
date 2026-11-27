@@ -72,7 +72,15 @@ jobs:
           PREVIEW_PROJECT_SLUG: kenya-financial-analytics,kenya-investment-intelligence,gdp-dashboard,standpoint-financial-intelligence,fintel-kenya-financial-intelligence
         run: node scripts/capture-previews.mjs
 
-      - name: Test project filters on mobile
+      - name: Install React portfolio dependencies
+        if: github.event_name != 'issues'
+        run: npm install --no-audit --no-fund
+
+      - name: Build React portfolio and preserve public assets
+        if: github.event_name != 'issues'
+        run: npm run build
+
+      - name: Test React portfolio on desktop and mobile
         if: github.event_name != 'issues'
         env:
           PLAYWRIGHT_MODULE: /tmp/portfolio-browser/node_modules/playwright/index.mjs

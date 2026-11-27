@@ -1,72 +1,56 @@
-# Paul Ndwekia — Portfolio
+# Paul Ndwekia — Finance, Data & Technology
 
-Personal portfolio for work across finance, data and technology.
+Personal portfolio for my work across financial engineering, Kenyan markets, data and software.
 
-**Live site:** https://paul-ndwekia-portfolio.vercel.app  
-**GitHub:** https://github.com/paulndwekia
+**Production website:** https://paul-ndwekia-portfolio.vercel.app  
+**Source repository:** https://github.com/paulndwekia/paul-ndwekia-portfolio
 
-## Portfolio structure
+## Application structure
 
-- `index.html` is the personal homepage.
-- `research/index.html` is the case-study and report library, covering finance, fixed income, macroeconomic research, financial technology and selected product work.
-- `assets/paul-hero.webp` and `assets/paul-campus.webp` are the owner's supplied photographs, used without AI retouching.
-- `data/projects.json` holds project status, discipline labels, case-study links and source links. The research archive keeps collaboration, data caveats and project limitations explicit.
+- React 19 with Vite, built as a two-page application: the homepage and the research archive.
+- `data/projects.json` is the project catalogue and remains the source of project status, discipline, links and screenshots.
+- `data/github-progress.json`, `data/linkedin-evidence.json` and `data/profile.json` continue to feed GitHub activity, publication evidence and the custom-profile-photo workflow.
+- Privacy, terms, security, `.well-known/security.txt`, favicon, robots and sitemap are copied through to the production build.
+- The original user-supplied photographs and actual project interface captures are served from the repository. Project screenshots use contain-style framing so the interface stays readable.
 
-## Deployment
+## Design and interaction
 
-The existing Vercel project `paul-ndwekia-portfolio` is connected to this repository. Commits pushed to the `main` branch trigger Vercel deployments automatically. The production domain remains https://paul-ndwekia-portfolio.vercel.app.
+The visual system restores the blue identity: navy `#10243A`, slate blue `#456F95`, off-white `#F3F2ED`, white `#FFFFFF`, muted blue-grey `#687783` and soft borders `#D9DEDF`.
 
-## How updates work
+The React implementation uses the actual React Bits components for BlurText, FadeContent, SpotlightCard and TiltedCard. Their original source files and licence notice are kept in the repository. Motion is restrained and checks the reduced-motion preference.
 
-- GitHub Actions refreshes public repository activity every six hours.
-- New public, non-fork repositories are discovered and added to the portfolio as **In progress** entries.
-- Commit activity is shown as progress evidence only. It never marks a project complete.
-- A project can become **Completed** when its LinkedIn profile Projects entry or public project announcement is recorded as evidence. A LinkedIn profile project listing is linked to the public profile; a post announcement can be registered with the **LinkedIn project publication** issue form.
-- A submitted LinkedIn post may include the original image URL. The site uses that image for the project preview.
-- The workflow captures the public homepages of hosted projects with a headless browser and stores real screenshots in `assets/previews/`.
-- Previews are static images served by this portfolio; visitors do not need to call a third-party screenshot service.
-- Projects without a public demo or supplied image are clearly shown as having no public preview rather than being represented by a fabricated screenshot.
-- Once the workflow commits the evidence and preview images, Vercel's Git integration deploys the update automatically.
+## Project status rule
 
-## Changing the portfolio profile photo
+Completion and hosting are separate concepts:
 
-Open [Change portfolio profile photo](https://github.com/paulndwekia/paul-ndwekia-portfolio/issues/new?template=change-profile-photo.yml), choose **Upload a new profile photo**, attach a JPEG, PNG or WebP image (8 MB maximum), confirm and submit. The owner-only GitHub Actions workflow copies the image into this repository and updates the header, introduction, About section and footer for all visitors. The GitHub avatar remains the default and can be restored from the same form. Uploaded photos become public as part of this public repository.
+- `portfolio_status: "completed"` means the project is finished.
+- `portfolio_status: "in-progress"` means development or research is still underway.
+- `site_status: "live"` means a public website or demonstration is available.
 
-## Registering a LinkedIn project post
+A project can therefore be both **Live site** and **In progress** without being labelled completed.
 
-1. Publish the project announcement on your personal LinkedIn profile.
-2. Open [New LinkedIn publication evidence](https://github.com/paulndwekia/paul-ndwekia-portfolio/issues/new?template=linkedin-project-publication.yml).
-3. Choose the project, paste the public LinkedIn post URL and, if available, the original public image URL.
-4. Submit. GitHub Actions validates the LinkedIn URL, records the evidence and refreshes the site data.
+The completed portfolio includes Kenya Financial Analytics, StandPoint, GDP Atlas / GDP Research Dashboard, Kenya Yield Curve & Interest Rate Risk Engine, Buzz and Nkaulele Contractors Limited. GDP Atlas is completed and deployed on Vercel; Streamlit is not its hosting platform. FINTEL and Kenya Investment Intelligence remain live development projects with unfinished work clearly documented. Kenya Investment Intelligence is collaborative work with Edward Chege Waweru.
 
-This step is required because free official integrations do not provide unrestricted access to read personal LinkedIn posts. The workflow does not scrape LinkedIn or store LinkedIn login credentials. The repository owner can use the **Withdraw deleted LinkedIn evidence** issue form if a post is deleted; this removes the active completion evidence so the project no longer qualifies as Completed.
+## Development
 
-LinkedIn does not provide a reliable anonymous way to distinguish a deleted post from a login wall, privacy restriction or anti-bot response. The free setup therefore does not automatically downgrade a project based on an inconclusive HTTP check. The owner-triggered withdrawal form is the reliable deletion path.
+- `npm install` installs the application dependencies.
+- `npm run dev` starts the Vite development server.
+- `npm run build` copies the original public assets and builds both pages into `dist/`.
+- `npm run preview` serves the production build locally.
+- `npm run test:portfolio` runs the Playwright browser checks when Playwright is installed.
+
+## Existing automation and owner controls
+
+The GitHub Actions workflow refreshes public GitHub activity every six hours, captures the actual public project screens and handles LinkedIn publication evidence, deleted-publication withdrawals and the custom profile photo.
+
+The LinkedIn workflow is owner-submitted. Free official integrations do not grant unrestricted access to personal LinkedIn posts, so this site does not scrape LinkedIn or ask for a LinkedIn password. A deleted LinkedIn post can be withdrawn using the issue form so it no longer supports a completed status.
+
+The profile photo can still be changed through the owner-only GitHub issue form. JPEG, PNG and WebP uploads are validated, and the GitHub avatar is retained as fallback.
 
 ## Privacy and security
 
-- Only public GitHub repository metadata and commit summaries are published.
+- Only public GitHub repository metadata and commit summaries are shown.
 - Private repositories are not read by the public sync workflow.
-- No personal access token is embedded in the website.
-- The GitHub Actions token is scoped to this repository and used only by the workflow.
-- Do not put secrets, private URLs or confidential material in issue submissions.
-
-## Local preview
-
-This is a static site. Open `index.html` in a browser or serve the repository root with any local static server. No package installation is needed.
-
-
-## Project filters
-
-The four project filters remain **Everything**, **Completed**, **Live sites**, and **In progress**. **Completed** includes projects whose portfolio status is explicitly `completed` or `live`, plus projects with verified LinkedIn publication evidence. A `live` portfolio status represents a finished/live showcase, including private showcases such as Buzz. **Live sites** is driven separately by the presence of a configured public URL and the `site_status` field, so a public build can appear in **Live sites** and **In progress** without being labelled completed. **In progress** contains projects still being built or researched. The selected filter is preserved when project data refreshes; the controls also support keyboard and touch interaction. The filter controls have individual colours and no numeric counters.
-
-
-The project filters retain the original four categories with restrained coloured surfaces and no numerical counters. Their click behaviour is covered by a Playwright mobile-browser check in the GitHub Actions workflow; the test checks all four categories, visible card counts, active state, empty state and Buzz's Live-sites classification.
-
-
-**Category rule:** `Completed` reflects project completion evidence and manually verified completion status. `Live sites` is independent: every project with a configured public website or demo is listed there, even when development is still in progress. A live in-progress build can appear under both `Live sites` and `In progress` without being labelled completed. Finished projects such as StandPoint, Buzz, Kenya Yield Curve, Kenya Financial Analytics and Nkaulele Contractors remain in `Completed`; live sites among them also appear in `Live sites`. Kenya Investment Intelligence is currently listed under `Live sites` and `In progress` while its public dashboard and approved data integration are being completed.
-
-
-## Live project captures
-
-Every configured public project URL has its own JPEG screenshot in `assets/previews/`. The six-hour GitHub Actions workflow visits each URL with Playwright and captures the visible first screen. Capture files are always stored with a `.jpg` extension and checked for a valid JPEG signature before they are committed. A project without a configured public website is not given a fabricated live screenshot.
+- No personal access token is embedded in the frontend.
+- Essential browser storage only remembers dismissal of the cookie notice; there are no analytics or marketing trackers.
+- Security headers and the existing privacy, terms and security pages are preserved.

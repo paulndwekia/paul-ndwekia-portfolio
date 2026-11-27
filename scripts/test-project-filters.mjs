@@ -1,187 +1,86 @@
 import { createServer } from "node:http";
 import { readFile } from "node:fs/promises";
 import path from "node:path";
-
-const modulePath = process.env.PLAYWRIGHT_MODULE || "playwright";
-const { chromium } = await import(modulePath);
-const root = process.cwd();
-const mime = {
-  ".html": "text/html; charset=utf-8",
-  ".js": "text/javascript; charset=utf-8",
-  ".css": "text/css; charset=utf-8",
-  ".json": "application/json; charset=utf-8",
-  ".svg": "image/svg+xml",
-  ".jpg": "image/jpeg",
-  ".png": "image/png",
-  ".webp": "image/webp"
-};
-
-const server = createServer(async (request, response) => {
-  try {
-    const url = new URL(request.url || "/", "http://127.0.0.1");
-    const requestedPath = decodeURIComponent(url.pathname === "/" ? "/index.html" : url.pathname);
-    // Match Vercel's static hosting behaviour: /research/ resolves to research/index.html.
-    const pathname = requestedPath.endsWith("/") ? requestedPath + "index.html" : requestedPath;
-    const filePath = path.resolve(root, "." + pathname);
-    if (!filePath.startsWith(root + path.sep) && filePath !== path.join(root, "index.html")) {
-      response.writeHead(403).end("Forbidden");
-      return;
-    }
-    const content = await readFile(filePath);
-    response.writeHead(200, { "Content-Type": mime[path.extname(filePath)] || "application/octet-stream" });
-    response.end(content);
-  } catch {
-    response.writeHead(404).end("Not found");
-  }
+const modulePath=process.env.PLAYWRIGHT_MODULE||"playwright";
+const {chromium}=await import(modulePath);
+const root=path.resolve("dist");
+const mime={".html":"text/html; charset=utf-8",".js":"text/javascript; charset=utf-8",".css":"text/css; charset=utf-8",".json":"application/json; charset=utf-8",".svg":"image/svg+xml",".jpg":"image/jpeg",".webp":"image/webp",".png":"image/png"};
+const server=createServer(async(req,res)=>{
+ try{
+  let pathname=decodeURIComponent(new URL(req.url||"/","http://127.0.0.1").pathname);
+  if(pathname==="/")pathname="/index.html";
+  if(pathname==="/research"||pathname==="/research/")pathname="/research/index.html";
+  const file=path.resolve(root,"."+pathname);
+  if(!file.startsWith(root+path.sep)){res.writeHead(403).end("Forbidden");return;}
+  const bytes=await readFile(file);
+  res.writeHead(200,{"Content-Type":mime[path.extname(file)]||"application/octet-stream"});res.end(bytes);
+ }catch{res.writeHead(404).end("Not found");}
 });
-
-await new Promise(resolve => server.listen(0, "127.0.0.1", resolve));
-const address = server.address();
-const origin = `http://127.0.0.1:${address.port}`;
-const browser = await chromium.launch({ headless: true });
-const errors = [];
-
-try {
-  const page = await browser.newPage({ viewport: { width: 390, height: 844 }, deviceScaleFactor: 1 });
-  page.on("pageerror", error => errors.push(error.message));
-  page.on("console", message => { if (message.type() === "error") errors.push("console: " + message.text()); });
-  await page.goto(origin, { waitUntil: "domcontentloaded" });
-  await page.waitForFunction(() => document.documentElement.dataset.filtersReady === "true" && document.documentElement.dataset.projectCatalogueReady === "true");
-  const sourceProjects = JSON.parse(await readFile("data/projects.json", "utf8")).projects || [];
-  const sourceEvidence = JSON.parse(await readFile("data/linkedin-evidence.json", "utf8")).evidence || [];
-  const evidenceSlugs = new Set(sourceEvidence
-    .filter(item => item.post_url || item.source_url)
-    .map(item => item.project_slug));
-  const statusOf = project => project.portfolio_status || (project.live_url ? "live" : "in-progress");
-  const completed = project => evidenceSlugs.has(project.slug) || ["completed", "live"].includes(statusOf(project));
-  const expectedGroups = {
-    live: sourceProjects.filter(project => project.site_status === "live" && Boolean(project.live_url)),
-    progress: sourceProjects.filter(project => !completed(project) && statusOf(project) !== "live"),
-    completed: sourceProjects.filter(completed),
-    all: sourceProjects
-  };
-  const featured = await page.locator(".project-card.is-featured").evaluateAll(nodes => nodes.map(node => node.dataset.projectSlug));
-  if (JSON.stringify(featured) !== JSON.stringify(["kenya-financial-analytics", "standpoint-financial-intelligence"])) {
-    throw new Error("The two featured financial case studies are not first in the intended order: " + JSON.stringify(featured));
-  }
-  for (const slug of featured) {
-    const card = page.locator(`.project-card[data-project-slug="${slug}"]`);
-    if (await card.locator(".project-context").count() !== 1) {
-      throw new Error(`${slug} must include its project context and scope.`);
-    }
-  }
-  if (await page.locator(".focus-section").count() !== 1) {
-    throw new Error("The homepage must explain the three areas of work before the project catalogue.");
-  }
-  const total = await page.locator(".project-card").count();
-  if (total !== sourceProjects.length) {
-    throw new Error(`Project catalogue mismatch: expected ${sourceProjects.length} cards from data/projects.json; found ${total}.`);
-  }
-
-  const cases = [
-    { key: "live", status: "Showing public project websites and demos", slugs: expectedGroups.live.map(project => project.slug) },
-    { key: "progress", status: "Showing projects still being built or researched", slugs: expectedGroups.progress.map(project => project.slug) },
-    { key: "completed", status: "Showing completed projects, including all live sites and showcases", slugs: expectedGroups.completed.map(project => project.slug) },
-    { key: "all", status: "Showing all projects", slugs: expectedGroups.all.map(project => project.slug) }
-  ];
-
-  for (const test of cases) {
-    await page.locator(`[data-filter="${test.key}"]`).click();
-    await page.waitForTimeout(250);
-    const observed = await page.evaluate(() => ({
-      visible: document.querySelectorAll(".project-card:not([hidden])").length,
-      total: document.querySelectorAll(".project-card").length,
-      status: document.querySelector("#project-filter-status")?.textContent || "missing status",
-      active: [...document.querySelectorAll(".filter-button[aria-pressed='true']")].map(button => button.dataset.filter),
-      slugs: [...document.querySelectorAll(".project-card:not([hidden])")].map(card => card.dataset.projectSlug)
-    }));
-    if (observed.visible !== test.slugs.length) {
-      throw new Error(`${test.key} filter mismatch: expected ${test.slugs.length} visible from portfolio data; observed ${JSON.stringify(observed)}; browser errors: ${errors.join(" | ")}`);
-    }
-    if (!observed.status.includes(test.status)) {
-      throw new Error(`${test.key} status mismatch: ${observed.status}`);
-    }
-    if (test.slugs && JSON.stringify([...observed.slugs].sort()) !== JSON.stringify([...test.slugs].sort())) {
-      throw new Error(`${test.key} shows the wrong projects: ${JSON.stringify(observed.slugs)}`);
-    }
-    const activeCount = await page.locator('.filter-button[aria-pressed="true"]').count();
-    if (activeCount !== 1) throw new Error(`${test.key}: expected exactly one active category, found ${activeCount}.`);
-  }
-
-  if (await page.locator("#project-empty-state").isVisible()) {
-    throw new Error("Empty state should be hidden when Everything is selected.");
-  }
-  const buttonTexts = await page.locator(".filter-button").allTextContents();
-  if (buttonTexts.some(text => /\d/.test(text))) throw new Error("Project filter buttons should not display numbers.");
-  const colors = await page.locator(".filter-button").evaluateAll(nodes => nodes.map(node => getComputedStyle(node).backgroundColor));
-  if (new Set(colors).size !== 4) throw new Error("Each project category should have its own background colour.");
-  const liveWithUrls = sourceProjects.filter(project => Boolean(project.live_url));
-  if (liveWithUrls.some(project => project.site_status !== "live")) {
-    throw new Error("Every project with a configured public website must remain in Live sites.");
-  }
-  if (liveWithUrls.some(project => !project.preview_image || !project.preview_image.endsWith(".jpg"))) {
-    throw new Error("Every public live website must have a correctly named JPEG capture path.");
-  }
-  const staticHtml = await readFile("index.html", "utf8");
-  for (const project of liveWithUrls) {
-    if (!staticHtml.includes(`src="${project.preview_image}"`)) {
-      throw new Error(`${project.slug} is not wired to its configured live capture image in the initial page markup.`);
-    }
-  }
-  for (const project of liveWithUrls) {
-    const image = page.locator(`[data-project-slug="${project.slug}"] .project-preview img`);
-    await image.waitFor({ state: "attached" });
-    await image.evaluate(async node => {
-      node.loading = "eager";
-      await node.decode();
-      if (!node.naturalWidth || !node.naturalHeight) throw new Error("Preview image decoded without dimensions.");
-    });
-  }
-  if (!expectedGroups.live.some(project => project.slug === "nkaulele-contractors")) {
-    throw new Error("Nkaulele Contractors must remain in Live sites.");
-  }
-  for (const slug of ["standpoint-financial-intelligence","buzz-social-discovery","kenya-yield-curve-risk-engine","kenya-financial-analytics","nkaulele-contractors","kenya-investment-intelligence"]) {
-    if (!expectedGroups.live.some(project => project.slug === slug)) {
-      throw new Error(`${slug} is missing from Live sites.`);
-    }
-  }
-
-  const buzz = JSON.parse(await readFile("data/projects.json","utf8")).projects.find(project => project.slug === "buzz-social-discovery");
-  if (!buzz || buzz.live_url !== "https://buzz-social-platformbuzz-social-platform.onrender.com/" || buzz.preview_url !== "https://buzz-social-platformbuzz-social-platform.onrender.com/" || buzz.preview_image !== "/assets/previews/buzz-social-discovery.jpg" || buzz.portfolio_status !== "live") {
-    throw new Error("Buzz's original preview source was not preserved.");
-  }
-  const buzzCard = page.locator('[data-project-slug="buzz-social-discovery"] .project-preview img');
-  if (await buzzCard.getAttribute("src") !== "/assets/previews/buzz-social-discovery.jpg") throw new Error("Buzz preview image is not attached to its card.");
-  const buzzProjectCard = page.locator('[data-project-slug="buzz-social-discovery"]');
-  if (await buzzProjectCard.getAttribute("data-live") !== "true" || await buzzProjectCard.getAttribute("data-progress") !== "false") throw new Error("Buzz must appear under Live sites and not In progress.");
-  // The research publication has its own four-discipline filter and report library.
-  await page.goto(`${origin}/research/`, { waitUntil: "domcontentloaded" });
-  await page.waitForFunction(() =>
-    document.documentElement.dataset.filtersReady === "true" &&
-    document.querySelectorAll(".case-study").length === 8
-  );
-  const researchGroups = { all:8, markets:2, macro:2, systems:1, products:3 };
-  for (const [key, expectedCount] of Object.entries(researchGroups)) {
-    await page.locator(`[data-case-filter="${key}"]`).click();
-    await page.waitForTimeout(120);
-    const visible = await page.locator(".case-study:not([hidden])").count();
-    if (visible !== expectedCount) {
-      throw new Error(`Research ${key} filter mismatch: expected ${expectedCount}, got ${visible}.`);
-    }
-  }
-  await page.locator('[data-case-filter="all"]').click();
-  if (await page.locator(".report-row").count() !== 4) {
-    throw new Error("The research archive should show all four report and technical-note entries.");
-  }
-  if (await page.locator(".case-study-links a").count() < 15) {
-    throw new Error("The research case studies are missing links to their live products or source material.");
-  }
-  if (errors.length) throw new Error("Browser JavaScript errors: " + errors.join("; "));
-
-  console.log("PASS: All four coloured project filters work on a 390px mobile viewport.");
-  console.log("PASS: Featured case studies, focus areas, mobile filters and project previews are correct.");
-  console.log("PASS: No number counters appear; category state, empty state and Buzz preview are correct.");
-} finally {
-  await browser.close();
-  await new Promise(resolve => server.close(resolve));
+await new Promise(resolve=>server.listen(0,"127.0.0.1",resolve));
+const origin="http://127.0.0.1:"+server.address().port;
+const browser=await chromium.launch({headless:true});
+const errors=[];
+const network=[];
+async function waitReady(page){
+ try{await page.waitForFunction(()=>document.documentElement.dataset.appReady==="true",{timeout:10000});}
+ catch(error){
+  const state=await page.evaluate(()=>({
+   title:document.title,root:document.querySelector("#root")?.innerText?.slice(0,1200)||"",
+   scripts:[...document.scripts].map(s=>s.src||"inline"),appReady:document.documentElement.dataset.appReady||null,
+   head:document.documentElement.innerHTML.slice(0,1800)
+  })).catch(e=>({inspectionError:e.message}));
+  throw new Error("React did not mount. Runtime errors: "+errors.join(" | ")+"; failed requests: "+network.join(" | ")+"; DOM: "+JSON.stringify(state)+"; "+error.message);
+ }
+ await page.locator(".site-header").waitFor({state:"visible"});
 }
+try{
+ const page=await browser.newPage({viewport:{width:1440,height:1000},deviceScaleFactor:1});
+ page.on("pageerror",e=>errors.push(e.message));
+ page.on("console",m=>{if(m.type()==="error")errors.push(m.text());});
+ page.on("requestfailed",r=>network.push(r.url()+" :: "+(r.failure()?.errorText||"failed")));
+ await page.goto(origin,{waitUntil:"domcontentloaded"});await waitReady(page);
+ const source=JSON.parse(await readFile("data/projects.json","utf8")).projects;
+ if(await page.locator(".project-card").count()!==source.length||source.length!==8)throw new Error("Expected all eight preserved project cards.");
+ const counts={completed:6,live:8,progress:2};
+ for(const [filter,expected] of Object.entries(counts)){
+  await page.locator('[data-status-filter="'+filter+'"]').click();
+  const actual=await page.locator(".project-card").evaluateAll(nodes=>nodes.filter(n=>n.offsetParent!==null).length);
+  if(actual!==expected)throw new Error(filter+" filter expected "+expected+", observed "+actual+".");
+ }
+ await page.locator('[data-status-filter="all"]').click();
+ const projectDisciplineCounts={markets:2,research:2,systems:2,products:1,client:1};
+ for(const [filter,expected] of Object.entries(projectDisciplineCounts)){
+  await page.locator('[data-discipline-filter="'+filter+'"]').click();
+  const actual=await page.locator(".project-card").evaluateAll(nodes=>nodes.filter(n=>n.offsetParent!==null).length);
+  if(actual!==expected)throw new Error("Project discipline "+filter+" expected "+expected+", observed "+actual+".");
+ }
+ await page.locator('[data-discipline-filter="all"]').click();
+ const images=await page.locator(".project-image").evaluateAll(nodes=>nodes.map(n=>({src:n.getAttribute("src"),width:n.naturalWidth,height:n.naturalHeight})));
+ if(images.length!==8||images.some(x=>!x.width||!x.height))throw new Error("One or more actual project screenshots did not load.");
+ if(await page.evaluate(()=>document.documentElement.scrollWidth>innerWidth))throw new Error("Horizontal overflow on desktop.");
+ await page.setViewportSize({width:390,height:844});
+ if(await page.evaluate(()=>document.documentElement.scrollWidth>innerWidth))throw new Error("Horizontal overflow at 390px.");
+ await page.locator(".menu-toggle").click();
+ if(await page.locator(".menu-toggle").getAttribute("aria-expanded")!=="true")throw new Error("Mobile navigation did not open.");
+ await page.locator(".menu-toggle").click();
+ if(await page.locator(".menu-toggle").getAttribute("aria-expanded")!=="false")throw new Error("Mobile navigation did not close.");
+ await page.setViewportSize({width:360,height:800});
+ if(await page.evaluate(()=>document.documentElement.scrollWidth>innerWidth))throw new Error("Horizontal overflow at 360px.");
+ await page.locator(".menu-toggle").click();
+ await page.locator('a[href="/research/"]').first().click();
+ await page.waitForURL("**/research/");await waitReady(page);
+ if(await page.locator(".research-card").count()!==8)throw new Error("Research archive should show eight case studies.");
+ const researchCounts={all:8,markets:2,macro:2,systems:1,products:3};
+ for(const [filter,expected] of Object.entries(researchCounts)){
+  await page.locator('[data-research-filter="'+filter+'"]').click();
+  const actual=await page.locator(".research-card").evaluateAll(nodes=>nodes.filter(n=>n.offsetParent!==null).length);
+  if(actual!==expected)throw new Error("Research filter "+filter+" expected "+expected+", observed "+actual+".");
+ }
+ await page.locator('[data-research-filter="all"]').click();
+ if(await page.locator(".report-row").count()!==4)throw new Error("Expected four research reports and technical notes.");
+ if(await page.evaluate(()=>document.documentElement.scrollWidth>innerWidth))throw new Error("Horizontal overflow on research page.");
+ if(errors.length)throw new Error("Browser errors: "+errors.join(" | "));
+ console.log("PASS: 8 project cards, all status and discipline filters, real screenshot assets.");
+ console.log("PASS: 8 research cases, 5 research filters and 4 reports.");
+ console.log("PASS: desktop, 390px and 360px layouts; mobile navigation; no browser errors.");
+}finally{await browser.close();await new Promise(resolve=>server.close(resolve));}
