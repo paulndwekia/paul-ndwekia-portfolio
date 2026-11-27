@@ -213,7 +213,7 @@ function HomePage(){
         <figcaption className="hero-photo-caption"><span>Paul Ndwekia</span><span>Juja · JKUAT</span></figcaption>
       </figure>
     </div><div className="hero-bottom section-wrap"><span>FINANCE <i>×</i> DATA <i>×</i> TECHNOLOGY</span><span className="hero-bottom-note">A personal portfolio of projects and research</span></div></section>
-    <FocusSection/><WorkSection/><ProgressSection/><AboutSection/><CampusGallery/><ContactSection/>
+    <FocusSection/><WorkSection/><ProgressSection/><AboutSection/><ContactSection/>
   </main><Footer/><CookieNotice/></>;
 }
 
