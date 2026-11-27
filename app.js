@@ -152,7 +152,8 @@
     if (!grid) return;
     grid.replaceChildren();
     const evidence = data.evidence;
-    data.projects.forEach(project => {
+    const orderedProjects = [...data.projects].sort((a, b) => (a.display_order ?? 999) - (b.display_order ?? 999));
+    orderedProjects.forEach(project => {
       const record = evidenceFor(project.slug);
       const projectStatus = project.portfolio_status || (project.live_url ? "live" : "in-progress");
       const completed = Boolean(record) || projectStatus === "completed" || projectStatus === "live";
@@ -161,7 +162,9 @@
       const hasLiveSite = Boolean(project.live_url) && project.site_status !== "not-live";
       const repo = (data.github?.repositories || []).find(item => item.name === project.repository);
       const card = create("article","project-card");
+      if (project.featured) card.classList.add("is-featured");
       card.dataset.projectSlug = project.slug;
+      if (project.featured) card.dataset.featured = "true";
       card.dataset.completed = String(completed);
       card.dataset.live = String(hasLiveSite);
       card.dataset.progress = String(!completed && projectStatus !== "live");
@@ -172,9 +175,23 @@
         : projectStatus === "live" ? (project.stage_label || "Live · included in Completed")
         : projectStatus === "completed" ? (project.stage_label || "Completed project")
         : (project.stage_label || "In progress");
-      const meta = create("p","project-meta", metaLabel);
+      const meta = create("p","project-meta", project.featured ? "Selected case study · " + metaLabel : metaLabel);
       const heading = create("h3","",project.name);
       const description = create("p","",project.description || repo?.description || "A project in the finance, data and technology space.");
+      let projectContext = null;
+      if (project.featured && (project.project_story || project.project_scope)) {
+        projectContext = create("div","project-context");
+        if (project.project_story) {
+          const story = create("div","project-context-item");
+          story.append(create("span","", "Why it exists"), create("p","", project.project_story));
+          projectContext.append(story);
+        }
+        if (project.project_scope) {
+          const scope = create("div","project-context-item");
+          scope.append(create("span","", "What it covers"), create("p","", project.project_scope));
+          projectContext.append(scope);
+        }
+      }
       const tags = create("div","tag-list");
       (project.stack || (repo?.language ? [repo.language] : [])).forEach(tag => tags.append(create("span","",tag)));
       const signal = create("p","repo-signal");
@@ -213,7 +230,9 @@
         const profile = create("a","","LinkedIn profile");
         profile.href = record.source_url; profile.target = "_blank"; profile.rel = "noopener"; links.append(profile);
       }
-      body.append(meta, heading, description, tags, signal, links);
+      body.append(meta, heading, description);
+      if (projectContext) body.append(projectContext);
+      body.append(tags, signal, links);
       card.append(body); grid.append(card);
     });
     applyFilter(activeProjectFilter);
