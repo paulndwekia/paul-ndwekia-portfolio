@@ -37,6 +37,52 @@
     });
   }
 
+  function setupResearchFilters() {
+    const buttons = $("[data-case-filter]");
+    if (!buttons.length) return;
+    const cases = $(".case-study");
+    const status = $("#research-filter-status");
+    const labels = {all:"all case studies",markets:"financial markets and fixed income",macro:"macroeconomic research",systems:"financial technology systems",products:"digital products and client work"};
+    const apply = value => {
+      const filter = labels[value] ? value : "all";
+      let visible = 0;
+      cases.forEach(item => {
+        const matches = filter === "all" || item.dataset.researchDiscipline === filter || (filter === "markets" && item.dataset.researchDiscipline === "fixed-income");
+        item.hidden = !matches;
+        if (matches) visible++;
+      });
+      buttons.forEach(button => {
+        const active = button.dataset.caseFilter === filter;
+        button.setAttribute("aria-pressed", String(active));
+      });
+      if (status) status.textContent = "Showing " + visible + " " + labels[filter];
+    };
+    buttons.forEach(button => button.addEventListener("click", () => apply(button.dataset.caseFilter)));
+    apply("all");
+  }
+
+  function setupRevealEffects() {
+    const items = $(".reveal");
+    if (!items.length) return;
+    const reduced = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (reduced || !("IntersectionObserver" in window)) {
+      items.forEach(item => item.classList.add("is-visible"));
+      return;
+    }
+    document.documentElement.classList.add("reveal-ready");
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("is-visible");
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.08, rootMargin: "0px 0px -36px 0px" });
+    items.forEach(item => observer.observe(item));
+  }
+  setupResearchFilters();
+  setupRevealEffects();
+
   function wireHeroImageFallback() {
     const image = $(".hero-image img");
     const frame = image?.closest(".hero-image");
