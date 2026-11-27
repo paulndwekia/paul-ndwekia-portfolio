@@ -38,9 +38,9 @@
   }
 
   function setupResearchFilters() {
-    const buttons = $("[data-case-filter]");
+    const buttons = $$("[data-case-filter]");
     if (!buttons.length) return;
-    const cases = $(".case-study");
+    const cases = $$(".case-study");
     const status = $("#research-filter-status");
     const labels = {all:"all case studies",markets:"financial markets and fixed income",macro:"macroeconomic research",systems:"financial technology systems",products:"digital products and client work"};
     const apply = value => {
@@ -62,7 +62,7 @@
   }
 
   function setupRevealEffects() {
-    const items = $(".reveal");
+    const items = $$(".reveal");
     if (!items.length) return;
     const reduced = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     if (reduced || !("IntersectionObserver" in window)) {
