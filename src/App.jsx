@@ -166,18 +166,16 @@ function AboutSection(){
 }
 function CampusGallery(){
   const photos=[
-    {alt:"The JKUAT main campus entrance gate with its red gear sculpture",title:"The main gate",place:"JKUAT · Juja",position:"0% 0%"},
-    {alt:"The road between JKUAT campus buildings, with flags along the central driveway",title:"The campus road",place:"Juja",position:"100% 0%"},
-    {alt:"One of the academic buildings at JKUAT and its courtyard",title:"The academic block",place:"JKUAT"},
-    {alt:"Paul Ndwekia looking at his phone outside a campus building",title:"Between lectures",place:"Juja · JKUAT",position:"100% 100%"}
+    {src:"/assets/paul-campus-phone.webp",alt:"Paul Ndwekia using his phone outdoors between lectures at JKUAT",title:"Between lectures",place:"JKUAT · Juja",width:676,height:900},
+    {src:"/assets/paul-campus-walk.webp",alt:"Paul Ndwekia walking along a campus path at JKUAT",title:"A walk around campus",place:"Juja · Kenya",width:788,height:900}
   ];
   return <section className="campus-gallery section-wrap" id="campus">
     <div className="section-heading">
-      <Reveal><p className="eyebrow">Outside the screen</p><h2>A few corners of JKUAT.</h2></Reveal>
-      <Reveal><p className="section-intro">The place behind a lot of the work. These are photographs from the campus itself.</p></Reveal>
+      <Reveal><p className="eyebrow">Outside the screen</p><h2>A few moments around campus.</h2></Reveal>
+      <Reveal><p className="section-intro">The place behind a lot of the work. A couple of real moments from campus, away from the screen.</p></Reveal>
     </div>
     <div className="campus-gallery-grid">{photos.map(photo=><figure className="campus-gallery-item" key={photo.title}>
-      <div className="campus-gallery-image" role="img" aria-label={photo.alt} style={{backgroundImage:"url(/assets/campus-gallery.avif)",backgroundPosition:photo.position||"0% 100%"}}/>
+      <div className="campus-gallery-image"><img src={photo.src} alt={photo.alt} width={photo.width} height={photo.height} loading="lazy" decoding="async"/></div>
       <figcaption><strong>{photo.title}</strong><span>{photo.place}</span></figcaption>
     </figure>)}</div>
   </section>;
@@ -209,7 +207,7 @@ function HomePage(){
         <div className="hero-foot"><span>Financial markets</span><span>Quantitative research</span><span>Software products</span></div>
       </div>
       <figure className="hero-portrait">
-        <img src="/assets/paul-hero.avif" alt="Paul Ndwekia standing on the JKUAT campus" width="1024" height="1024" fetchPriority="high" decoding="async"/>
+        <img src="/assets/paul-hero.webp" alt="Paul Ndwekia standing on the JKUAT campus" width="900" height="900" fetchPriority="high" decoding="async"/>
         <figcaption className="hero-photo-caption"><span>Paul Ndwekia</span><span>Juja · JKUAT</span></figcaption>
       </figure>
     </div><div className="hero-bottom section-wrap"><span>FINANCE <i>×</i> DATA <i>×</i> TECHNOLOGY</span><span className="hero-bottom-note">A personal portfolio of projects and research</span></div></section>
