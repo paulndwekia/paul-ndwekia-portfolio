@@ -402,3 +402,6 @@ img{display:block;max-width:100%}
 
 .campus-gallery{scroll-margin-top:92px}.about-section{scroll-margin-top:90px}.campus-gallery-grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:22px}.campus-gallery-image{aspect-ratio:4/3;background-size:200% 200%;background-repeat:no-repeat;background-color:#E4EAED}.campus-gallery-item{min-width:0}
 @media(max-width:760px){.campus-gallery-grid{grid-template-columns:1fr;gap:25px}.campus-gallery-image{aspect-ratio:4/3}}
+
+.about-layout{grid-template-columns:minmax(0,1fr)}.about-copy-wide{max-width:900px}.campus-gallery-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.campus-gallery-image{aspect-ratio:4/3;background-size:200% 200%;background-repeat:no-repeat}.campus-gallery-item{margin:0}
+@media(max-width:760px){.campus-gallery-grid{grid-template-columns:1fr}}
