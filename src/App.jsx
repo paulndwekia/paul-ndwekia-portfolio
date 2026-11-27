@@ -177,7 +177,7 @@ function CampusGallery(){
       <Reveal><p className="section-intro">The place behind a lot of the work. These are photographs from the campus itself.</p></Reveal>
     </div>
     <div className="campus-gallery-grid">{photos.map(photo=><figure className="campus-gallery-item" key={photo.title}>
-      <div className="campus-gallery-image" role="img" aria-label={photo.alt} style={{backgroundImage:"url(/assets/campus-gallery.webp)",backgroundPosition:photo.position||"0% 100%"}}/>
+      <div className="campus-gallery-image" role="img" aria-label={photo.alt} style={{backgroundImage:"url(/assets/campus-gallery.avif)",backgroundPosition:photo.position||"0% 100%"}}/>
       <figcaption><strong>{photo.title}</strong><span>{photo.place}</span></figcaption>
     </figure>)}</div>
   </section>;
@@ -209,11 +209,11 @@ function HomePage(){
         <div className="hero-foot"><span>Financial markets</span><span>Quantitative research</span><span>Software products</span></div>
       </div>
       <figure className="hero-portrait">
-        <img src="/assets/paul-hero.webp" alt="Paul Ndwekia standing on the JKUAT campus" width="1024" height="1024" fetchPriority="high" decoding="async"/>
+        <img src="/assets/paul-hero.avif" alt="Paul Ndwekia standing on the JKUAT campus" width="1024" height="1024" fetchPriority="high" decoding="async"/>
         <figcaption className="hero-photo-caption"><span>Paul Ndwekia</span><span>Juja · JKUAT</span></figcaption>
       </figure>
     </div><div className="hero-bottom section-wrap"><span>FINANCE <i>×</i> DATA <i>×</i> TECHNOLOGY</span><span className="hero-bottom-note">A personal portfolio of projects and research</span></div></section>
-    <FocusSection/><WorkSection/><ProgressSection/><AboutSection/><ContactSection/>
+    <FocusSection/><WorkSection/><ProgressSection/><AboutSection/><CampusGallery/><ContactSection/>
   </main><Footer/><CookieNotice/></>;
 }
 
