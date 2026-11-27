@@ -165,19 +165,16 @@ function AboutSection(){
   </section>;
 }
 function CampusGallery(){
-  const photos=[
-    {src:"/assets/paul-campus-phone.webp",alt:"Paul Ndwekia using his phone outdoors between lectures at JKUAT",title:"Between lectures",place:"JKUAT · Juja",width:676,height:900},
-    {src:"/assets/paul-campus-walk.webp",alt:"Paul Ndwekia walking along a campus path at JKUAT",title:"A walk around campus",place:"Juja · Kenya",width:788,height:900}
-  ];
+  const photo={src:"/assets/paul-campus.webp",alt:"Paul Ndwekia on the JKUAT campus",title:"Between lectures",place:"JKUAT · Juja"};
   return <section className="campus-gallery section-wrap" id="campus">
     <div className="section-heading">
-      <Reveal><p className="eyebrow">Outside the screen</p><h2>A few moments around campus.</h2></Reveal>
-      <Reveal><p className="section-intro">The place behind a lot of the work. A couple of real moments from campus, away from the screen.</p></Reveal>
+      <Reveal><p className="eyebrow">Outside the screen</p><h2>A little of life around campus.</h2></Reveal>
+      <Reveal><p className="section-intro">The place behind a lot of the work, away from the screen.</p></Reveal>
     </div>
-    <div className="campus-gallery-grid">{photos.map(photo=><figure className="campus-gallery-item" key={photo.title}>
-      <div className="campus-gallery-image"><img src={photo.src} alt={photo.alt} width={photo.width} height={photo.height} loading="lazy" decoding="async"/></div>
+    <div className="campus-gallery-grid"><figure className="campus-gallery-item">
+      <div className="campus-gallery-image"><img src={photo.src} alt={photo.alt} loading="lazy" decoding="async"/></div>
       <figcaption><strong>{photo.title}</strong><span>{photo.place}</span></figcaption>
-    </figure>)}</div>
+    </figure></div>
   </section>;
 }
 function ContactSection(){
