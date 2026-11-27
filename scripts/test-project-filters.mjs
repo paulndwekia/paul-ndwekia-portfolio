@@ -66,6 +66,7 @@ try{
  if(await page.locator(".menu-toggle").getAttribute("aria-expanded")!=="false")throw new Error("Mobile navigation did not close.");
  await page.setViewportSize({width:360,height:800});
  if(await page.evaluate(()=>document.documentElement.scrollWidth>innerWidth))throw new Error("Horizontal overflow at 360px.");
+ await page.locator(".menu-toggle").click();
  await page.locator('a[href="/research/"]').first().click();
  await page.waitForURL("**/research/");await waitReady(page);
  if(await page.locator(".research-card").count()!==8)throw new Error("Research archive should show eight case studies.");
