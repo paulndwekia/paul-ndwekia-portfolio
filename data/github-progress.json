@@ -1,7 +1,16 @@
 {
   "owner": "paulndwekia",
-  "generated_at": "2026-11-27T21:19:41.201Z",
+  "generated_at": "2026-11-28T06:23:54.977Z",
   "repositories": [
+    {
+      "name": "Kenya-Financial-Analytics",
+      "html_url": "https://github.com/paulndwekia/Kenya-Financial-Analytics",
+      "description": "Kenyan quantitative finance and market intelligence platform powered by official Central Bank of Kenya data, covering FX, Treasury Bills, yield curves, bonds, options, portfolios and risk analytics.",
+      "language": "Python",
+      "stars": 0,
+      "pushed_at": "2026-11-27T23:25:15Z",
+      "latest_commit": "chore: update CBK market data"
+    },
     {
       "name": "fintel-kenya-financial-intelligence",
       "html_url": "https://github.com/paulndwekia/fintel-kenya-financial-intelligence",
@@ -10,15 +19,6 @@
       "stars": 0,
       "pushed_at": "2026-11-27T06:47:58Z",
       "latest_commit": "Exclude future-dated observations from FINTEL analysis"
-    },
-    {
-      "name": "Kenya-Financial-Analytics",
-      "html_url": "https://github.com/paulndwekia/Kenya-Financial-Analytics",
-      "description": "Kenyan quantitative finance and market intelligence platform powered by official Central Bank of Kenya data, covering FX, Treasury Bills, yield curves, bonds, options, portfolios and risk analytics.",
-      "language": "Python",
-      "stars": 0,
-      "pushed_at": "2026-11-27T06:47:02Z",
-      "latest_commit": "Expand downloadable financial research report"
     },
     {
       "name": "gdp-dashboard",
