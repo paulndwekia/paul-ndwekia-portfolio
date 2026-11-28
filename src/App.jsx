@@ -66,12 +66,13 @@ const repoLinks={
   "nkaulele-contractors-website":"https://github.com/paulndwekia/nkaulele-contractors-website"
 };
 function ProjectCard({project}){
+  const img=project.preview_image||project.preview_image_url;
   const repo=repoLinks[project.repository]||project.source_url;
   const publication=publications.find(x=>x.project_slug===project.slug);
   return <Reveal className={"project-reveal"+(project.featured?" project-reveal-featured":"")}>
     <SpotlightCard className={"project-card"+(project.featured?" is-featured":"")} theme="light" spotlightColor="rgba(69,111,149,0.5)" intensity={0.18} spotlightSize={260} borderGlow={0.3} smoothing={0.24} flare={false} grain={0}>
       <div className="project-media">
-        <div className="project-image-fallback"><span>{project.discipline_label||project.category}</span><strong>{project.name}</strong></div>
+        {img?<img className="project-image" src={img} alt={project.preview_alt||project.name+" interface"} loading="lazy" decoding="async"/>:<div className="project-image-fallback"><span>{project.category}</span><strong>{project.name}</strong></div>}
         <span className="media-caption">{project.preview_label||"Project preview"}</span>
       </div>
       <div className="project-copy">
@@ -224,7 +225,7 @@ const researchItems=[
 const researchFilters=[["all","All work"],["markets","Markets & fixed income"],["macro","Macroeconomics"],["systems","Financial systems"],["products","Products & client work"]];
 function ResearchCard({item}){
   return <Reveal className="research-reveal"><article className="research-card" id={item.id}>
-    <figure className="research-visual"><div className="project-image-fallback research-image-fallback"><span>{item.label}</span><strong>{item.title}</strong></div><figcaption>{item.caption}</figcaption></figure>
+    <figure className="research-visual"><img src={item.image} alt={item.title+" interface preview"} loading="lazy" decoding="async"/><figcaption>{item.caption}</figcaption></figure>
     <div className="research-copy"><div className="research-eyebrow"><span className={"discipline-tag discipline-"+item.discipline}>{item.label}</span><span className="research-status">{item.status}</span></div>
       <h3>{item.title}</h3><p className="research-lede">{item.lede}</p>
       <div className="research-detail"><strong>The question</strong><p>{item.question}</p></div>
