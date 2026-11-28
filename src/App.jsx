@@ -2,7 +2,6 @@ import React, { useEffect, useMemo, useState } from "react";
 import projectData from "../data/projects.json";
 import githubData from "../data/github-progress.json";
 import linkedinData from "../data/linkedin-evidence.json";
-import profileData from "../data/profile.json";
 import SpotlightCard from "./components/SpotlightCard";
 
 const projects=[...(projectData.projects||[])].sort((a,b)=>(a.display_order??999)-(b.display_order??999));
@@ -13,10 +12,6 @@ const linkedinUrl="https://www.linkedin.com/in/kieru-ndwekia-447023409/";
 const photoIssueUrl="https://github.com/paulndwekia/paul-ndwekia-portfolio/issues/new?template=change-profile-photo.yml";
 const publicationIssueUrl="https://github.com/paulndwekia/paul-ndwekia-portfolio/issues/new?template=linkedin-project-publication.yml";
 const withdrawalIssueUrl="https://github.com/paulndwekia/paul-ndwekia-portfolio/issues/new?template=withdraw-linkedin-evidence.yml";
-const defaultAvatar="https://avatars.githubusercontent.com/u/270900506?v=4";
-const profilePhoto=profileData.photo_path
-  ? profileData.photo_path+(profileData.photo_path.includes("?")?"&":"?")+"v="+encodeURIComponent(profileData.updated_at||"1")
-  : defaultAvatar;
 const completionEvidence=new Set(publications.filter(x=>x.post_url||x.source_url).map(x=>x.project_slug));
 const isCompleted=p=>p.portfolio_status==="completed"||completionEvidence.has(p.slug);
 const isLive=p=>p.site_status==="live"&&Boolean(p.live_url);
@@ -71,13 +66,12 @@ const repoLinks={
   "nkaulele-contractors-website":"https://github.com/paulndwekia/nkaulele-contractors-website"
 };
 function ProjectCard({project}){
-  const img=project.preview_image||project.preview_image_url;
   const repo=repoLinks[project.repository]||project.source_url;
   const publication=publications.find(x=>x.project_slug===project.slug);
   return <Reveal className={"project-reveal"+(project.featured?" project-reveal-featured":"")}>
     <SpotlightCard className={"project-card"+(project.featured?" is-featured":"")} theme="light" spotlightColor="rgba(69,111,149,0.5)" intensity={0.18} spotlightSize={260} borderGlow={0.3} smoothing={0.24} flare={false} grain={0}>
       <div className="project-media">
-        {img?<img className="project-image" src={img} alt={project.preview_alt||project.name+" interface"} loading="lazy" decoding="async"/>:<div className="project-image-fallback"><span>{project.category}</span><strong>{project.name}</strong></div>}
+        <div className="project-image-fallback"><span>{project.discipline_label||project.category}</span><strong>{project.name}</strong></div>
         <span className="media-caption">{project.preview_label||"Project preview"}</span>
       </div>
       <div className="project-copy">
@@ -154,7 +148,7 @@ function AboutSection(){
     <div className="about-layout">
       
       <Reveal className="about-copy" delay={0.1}>
-        <div className="about-identity"><img src={profilePhoto} alt="Paul Ndwekia profile" onError={e=>{e.currentTarget.src=defaultAvatar;}}/><div><strong>Paul Ndwekia</strong><span>Financial Engineering · JKUAT · Expected 2029</span><A href={photoIssueUrl} className="small-link">Change profile photo </A></div></div>
+        <div className="about-identity"><span className="about-avatar-mark" aria-hidden="true">PN</span><div><strong>Paul Ndwekia</strong><span>Financial Engineering · JKUAT · Expected 2029</span><A href={photoIssueUrl} className="small-link">Change profile photo </A></div></div>
         <p>I study Financial Engineering at Jomo Kenyatta University of Agriculture and Technology. Building software is one of the ways I work through what I’m learning — especially when a financial idea can become a tool someone else can use.</p>
         <p>I’m particularly interested in Kenyan capital markets, fixed income, foreign exchange and quantitative research. I enjoy understanding where the data comes from, checking the assumptions and making the result easier to work with.</p>
         <p>I’ve also built products outside finance and delivered a website for a real business. Those projects have taught me as much about product decisions and finishing details as they have about code.</p>
@@ -209,7 +203,7 @@ function HomePage(){
         <div className="hero-foot"><span>Financial markets</span><span>Quantitative research</span><span>Software products</span></div>
       </div>
       <figure className="hero-portrait">
-        <img src="/assets/paul-hero.webp" alt="Paul Ndwekia standing on the JKUAT campus" width="1024" height="1024" fetchPriority="high" decoding="async"/>
+        <div className="hero-monogram-card" aria-label="Paul Ndwekia"><span className="hero-monogram-mark">PN</span><strong>PAUL NDWEKIA</strong><small>FINANCE · DATA · TECHNOLOGY</small></div>
         <figcaption className="hero-photo-caption"><span>Paul Ndwekia</span><span>Juja · JKUAT</span></figcaption>
       </figure>
     </div><div className="hero-bottom section-wrap"><span>FINANCE <i>×</i> DATA <i>×</i> TECHNOLOGY</span><span className="hero-bottom-note">A personal portfolio of projects and research</span></div></section>
@@ -230,7 +224,7 @@ const researchItems=[
 const researchFilters=[["all","All work"],["markets","Markets & fixed income"],["macro","Macroeconomics"],["systems","Financial systems"],["products","Products & client work"]];
 function ResearchCard({item}){
   return <Reveal className="research-reveal"><article className="research-card" id={item.id}>
-    <figure className="research-visual"><img src={item.image} alt={item.title+" interface preview"} loading="lazy" decoding="async"/><figcaption>{item.caption}</figcaption></figure>
+    <figure className="research-visual"><div className="project-image-fallback research-image-fallback"><span>{item.label}</span><strong>{item.title}</strong></div><figcaption>{item.caption}</figcaption></figure>
     <div className="research-copy"><div className="research-eyebrow"><span className={"discipline-tag discipline-"+item.discipline}>{item.label}</span><span className="research-status">{item.status}</span></div>
       <h3>{item.title}</h3><p className="research-lede">{item.lede}</p>
       <div className="research-detail"><strong>The question</strong><p>{item.question}</p></div>
