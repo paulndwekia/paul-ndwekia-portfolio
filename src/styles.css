@@ -407,3 +407,13 @@ img{display:block;max-width:100%}
 @media(max-width:760px){.campus-gallery-grid{grid-template-columns:1fr}}
 
 .hero-portrait>img{width:100%;height:auto;aspect-ratio:1/1;object-fit:contain;object-position:center;background:#DDE3E6}.campus-gallery-image{background-size:200% 200%;background-repeat:no-repeat;background-position:center;background-color:#E4EAED;aspect-ratio:4/3}
+
+
+/* Image-free portfolio presentation: retain the original layout and use restrained identity panels. */
+.hero-portrait .hero-monogram-card{position:relative;z-index:1;width:100%;aspect-ratio:1/1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:17px;padding:32px;border:1px solid rgba(183,205,221,.42);background:radial-gradient(circle at 50% 35%,rgba(95,133,164,.28),transparent 48%),linear-gradient(145deg,#193650,#10243A 72%);color:white;box-shadow:0 26px 60px rgba(0,0,0,.22);text-align:center}
+.hero-portrait .hero-monogram-mark{width:clamp(118px,18vw,190px);aspect-ratio:1;display:grid;place-items:center;border:1px solid rgba(191,210,224,.45);color:#F4F7F9;background:rgba(255,255,255,.035);font:400 clamp(62px,9vw,112px)/1 var(--serif);letter-spacing:-.07em}
+.hero-portrait .hero-monogram-card>strong{color:#F6F8FA;font:600 11px var(--mono);letter-spacing:.18em}
+.hero-portrait .hero-monogram-card>small{color:#AFC3D3;font:8px var(--mono);letter-spacing:.12em}
+.about-avatar-mark{width:55px;height:55px;flex:0 0 55px;display:grid;place-items:center;border:2px solid white;outline:1px solid #C4D1DA;border-radius:50%;background:linear-gradient(145deg,#294B69,#10243A);color:white;font:400 19px var(--serif);letter-spacing:-.04em}
+.research-image-fallback{min-height:280px!important;padding:26px!important}
+.research-image-fallback strong{font-size:clamp(25px,3vw,34px)!important}
