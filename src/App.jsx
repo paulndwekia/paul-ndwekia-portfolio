@@ -159,24 +159,6 @@ function AboutSection(){
     </div>
   </section>;
 }
-function CampusGallery(){
-  const photos=[
-    {alt:"The JKUAT main campus entrance gate with its red gear sculpture",title:"The main gate",place:"JKUAT · Juja",position:"0% 0%"},
-    {alt:"The road between JKUAT campus buildings, with flags along the central driveway",title:"The campus road",place:"Juja",position:"100% 0%"},
-    {alt:"One of the academic buildings at JKUAT and its courtyard",title:"The academic block",place:"JKUAT"},
-    {alt:"Paul Ndwekia looking at his phone outside a campus building",title:"Between lectures",place:"Juja · JKUAT",position:"100% 100%"}
-  ];
-  return <section className="campus-gallery section-wrap" id="campus">
-    <div className="section-heading">
-      <Reveal><p className="eyebrow">Outside the screen</p><h2>A few corners of JKUAT.</h2></Reveal>
-      <Reveal><p className="section-intro">The place behind a lot of the work. These are photographs from the campus itself.</p></Reveal>
-    </div>
-    <div className="campus-gallery-grid">{photos.map(photo=><figure className="campus-gallery-item" key={photo.title}>
-      <div className="campus-gallery-image" aria-hidden="true"/>
-      <figcaption><strong>{photo.title}</strong><span>{photo.place}</span></figcaption>
-    </figure>)}</div>
-  </section>;
-}
 function ContactSection(){
   const wa="https://wa.me/254745120235?text=Hello%20Paul%2C%20I%27m%20contacting%20you%20regarding%20a%20business%20enquiry.";
   return <section className="contact-section" id="contact"><div className="section-wrap contact-inner"><Reveal><p className="eyebrow eyebrow-light">Get in touch</p><h2>Have something worth working through?</h2><p>I’m glad to hear from people working on financial research, useful software and ideas that deserve a closer look.</p><div className="contact-actions"><A href="mailto:p98001630@gmail.com" className="button button-light">Email me <span></span></A><A href={wa} className="button button-outline-light">WhatsApp · Business enquiries</A></div><div className="contact-socials"><A href={linkedinUrl}>LinkedIn </A><A href={githubUrl}>GitHub </A></div></Reveal></div></section>;
@@ -208,7 +190,7 @@ function HomePage(){
         <figcaption className="hero-photo-caption"><span>Paul Ndwekia</span><span>Juja · JKUAT</span></figcaption>
       </figure>
     </div><div className="hero-bottom section-wrap"><span>FINANCE <i>×</i> DATA <i>×</i> TECHNOLOGY</span><span className="hero-bottom-note">A personal portfolio of projects and research</span></div></section>
-    <FocusSection/><WorkSection/><ProgressSection/><AboutSection/><CampusGallery/><ContactSection/>
+    <FocusSection/><WorkSection/><ProgressSection/><AboutSection/><ContactSection/>
   </main><Footer/><CookieNotice/></>;
 }
 
