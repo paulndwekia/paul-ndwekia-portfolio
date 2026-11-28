@@ -185,10 +185,6 @@ function HomePage(){
         <div className="hero-actions"><A href="#work" className="button button-primary">Explore my work <span></span></A><A href="#about" className="hero-text-link">A little about me <span></span></A></div>
         <div className="hero-foot"><span>Financial markets</span><span>Quantitative research</span><span>Software products</span></div>
       </div>
-      <figure className="hero-portrait">
-        <img src="/assets/paul-finance-desk-1.webp" alt="Paul Ndwekia working at a financial markets workstation" width="720" height="720" fetchPriority="high" decoding="async"/>
-        <figcaption className="hero-photo-caption"><span>Paul Ndwekia</span><span>Juja · JKUAT</span></figcaption>
-      </figure>
     </div><div className="hero-bottom section-wrap"><span>FINANCE <i>×</i> DATA <i>×</i> TECHNOLOGY</span><span className="hero-bottom-note">A personal portfolio of projects and research</span></div></section>
     <FocusSection/><WorkSection/><ProgressSection/><AboutSection/><ContactSection/>
   </main><Footer/><CookieNotice/></>;
