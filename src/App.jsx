@@ -149,7 +149,7 @@ function AboutSection(){
     <div className="about-layout">
       
       <Reveal className="about-copy" delay={0.1}>
-        <div className="about-identity"><span className="about-identity-photo-space" aria-hidden="true"></span><div><strong>Paul Ndwekia</strong><span>Financial Engineering · JKUAT · Expected 2029</span><A href={photoIssueUrl} className="small-link">Change profile photo </A></div></div>
+        <div className="about-identity"><img src="/assets/paul-finance-desk-2.webp" alt="Paul Ndwekia" loading="lazy" decoding="async"/><div><strong>Paul Ndwekia</strong><span>Financial Engineering · JKUAT · Expected 2029</span><A href={photoIssueUrl} className="small-link">Change profile photo </A></div></div>
         <p>I study Financial Engineering at Jomo Kenyatta University of Agriculture and Technology. Building software is one of the ways I work through what I’m learning — especially when a financial idea can become a tool someone else can use.</p>
         <p>I’m particularly interested in Kenyan capital markets, fixed income, foreign exchange and quantitative research. I enjoy understanding where the data comes from, checking the assumptions and making the result easier to work with.</p>
         <p>I’ve also built products outside finance and delivered a website for a real business. Those projects have taught me as much about product decisions and finishing details as they have about code.</p>
@@ -186,7 +186,7 @@ function HomePage(){
         <div className="hero-foot"><span>Financial markets</span><span>Quantitative research</span><span>Software products</span></div>
       </div>
       <figure className="hero-portrait">
-        <div className="hero-photo-space" aria-hidden="true"></div>
+        <img src="/assets/paul-finance-desk-1.webp" alt="Paul Ndwekia working at a financial markets workstation" width="720" height="720" fetchPriority="high" decoding="async"/>
         <figcaption className="hero-photo-caption"><span>Paul Ndwekia</span><span>Juja · JKUAT</span></figcaption>
       </figure>
     </div><div className="hero-bottom section-wrap"><span>FINANCE <i>×</i> DATA <i>×</i> TECHNOLOGY</span><span className="hero-bottom-note">A personal portfolio of projects and research</span></div></section>
