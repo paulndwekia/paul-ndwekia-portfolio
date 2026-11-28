@@ -149,7 +149,7 @@ function AboutSection(){
     <div className="about-layout">
       
       <Reveal className="about-copy" delay={0.1}>
-        <div className="about-identity"><span className="about-avatar-mark" aria-hidden="true">PN</span><div><strong>Paul Ndwekia</strong><span>Financial Engineering · JKUAT · Expected 2029</span></div></div>
+        <div className="about-identity"><div><strong>Paul Ndwekia</strong><span>Financial Engineering · JKUAT · Expected 2029</span><A href={photoIssueUrl} className="small-link">Change profile photo </A></div></div>
         <p>I study Financial Engineering at Jomo Kenyatta University of Agriculture and Technology. Building software is one of the ways I work through what I’m learning — especially when a financial idea can become a tool someone else can use.</p>
         <p>I’m particularly interested in Kenyan capital markets, fixed income, foreign exchange and quantitative research. I enjoy understanding where the data comes from, checking the assumptions and making the result easier to work with.</p>
         <p>I’ve also built products outside finance and delivered a website for a real business. Those projects have taught me as much about product decisions and finishing details as they have about code.</p>
@@ -157,6 +157,18 @@ function AboutSection(){
         <div className="about-facts"><div><span>Studying</span><strong>Financial Engineering</strong></div><div><span>University</span><strong>JKUAT · Juja</strong></div><div><span>Working with</span><strong>Python · TypeScript · React · SQL</strong></div><div><span>Interested in</span><strong>Markets · Fixed income · Data systems</strong></div></div>
       </Reveal>
     </div>
+  </section>;
+}
+function CampusGallery(){
+  return <section className="campus-gallery section-wrap" id="campus">
+    <div className="section-heading">
+      <Reveal><p className="eyebrow">Outside the screen</p><h2>A little of life around campus.</h2></Reveal>
+      <Reveal><p className="section-intro">The place behind a lot of the work, away from the screen.</p></Reveal>
+    </div>
+    <div className="campus-gallery-grid"><figure className="campus-gallery-item">
+      
+      <figcaption><strong>{photo.title}</strong><span>{photo.place}</span></figcaption>
+    </figure></div>
   </section>;
 }
 function ContactSection(){
@@ -185,12 +197,8 @@ function HomePage(){
         <div className="hero-actions"><A href="#work" className="button button-primary">Explore my work <span></span></A><A href="#about" className="hero-text-link">A little about me <span></span></A></div>
         <div className="hero-foot"><span>Financial markets</span><span>Quantitative research</span><span>Software products</span></div>
       </div>
-      <figure className="hero-portrait">
-        <div className="hero-monogram-card" aria-label="Paul Ndwekia"><span className="hero-monogram-mark">PN</span><strong>PAUL NDWEKIA</strong><small>FINANCE · DATA · TECHNOLOGY</small></div>
-        <figcaption className="hero-photo-caption"><span>Paul Ndwekia</span><span>Juja · JKUAT</span></figcaption>
-      </figure>
     </div><div className="hero-bottom section-wrap"><span>FINANCE <i>×</i> DATA <i>×</i> TECHNOLOGY</span><span className="hero-bottom-note">A personal portfolio of projects and research</span></div></section>
-    <FocusSection/><WorkSection/><ProgressSection/><AboutSection/><ContactSection/>
+    <FocusSection/><WorkSection/><ProgressSection/><AboutSection/><CampusGallery/><ContactSection/>
   </main><Footer/><CookieNotice/></>;
 }
 
